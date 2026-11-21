@@ -86,7 +86,7 @@ function calendarDateIso(year: number, month: number, day: number): string | nul
   return `${year}-${pad(month)}-${pad(day)}`;
 }
 
-function rawDateIso(rawText: string): string | null {
+export function rawDateIso(rawText: string): string | null {
   const text = cleanText(rawText);
   const monthFirst = /([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:\s*[-–]\s*\d{1,2})?,\s*(\d{4})/.exec(text);
   if (monthFirst) {
@@ -120,9 +120,9 @@ function inferDisplayTimezone(rawText: string, dueUtc: string, pageText: string)
   return 'UTC';
 }
 
-function parseMainConferenceDates(rawText: string): { start: string; end: string } | null {
+export function parseMainConferenceDates(rawText: string): { start: string; end: string } | null {
   const text = cleanText(rawText);
-  const sameMonth = /([A-Za-z]{3,9})\.?\s+(\d{1,2})\s*[-–]\s*(\d{1,2}),\s*(\d{4})/.exec(text);
+  const sameMonth = /([A-Za-z]{3,9})\.?,?\s+(\d{1,2})\s*[-–]\s*(\d{1,2}),\s*(\d{4})/.exec(text);
   if (sameMonth) {
     const year = Number(sameMonth[4]);
     const month = MONTHS[sameMonth[1].toLowerCase()];

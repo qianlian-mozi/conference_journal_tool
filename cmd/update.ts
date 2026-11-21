@@ -17,6 +17,7 @@ import { htmlToText, sha256Hex, snapshotContainsQuote } from '../acquire/snapsho
 import { editionUrlFromDatesUrl, yearFromDatesUrl } from '../acquire/edition.ts';
 import { extractTheCvf, type AdapterResult, type ExtractedDeadline } from '../acquire/adapters/thecvf.ts';
 import { extractTableDates } from '../acquire/adapters/table-dates.ts';
+import { extractSectionDates } from '../acquire/adapters/section-dates.ts';
 import { loadRegistry, loadVenues, repoPath } from '../core/load.ts';
 import type { Deadline, Edition, Venue } from '../core/schema.ts';
 import { utcIsoToLocal } from '../core/time.ts';
@@ -167,12 +168,14 @@ function findEditionEvidenceQuote(snapshotText: string): string | null {
   );
 }
 
-function extractPage(adapter: 'thecvf' | 'table-dates' | 'manual', html: string): AdapterResult {
+function extractPage(adapter: 'thecvf' | 'table-dates' | 'section-dates' | 'manual', html: string): AdapterResult {
   switch (adapter) {
     case 'thecvf':
       return extractTheCvf(html);
     case 'table-dates':
       return extractTableDates(html);
+    case 'section-dates':
+      return extractSectionDates(html);
     case 'manual':
       throw new Error('manual 信源不应进入自动抽取');
     default:

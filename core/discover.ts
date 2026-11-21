@@ -33,7 +33,7 @@ export const DiscoveryCandidateSchema = z
     /** 已确认的当届 Dates / CFP 页；没有就只登记官网，等人工补。 */
     source_url: HttpsUrl.optional(),
     submission_model: z.enum(['fixed', 'rolling']).optional(),
-    adapter: z.enum(['thecvf', 'table-dates', 'manual']).optional(),
+    adapter: z.enum(['thecvf', 'table-dates', 'section-dates', 'manual']).optional(),
     cadence: z.enum(['daily', 'weekly', 'monthly', 'manual']).optional(),
     aliases: z.array(z.string().trim().min(1)).default([]),
     note: z.string().trim().min(1).optional(),
@@ -165,7 +165,7 @@ function quote(value: string): string {
 }
 
 export function isSourceAdapter(value: string): value is SourceAdapter {
-  return value === 'thecvf' || value === 'table-dates' || value === 'manual';
+  return value === 'thecvf' || value === 'table-dates' || value === 'section-dates' || value === 'manual';
 }
 
 export function isSourceCadence(value: string): value is SourceCadence {

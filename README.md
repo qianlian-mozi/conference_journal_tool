@@ -4,7 +4,7 @@
 
 它不只是把会议列出来：**它自己盯着官网更新，并且每条日期都能追溯到官网页面上那一行原文。**
 
-> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / NeurIPS / 3DV / ICIP，以及 TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA 等 rolling 期刊。
+> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / NeurIPS / 3DV / ICIP / ICPR，以及 TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA 等 rolling 期刊。
 
 ---
 
@@ -110,7 +110,7 @@ editions:
 3. `npm run update:dry -- --venue <id>` 看抽取结果；确认无误后 `npm run update -- --venue <id>`。
 4. `npm run validate` 必须全绿，然后提 PR。
 
-目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 详细参数、交互模式与手工兜底见 [docs/ADD_A_VENUE.md](docs/ADD_A_VENUE.md)。自动抽取支持 `adapter: thecvf`（CVF / NeurIPS 同模板）与 `adapter: table-dates`（3DV 的 countdown 表格、ICIP 的 ARIA 表格 + 页面明示 AoE 文本日期）；其他站点需要新适配器，或按数据契约手工补带证据的日期。
+目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 详细参数、交互模式与手工兜底见 [docs/ADD_A_VENUE.md](docs/ADD_A_VENUE.md)。自动抽取支持 `adapter: thecvf`（CVF / NeurIPS 同模板）、`adapter: table-dates`（3DV 的 countdown 表格、ICIP 的 ARIA 表格 + 页面明示 AoE 文本日期）与 `adapter: section-dates`（ICPR 的主会文本区块，只接收行内显式 AoE 日期）；其他站点需要新适配器，或按数据契约手工补带证据的日期。
 
 ---
 
@@ -154,7 +154,7 @@ docs/DISCOVER.md     候选发现与人工确认流程
 - [x] **M0** 数据契约 v2 + 校验器（含原文回验）
 - [x] **M1** 一条真实链路：CVPR / ICCV / WACV 的采集、快照、抽取、写回
 - [x] **M2** GitHub Actions 定时 + PR 机器人
-- [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（当前 7 个会议 + 6 个 rolling 期刊）
+- [x] **M3** 铺开到至少 8 个会议 + 4–6 个期刊（当前 8 个会议 + 6 个 rolling 期刊；继续向 12 个会议扩展）
 - [x] **M4** Web 界面首版：首页回答「接下来该投什么」
 - [ ] **M5** AI 层：✅ 确定性自然语言筛选基线（12 条测试）；⬜ 模型编译、变更摘要、论文→会议匹配（自带 key，默认关闭）
 - [ ] **M6** 发布 v0.1.0：CLI 打包、文档、贡献指南

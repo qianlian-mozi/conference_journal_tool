@@ -31,7 +31,7 @@ export const ADD_VENUE_USAGE = `用法：
   --official-url <url>        官网主页；会议默认取入口 origin，期刊默认取入口 URL
   --publisher <名称>
   --model fixed|rolling       默认会议 fixed、期刊 rolling
-  --adapter thecvf|table-dates|manual  默认按域名推断
+  --adapter thecvf|table-dates|section-dates|manual  默认按域名推断
   --cadence daily|weekly|monthly|manual
   --write                     真正写入；默认只预览
   --json                      机器可读输出
@@ -118,8 +118,8 @@ export function parseAddVenueArgs(argv: string[]): AddVenueArgs {
         }
         args.model = value;
       } else if (name === '--adapter') {
-        if (value !== 'thecvf' && value !== 'table-dates' && value !== 'manual') {
-          throw new Error('--adapter 只支持 thecvf、table-dates 或 manual');
+        if (value !== 'thecvf' && value !== 'table-dates' && value !== 'section-dates' && value !== 'manual') {
+          throw new Error('--adapter 只支持 thecvf、table-dates、section-dates 或 manual');
         }
         args.adapter = value;
       } else {

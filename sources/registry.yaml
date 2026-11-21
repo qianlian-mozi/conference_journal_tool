@@ -104,3 +104,11 @@ sources:
       - role: dates
         url: https://2027.ieeeicip.org/important-dates/
     cross_check: []
+
+  - venue_id: icpr
+    adapter: section-dates
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://icpr2026.org/dates.html
+    cross_check: []

@@ -516,6 +516,46 @@
       ]
     },
     {
+      "id": "icpr",
+      "type": "conference",
+      "short": "ICPR",
+      "full": "International Conference on Pattern Recognition",
+      "official_url": "https://icpr2026.org/",
+      "publisher": "IAPR",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": [
+        {
+          "id": "icpr-2026",
+          "year": 2026,
+          "label": "ICPR 2026",
+          "location": null,
+          "dates": {
+            "start": "2026-08-17",
+            "end": "2026-08-22"
+          },
+          "official_url": "https://icpr2026.org",
+          "deadlines": [
+            {
+              "id": "icpr-2026-paper-submission",
+              "kind": "paper",
+              "label": "Paper submission",
+              "due": "2026-01-10T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-01-11T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://icpr2026.org/dates.html",
+                "quote": "Paper submission : January 10, 2026 AoE (UTC-12)",
+                "fetched_at": "2026-11-21"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "ieee-tip",
       "type": "journal",
       "short": "TIP",

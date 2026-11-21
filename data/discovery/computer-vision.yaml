@@ -83,10 +83,13 @@ candidates:
       short: ICPR
       full: International Conference on Pattern Recognition
     type: conference
-    official_url: https://icpr2028.org/
+    official_url: https://icpr2026.org/
     publisher: IAPR
+    source_url: https://icpr2026.org/dates.html
+    adapter: section-dates
+    cadence: weekly
     aliases: [icpr, pattern recognition]
-    note: 2028 官网 Important dates 仍为 “Will be available soon”（2026-11-21 核验）；日期公布后再补 source_url
+    note: 2026 主会日期区块；仅收录行内显式 AoE 的日期。下一届 2028 日期尚未公布
 
   - id: acm-mm
     names:

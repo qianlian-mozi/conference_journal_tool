@@ -19,6 +19,12 @@ describe('edition URL 推导', () => {
     expect(yearFromDatesUrl('https://2027.ieeeicip.org/2026/important-dates/')).toBeNull();
   });
 
+  it('支持年份内嵌在会议域名和 dates.html 路径', () => {
+    expect(yearFromDatesUrl('https://icpr2026.org/dates.html')).toBe(2026);
+    expect(editionUrlFromDatesUrl('https://icpr2026.org/dates.html')).toBe('https://icpr2026.org');
+    expect(yearFromDatesUrl('https://icpr2026.org/2027/dates.html')).toBeNull();
+  });
+
   it('多个不同年份时拒绝猜测', () => {
     expect(yearFromDatesUrl('https://example.org/2026/2027/dates/')).toBeNull();
     expect(yearFromDatesUrl('https://example.org/2027/2027/dates/')).toBe(2027);

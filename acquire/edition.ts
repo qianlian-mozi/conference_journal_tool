@@ -11,7 +11,9 @@ export function yearFromDatesUrl(rawUrl: string): number | null {
 
     addYear(/\/Conferences\/(\d{4})\b/i.exec(url.pathname)?.[1] ?? '');
     for (const part of url.pathname.split('/')) addYear(part);
-    addYear(url.hostname.split('.')[0]);
+    for (const label of url.hostname.split('.')) {
+      for (const match of label.matchAll(/20\d{2}/g)) addYear(match[0]);
+    }
     return years.size === 1 ? [...years][0] : null;
   } catch {
     return null;
@@ -19,5 +21,5 @@ export function yearFromDatesUrl(rawUrl: string): number | null {
 }
 
 export function editionUrlFromDatesUrl(rawUrl: string): string {
-  return rawUrl.replace(/\/(?:Dates|important-dates)\/?$/i, '');
+  return rawUrl.replace(/\/(?:Dates(?:\.html)?|important-dates)\/?$/i, '');
 }

@@ -12,9 +12,9 @@ CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML�
 | 模块 | 状态 | 说明 |
 |---|---|---|
 | M0 数据契约 v2 | ✅ | `core/schema.ts`（zod）；`cmd/validate.ts` 校验 schema、时区互校、原文回验 |
-| M1 采集链路 | ✅ | `acquire/`：抓取、内容寻址快照、CVF 家族与 table-dates 适配器、quote 闸门；`cmd/update.ts` 抓取→diff→写回 |
+| M1 采集链路 | ✅ | `acquire/`：抓取、内容寻址快照、CVF 家族与 table-dates / section-dates 适配器、quote 闸门；`cmd/update.ts` 抓取→diff→写回 |
 | M2 Actions | ✅ | `.github/workflows/ci.yml`（validate + privacy + test + build）、`update-data.yml`（每周一 + 手动，自动开 PR） |
-| M3 数据 | 🟡 部分 | 7 会议：CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、NeurIPS 2026（已结束）、3DV 2027、ICIP 2027；6 期刊：TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA（均 rolling，期刊目标已达标） |
+| M3 数据 | 🟡 达到下限 | 8 会议（目标 8–12）：CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、NeurIPS 2026（已结束）、3DV 2027、ICIP 2027、ICPR 2026；6 期刊：TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA（均 rolling，期刊目标已达标） |
 | M4 前端 | ✅ 首个版本 | 货架视图：按截止天数排序、状态色、筛选、详情带来源 |
 | M5 AI 层 | 🟡 基线 | 确定性自然语言筛选 CLI：`core/ask.ts` + `cmd/ask.ts`，12 条固定问句测试；未接模型，变更摘要与论文匹配未做 |
 | Agent 层（CLI/MCP/AGENTS.md） | ✅ 首版 | 共用查询引擎；CLI 与 MCP 保留全部届次和 evidence；有契约回归测试 |
@@ -25,7 +25,7 @@ CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML�
 
 ```text
 core/          schema(zod)、时间/AoE 换算、YAML 加载、查询引擎、确定性 NL 筛选
-acquire/       fetch、snapshot（sha256 内容寻址）、adapters/thecvf.ts、adapters/table-dates.ts
+acquire/       fetch、snapshot（sha256 内容寻址）、adapters/thecvf.ts、adapters/table-dates.ts、adapters/section-dates.ts
 cmd/           update（抓取→diff→写回）、validate（三道闸门）、query、ask、add-venue、discover
 mcp/           MCP stdio server 与三个查询工具
 data/          fields/ 领域包、venues/ 数据、snapshots/ 快照、discovery/ 候选清单
@@ -66,7 +66,7 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 ## 已知问题 / 待办
 
 1. **候选清单仍靠人工维护**。`discover` 只匹配 `data/discovery/<field>.yaml`，不做搜索引擎抓取；新增会议/期刊仍需人工确认官网后补候选。
-2. **自动抽取覆盖 CVF / NeurIPS 同模板与 3DV / ICIP 风格表格**；ACM、Springer、EasyChair 等平台仍需要新适配器。`table-dates` 支持原生与 ARIA 表格：优先信页面自带时间戳并保留进快照；无时间戳时只接受页面统一明示的 23:59 AoE 纯文本日期。本地时区必须与时间戳互校，抽取失败若会删除既有日期则中止写入。
+2. **自动抽取覆盖 CVF / NeurIPS 同模板、3DV / ICIP 表格与 ICPR 主会文本区块**；ACM、Springer、EasyChair 等平台仍需要新适配器。`table-dates` 支持原生与 ARIA 表格：优先信页面自带时间戳并保留进快照；无时间戳时只接受页面统一明示的 23:59 AoE 纯文本日期。`section-dates` 只接受主会区块内行内显式 AoE 的日期。本地时区必须与时间戳互校，抽取失败若会删除既有日期则中止写入。
 3. **"真实变更 → 自动开 PR" 路径尚未被真实触发**（官网一直没变）。
 4. **前端只有货架**，没有"论文→期刊推荐"，也没有 AI 问答。
 5. **仓库仍为 Private**；公开前需跑 `npm run audit:privacy` 并决定 LICENSE 署名、`orchestration/` 是否保留。
@@ -76,5 +76,5 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 
 1. 扩充 `data/discovery/computer-vision.yaml` 候选，并给候选补当届 Dates/CFP 页；只加人工确认过的官网。
 2. 扩展其他非 CVF 平台适配器（ACM、Springer、EasyChair 等），同时保持 quote 回验硬闸门。
-3. 继续补 M3 数据覆盖（目标 8–12 会议 + 4–6 期刊）。截至 2026-11-21 已有 7 个会议，第 8 个暂时被官网发布时间阻塞：ICPR 2028、ACM MM 2027、MICCAI 2027、ICRA 2027、BMVC 2027 的论文日期均尚未公布；它们已列入 discover 候选，公布后再接入。数据侧可先转 M5 的自然语言筛选。
+3. **M3 已达到 8 个会议下限**（ICPR 2026 以主会区块显式 AoE 日期接入）。可继续向 12 个扩展；剩余候选 ACM MM 2027、MICCAI 2027、ICRA 2027、BMVC 2027、ICPR 2028 的论文日期尚未公布，公布后再接入。
 4. 在 M5-A 的确定性解析器之上，可选接 OpenAI 兼容端点：模型只产出 `AskPlan`（筛选对象），执行仍由 `queryVenues` 完成；必须保留 12 条拒绝/不编造回归。

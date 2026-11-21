@@ -9,7 +9,19 @@ export function daysLeft(deadline: Deadline, now = Date.now()): number | null {
   if (!deadline.due_utc) return null;
   const instant = Date.parse(deadline.due_utc);
   if (Number.isNaN(instant)) return null;
-  return Math.ceil((instant - now) / DAY_MS);
+  const remaining = instant - now;
+  // Math.ceil 会把截止后不足 24 小时算成 -0，而 -0 < 0 为 false。
+  if (remaining <= 0) return -Math.max(1, Math.ceil(-remaining / DAY_MS));
+  return Math.ceil(remaining / DAY_MS);
+}
+
+/** 用真实时间差判断窗口，不能用已向上取整的展示天数。 */
+export function isWithinDays(deadline: Deadline, withinDays: number, now = Date.now()): boolean {
+  if (!Number.isFinite(withinDays) || withinDays < 0 || !deadline.due_utc) return false;
+  const instant = Date.parse(deadline.due_utc);
+  if (Number.isNaN(instant)) return false;
+  const remaining = instant - now;
+  return remaining > 0 && remaining <= withinDays * DAY_MS;
 }
 
 export function latestEdition(venue: Venue): Edition | null {
@@ -17,26 +29,50 @@ export function latestEdition(venue: Venue): Edition | null {
   return [...venue.editions].sort((a, b) => b.year - a.year)[0];
 }
 
-/** 投稿截止：优先 paper，其次 abstract，再退到最近的未来节点。 */
-export function submitDeadline(venue: Venue): { edition: Edition; deadline: Deadline } | null {
+function instantOf(deadline: Deadline): number | null {
+  if (!deadline.due_utc) return null;
+  const instant = Date.parse(deadline.due_utc);
+  return Number.isNaN(instant) ? null : instant;
+}
+
+/**
+ * 投稿截止：优先 paper，其次 abstract，再退到最近的未来节点。
+ * 同一类有多个轮次时先选未来最近的一轮；全部已过时选最近过去的一轮。
+ */
+export function submitDeadline(
+  venue: Venue,
+  now = Date.now(),
+): { edition: Edition; deadline: Deadline } | null {
+  if (venue.submission_model === 'rolling') return null;
   const edition = latestEdition(venue);
   if (!edition) return null;
 
-  const paper = edition.deadlines.find((item) => item.kind === 'paper');
-  if (paper) return { edition, deadline: paper };
+  const active = edition.deadlines.filter((item) => item.status !== 'cancelled');
+  const groups = [active.filter((item) => item.kind === 'paper'), active.filter((item) => item.kind === 'abstract')];
+  const fallback = active.filter((item) => item.kind !== 'paper' && item.kind !== 'abstract');
 
-  const abstract = edition.deadlines.find((item) => item.kind === 'abstract');
-  if (abstract) return { edition, deadline: abstract };
+  for (const candidates of [...groups, fallback]) {
+    if (candidates.length === 0) continue;
+    const dated = candidates
+      .map((deadline) => ({ deadline, instant: instantOf(deadline) }))
+      .filter((item): item is { deadline: Deadline; instant: number } => item.instant !== null);
+    const upcoming = dated
+      .filter((item) => item.instant > now)
+      .sort((a, b) => a.instant - b.instant);
+    if (upcoming.length > 0) return { edition, deadline: upcoming[0].deadline };
 
-  const upcoming = edition.deadlines
-    .filter((item) => item.due_utc)
-    .sort((a, b) => Date.parse(a.due_utc as string) - Date.parse(b.due_utc as string));
-  return upcoming.length > 0 ? { edition, deadline: upcoming[0] } : null;
+    const undated = candidates.find((item) => instantOf(item) === null);
+    if (undated) return { edition, deadline: undated };
+
+    const past = dated.sort((a, b) => b.instant - a.instant);
+    if (past.length > 0) return { edition, deadline: past[0].deadline };
+  }
+  return null;
 }
 
 export function stateOf(venue: Venue, now = Date.now()): 'open' | 'soon' | 'passed' | 'rolling' | 'unknown' {
   if (venue.submission_model === 'rolling') return 'rolling';
-  const picked = submitDeadline(venue);
+  const picked = submitDeadline(venue, now);
   if (!picked) return 'unknown';
   const days = daysLeft(picked.deadline, now);
   if (days === null) return 'unknown';
@@ -46,7 +82,7 @@ export function stateOf(venue: Venue, now = Date.now()): 'open' | 'soon' | 'pass
 
 export function sortKey(venue: Venue, now = Date.now()): number {
   if (venue.submission_model === 'rolling') return 3650;
-  const picked = submitDeadline(venue);
+  const picked = submitDeadline(venue, now);
   if (!picked) return 9999;
   const days = daysLeft(picked.deadline, now);
   if (days === null) return 9999;
@@ -79,7 +115,7 @@ export function queryVenues(venues: Venue[], options: QueryOptions = {}, now = D
     .filter((venue) => (options.type ? venue.type === options.type : true))
     .filter((venue) => (options.venueId ? venue.id === options.venueId : true))
     .map((venue) => {
-      const picked = submitDeadline(venue);
+      const picked = submitDeadline(venue, now);
       return {
         venue,
         edition: picked?.edition ?? null,
@@ -92,23 +128,29 @@ export function queryVenues(venues: Venue[], options: QueryOptions = {}, now = D
       if (options.openOnly && row.state !== 'open' && row.state !== 'soon' && row.state !== 'rolling') {
         return false;
       }
-      if (options.withinDays !== null && options.withinDays !== undefined) {
-        if (row.days === null || row.days < 0 || row.days > options.withinDays) return false;
+      if (
+        options.withinDays !== null &&
+        options.withinDays !== undefined &&
+        (!row.deadline || !isWithinDays(row.deadline, options.withinDays, now))
+      ) {
+        return false;
       }
       return true;
     })
     .sort((a, b) => sortKey(a.venue, now) - sortKey(b.venue, now));
 }
 
-/** 序列化成给 agent 看的精简结构（保留证据，去掉内部字段）。 */
+/**
+ * 序列化成给 agent 看的结构。
+ *
+ * 保留 venue 的全部届次、资质与证据；`next` 只是便于排序和问答的视图，
+ * 不能用某一届的 deadlines 取代完整 editions，否则 get_venue 会静默丢数据。
+ */
 export function toAgentJson(rows: VenueRow[]) {
   return rows.map(({ venue, edition, deadline, days, state }) => ({
-    id: venue.id,
+    ...venue,
     short: venue.names.short,
     full: venue.names.full,
-    type: venue.type,
-    submission_model: venue.submission_model,
-    official_url: venue.official_url,
     state,
     next: deadline
       ? {
@@ -120,20 +162,10 @@ export function toAgentJson(rows: VenueRow[]) {
           timezone: deadline.timezone,
           due_utc: deadline.due_utc ?? null,
           due_source: deadline.due_source,
+          status: deadline.status,
           days_left: days,
           evidence: deadline.evidence,
         }
       : null,
-    deadlines: (edition?.deadlines ?? []).map((item) => ({
-      id: item.id,
-      kind: item.kind,
-      label: item.label ?? null,
-      due: item.due,
-      timezone: item.timezone,
-      due_utc: item.due_utc ?? null,
-      due_source: item.due_source,
-      status: item.status,
-      evidence: item.evidence,
-    })),
   }));
 }

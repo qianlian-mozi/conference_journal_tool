@@ -4,7 +4,7 @@
 
 它不只是把会议列出来：**它自己盯着官网更新，并且每条日期都能追溯到官网页面上那一行原文。**
 
-> 早期版本（v0.2）。当前已完成「采集 → 快照 → 抽取 → 校验 → 写回」的最小闭环，覆盖 CVPR / ICCV / WACV 三个 CVF 系列会议。自动定时更新（GitHub Actions + PR）与 Web 界面重做在路线图中。
+> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / TPAMI。
 
 ---
 
@@ -30,7 +30,8 @@ npm install
 
 npm run validate     # 校验数据：schema、时区换算、原文回验
 npm run update:dry   # 抓官网，看看会改什么（不落盘，需要联网）
-npm run dev          # 本地 Web 界面（旧版界面，正在重做）
+npm run dev          # 本地货架式 Web 界面（按截止时间与状态排序）
+npm run query -- --within 90 --json  # 给脚本 / agent 的结构化查询
 ```
 
 没有任何账号、没有后端服务、没有数据库。数据就是仓库里的 YAML 文件。
@@ -115,11 +116,12 @@ editions:
 ```text
 core/         schema(zod)、时间与 AoE 换算、YAML 加载
 acquire/      抓取、快照、适配器、更新入口
-cmd/          validate / update 命令
+cmd/          validate / update / query 命令
+mcp/          零依赖 MCP stdio server 与工具实现
 data/         fields/ 领域包、venues/ 数据、snapshots/ 快照
 sources/      registry.yaml 源登记表
 tests/        校验器与适配器测试（vitest）
-src/          旧版 Web 界面（M4 重写）
+src/          React 货架式 Web 界面
 docs/PLAN.md  产品与技术规划 v2
 ```
 
@@ -132,7 +134,10 @@ docs/PLAN.md  产品与技术规划 v2
 | `npm run validate` | 校验全部数据（schema / 时区 / 原文回验） |
 | `npm run update:dry` | 抓官网并打印将要发生的变更 |
 | `npm run update` | 抓官网并写回 YAML 与快照 |
-| `npm test` | 单元测试（时间换算、快照、适配器、校验规则） |
+| `npm run query -- --open --json` | 查询仍可投稿的 venue，保留全部届次与证据 |
+| `npm run query -- --venue cvpr --json` | 查询单个 venue 的全部日期 |
+| `npm run mcp` | 启动 MCP stdio server（`search_venues` / `get_venue` / `get_deadlines`） |
+| `npm run test:all` | 全部单元测试与旧版 CLI 集成测试 |
 
 ---
 
@@ -140,9 +145,9 @@ docs/PLAN.md  产品与技术规划 v2
 
 - [x] **M0** 数据契约 v2 + 校验器（含原文回验）
 - [x] **M1** 一条真实链路：CVPR / ICCV / WACV 的采集、快照、抽取、写回
-- [ ] **M2** GitHub Actions 定时 + PR 机器人
-- [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（含 rolling 投稿模型）
-- [ ] **M4** Web 界面重做：首页回答「接下来该投什么」
+- [x] **M2** GitHub Actions 定时 + PR 机器人
+- [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（当前 4 个会议 + 1 个 rolling 期刊）
+- [x] **M4** Web 界面首版：首页回答「接下来该投什么」
 - [ ] **M5** AI 层：自然语言筛选、变更摘要、论文→会议匹配（自带 key，默认关闭）
 - [ ] **M6** 发布 v0.1.0：CLI 打包、文档、贡献指南
 

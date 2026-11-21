@@ -11,43 +11,20 @@
  */
 import { loadVenues } from '../core/load.ts';
 import { formatLocal, queryVenues, toAgentJson } from '../core/query.ts';
+import { parseQueryArgs, QUERY_USAGE } from './query-args.ts';
 
-interface Args {
-  field: string | null;
-  type: string | null;
-  within: number | null;
-  venue: string | null;
-  json: boolean;
-  open: boolean;
-}
-
-function parseArgs(argv: string[]): Args {
-  const args: Args = { field: null, type: null, within: null, venue: null, json: false, open: false };
-  for (let index = 0; index < argv.length; index += 1) {
-    const arg = argv[index];
-    const next = () => {
-      index += 1;
-      return argv[index] ?? null;
-    };
-    if (arg === '--json') args.json = true;
-    else if (arg === '--open') args.open = true;
-    else if (arg === '--field') args.field = next();
-    else if (arg.startsWith('--field=')) args.field = arg.slice(8);
-    else if (arg === '--type') args.type = next();
-    else if (arg.startsWith('--type=')) args.type = arg.slice(7);
-    else if (arg === '--within') args.within = Number(next());
-    else if (arg.startsWith('--within=')) args.within = Number(arg.slice(9));
-    else if (arg === '--venue') args.venue = next();
-    else if (arg.startsWith('--venue=')) args.venue = arg.slice(8);
-  }
-  return args;
-}
-
-const args = parseArgs(process.argv.slice(2));
-
-if (args.within !== null && !Number.isFinite(args.within)) {
-  console.error('--within 需要一个数字（天）');
+let args: ReturnType<typeof parseQueryArgs>;
+try {
+  args = parseQueryArgs(process.argv.slice(2));
+} catch (error) {
+  console.error((error as Error).message);
+  console.error(QUERY_USAGE);
   process.exit(2);
+}
+
+if (args.help) {
+  console.log(QUERY_USAGE);
+  process.exit(0);
 }
 
 const venues = loadVenues().map((file) => file.data);

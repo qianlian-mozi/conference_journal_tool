@@ -17,14 +17,15 @@ CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML�
 | M3 数据 | 🟡 部分 | CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、TPAMI（rolling） |
 | M4 前端 | ✅ 首个版本 | 货架视图：按截止天数排序、状态色、筛选、详情带来源 |
 | M5 AI 层 | ❌ | 未开始 |
-| Agent 层（CLI/MCP/AGENTS.md） | ❌ | 未开始，是下一步重点 |
+| Agent 层（CLI/MCP/AGENTS.md） | ✅ 首版 | 共用查询引擎；CLI 与 MCP 保留全部届次和 evidence；有契约回归测试 |
 
 ## 仓库结构
 
 ```text
 core/          schema(zod)、时间/AoE 换算、YAML 加载
 acquire/       fetch、snapshot（sha256 内容寻址）、adapters/thecvf.ts
-cmd/           update（抓取→diff→写回）、validate（三道闸门）
+cmd/           update（抓取→diff→写回）、validate（三道闸门）、query
+mcp/           MCP stdio server 与三个查询工具
 data/          fields/ 领域包、venues/ 数据、snapshots/ 快照
 sources/       registry.yaml 源登记表
 scripts/       build-data.mjs（YAML→JSON）、check-privacy.mjs
@@ -40,7 +41,7 @@ npm run validate      # 数据校验（schema + 时区 + 原文回验）
 npm run update:dry    # 抓官网看会改什么（不落盘）
 npm run update        # 抓官网并写回 YAML + 快照
 npm run dev           # 本地货架视图（先 build-data）
-npm test              # 47 个测试
+npm run test:all      # 全部单元测试与旧版 CLI 集成测试
 npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 ```
 
@@ -63,7 +64,6 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 
 ## 下一步建议
 
-1. CLI：`cvr query --field cv --within 90 --json`（给脚本与 agent）。
-2. `AGENTS.md` + skill：让 clone 下来的人直接让自己的 agent 用。
-3. MCP server：`search_venues` / `get_deadlines` / `get_venue`。
-4. 再回头做 `discover`，解决信源规模化。
+1. 做 `discover` / `add-venue`，解决信源登记与新 venue 接入成本。
+2. 扩展非 CVF 平台适配器，同时保持 quote 回验硬闸门。
+3. 继续补 M3 数据覆盖，再评估 M5 自然语言筛选与变更摘要。

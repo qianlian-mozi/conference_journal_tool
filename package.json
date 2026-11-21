@@ -16,7 +16,8 @@
     "update": "node cmd/update.ts --write",
     "update:dry": "node cmd/update.ts --dry-run",
     "audit:privacy": "node scripts/check-privacy.mjs",
-    "query": "node cmd/query.ts"
+    "query": "node cmd/query.ts",
+    "mcp": "node mcp/server.ts"
   },
   "dependencies": {
     "cheerio": "^1.2.0",

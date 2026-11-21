@@ -99,6 +99,33 @@ node cmd/query.ts --venue cvpr --json    # 单个 venue 的全部日期
 
 ---
 
+## MCP（如果你的 agent 支持）
+
+仓库自带一个零依赖的 MCP server（stdio）：
+
+```json
+{
+  "mcpServers": {
+    "cv-venue-radar": {
+      "command": "node",
+      "args": ["<仓库绝对路径>/mcp/server.ts"]
+    }
+  }
+}
+```
+
+它暴露三个工具：
+
+| 工具 | 用途 |
+|---|---|
+| `search_venues` | 按 field / type / within_days / open_only 筛选 |
+| `get_venue` | 取单个 venue 的全部届次与日期 |
+| `get_deadlines` | 平铺的截止日期列表，可按 venue_id / within_days 过滤 |
+
+三个工具的返回值都原样带上 `evidence`，不做二次加工。
+
+---
+
 ## 不要做的事
 
 - 不要修改 `data/` 里的日期来"修正"你认为不对的值。数据只能通过 `npm run update` 从官网重新采集，并经 `npm run validate` 校验。

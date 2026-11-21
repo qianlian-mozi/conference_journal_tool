@@ -21,6 +21,9 @@ npm-debug.log*
 # scratch probes, never committed
 .tmp/
 
+# add-venue 的短命文件锁（异常退出后最多 30 秒过期）
+/sources/*.lock
+
 # local agent state / notes
 .workbuddy/
 

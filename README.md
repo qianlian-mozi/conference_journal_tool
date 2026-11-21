@@ -32,6 +32,7 @@ npm run validate     # 校验数据：schema、时区换算、原文回验
 npm run update:dry   # 抓官网，看看会改什么（不落盘，需要联网）
 npm run dev          # 本地货架式 Web 界面（按截止时间与状态排序）
 npm run query -- --within 90 --json  # 给脚本 / agent 的结构化查询
+npm run add-venue -- https://example.org/2027/dates --id example --short EXAMPLE --full "Example Conference"  # 预览新 venue
 ```
 
 没有任何账号、没有后端服务、没有数据库。数据就是仓库里的 YAML 文件。
@@ -102,12 +103,12 @@ editions:
 
 ## 怎么加一个会议
 
-1. 在 `data/venues/` 新建 `<id>.yaml`（照抄现有文件改 `id` / `names` / `official_url`）。
-2. 在 `sources/registry.yaml` 登记官方 Dates 页面和抓取频率。
+1. `npm run add-venue -- <官方 Dates URL> --id <id> --short <简称> --full "<全称>"` 先预览骨架与源登记。
+2. 确认无误后加 `--write` 落盘；命令会同时更新 `data/venues/<id>.yaml` 与 `sources/registry.yaml`。
 3. `npm run update:dry -- --venue <id>` 看抽取结果；确认无误后 `npm run update -- --venue <id>`。
 4. `npm run validate` 必须全绿，然后提 PR。
 
-目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 目前只支持 `adapter: thecvf`（`*.thecvf.com` 系列）；其他站点的适配器在路线图中。
+目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 详细参数、交互模式与手工兜底见 [docs/ADD_A_VENUE.md](docs/ADD_A_VENUE.md)。目前自动抽取只支持 `adapter: thecvf`（`*.thecvf.com` 系列）；其他站点需要新适配器，或按数据契约手工补带证据的日期。
 
 ---
 
@@ -116,13 +117,14 @@ editions:
 ```text
 core/         schema(zod)、时间与 AoE 换算、YAML 加载
 acquire/      抓取、快照、适配器、更新入口
-cmd/          validate / update / query 命令
+cmd/          validate / update / query / add-venue 命令
 mcp/          零依赖 MCP stdio server 与工具实现
 data/         fields/ 领域包、venues/ 数据、snapshots/ 快照
 sources/      registry.yaml 源登记表
 tests/        校验器与适配器测试（vitest）
 src/          React 货架式 Web 界面
 docs/PLAN.md  产品与技术规划 v2
+docs/ADD_A_VENUE.md  新 venue 接入手册
 ```
 
 ---
@@ -134,6 +136,7 @@ docs/PLAN.md  产品与技术规划 v2
 | `npm run validate` | 校验全部数据（schema / 时区 / 原文回验） |
 | `npm run update:dry` | 抓官网并打印将要发生的变更 |
 | `npm run update` | 抓官网并写回 YAML 与快照 |
+| `npm run add-venue -- <url> ...` | 预览新 venue 骨架 + 源登记（`--write` 落盘） |
 | `npm run query -- --open --json` | 查询仍可投稿的 venue，保留全部届次与证据 |
 | `npm run query -- --venue cvpr --json` | 查询单个 venue 的全部日期 |
 | `npm run mcp` | 启动 MCP stdio server（`search_venues` / `get_venue` / `get_deadlines`） |

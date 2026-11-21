@@ -18,19 +18,21 @@ CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML�
 | M4 前端 | ✅ 首个版本 | 货架视图：按截止天数排序、状态色、筛选、详情带来源 |
 | M5 AI 层 | ❌ | 未开始 |
 | Agent 层（CLI/MCP/AGENTS.md） | ✅ 首版 | 共用查询引擎；CLI 与 MCP 保留全部届次和 evidence；有契约回归测试 |
+| 接入层（add-venue） | ✅ 首版 | 生成可校验骨架与源登记；默认预览、`--write` 才落盘；不会生成日期 |
 
 ## 仓库结构
 
 ```text
 core/          schema(zod)、时间/AoE 换算、YAML 加载
 acquire/       fetch、snapshot（sha256 内容寻址）、adapters/thecvf.ts
-cmd/           update（抓取→diff→写回）、validate（三道闸门）、query
+cmd/           update（抓取→diff→写回）、validate（三道闸门）、query、add-venue
 mcp/           MCP stdio server 与三个查询工具
 data/          fields/ 领域包、venues/ 数据、snapshots/ 快照
 sources/       registry.yaml 源登记表
 scripts/       build-data.mjs（YAML→JSON）、check-privacy.mjs
 src/           React 货架视图；generated/venues.json 是构建产物
 docs/PLAN.md   产品与技术规划 v2
+docs/ADD_A_VENUE.md  新 venue 接入手册
 ```
 
 ## 常用命令
@@ -40,6 +42,8 @@ npm install
 npm run validate      # 数据校验（schema + 时区 + 原文回验）
 npm run update:dry    # 抓官网看会改什么（不落盘）
 npm run update        # 抓官网并写回 YAML + 快照
+npm run add-venue -- <url> --id <id> --short <简称> --full "<全称>"  # 预览新 venue 骨架
+npm run add-venue -- --write <url> ...                              # 落盘
 npm run dev           # 本地货架视图（先 build-data）
 npm run test:all      # 全部单元测试与旧版 CLI 集成测试
 npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
@@ -56,7 +60,7 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 
 ## 已知问题 / 待办
 
-1. **信源是手工预置的**（`sources/registry.yaml` 一条条写 URL）。规模化需要 `discover`（搜索 → 判定官网 → LLM 抽取 + quote 回验）。
+1. **信源仍是人工确认后登记**。`add-venue` 已把「生成骨架 + 写源登记」降到一条命令，但 `discover`（搜索候选 → 判定官网 → 去重）尚未实现。
 2. **只覆盖 CVF 家族模板**；ICLR/NeurIPS 同源已验证，其他平台（ACM、Springer、EasyChair）需要新适配器。
 3. **"真实变更 → 自动开 PR" 路径尚未被真实触发**（官网一直没变）。
 4. **前端只有货架**，没有"论文→期刊推荐"，也没有 AI 问答。
@@ -64,6 +68,6 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 
 ## 下一步建议
 
-1. 做 `discover` / `add-venue`，解决信源登记与新 venue 接入成本。
+1. 做 `discover`：给定会议/期刊名，找到并验证官网入口，再调用 `add-venue` 的同一套骨架生成逻辑；候选必须人工确认，不能自动写入日期。
 2. 扩展非 CVF 平台适配器，同时保持 quote 回验硬闸门。
 3. 继续补 M3 数据覆盖，再评估 M5 自然语言筛选与变更摘要。

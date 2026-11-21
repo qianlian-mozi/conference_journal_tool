@@ -1,13 +1,36 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { closeSync, mkdtempSync, openSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateSchedule } from '../scripts/validate-schedule.mjs';
 
 const exampleUrl = new URL('../examples/computer-vision/schedule.example.json', import.meta.url);
 const scriptPath = fileURLToPath(new URL('../scripts/validate-schedule.mjs', import.meta.url));
 const examplePath = fileURLToPath(exampleUrl);
+
+// 不用 pipe 捕获输出：Windows 沙箱会拒绝为子进程创建命名管道。
+// 把 stdout/stderr 指向临时文件，行为和 CI 的管道捕获等价。
+function runCli(args) {
+  const dir = mkdtempSync(join(tmpdir(), 'validate-schedule-'));
+  const outputPath = join(dir, 'output.log');
+  const fd = openSync(outputPath, 'w');
+  let result;
+  try {
+    result = spawnSync(process.execPath, [scriptPath, ...args], {
+      stdio: ['ignore', fd, fd],
+    });
+  } finally {
+    closeSync(fd);
+  }
+  try {
+    return { status: result.status, output: readFileSync(outputPath, 'utf8') };
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
 
 function makeValidSchedule() {
   return JSON.parse(readFileSync(exampleUrl, 'utf8'));
@@ -110,12 +133,12 @@ test('rejects unsupported Deadline kind and status values', () => {
 });
 
 test('CLI exits with zero for the valid example', () => {
-  const result = spawnSync(process.execPath, [scriptPath, examplePath], { encoding: 'utf8' });
-  assert.equal(result.status, 0, result.stderr);
+  const result = runCli([examplePath]);
+  assert.equal(result.status, 0, result.output);
 });
 
 test('CLI exits nonzero when the schedule cannot be read', () => {
-  const result = spawnSync(process.execPath, [scriptPath, `${examplePath}.missing`], { encoding: 'utf8' });
+  const result = runCli([`${examplePath}.missing`]);
   assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /Unable to validate schedule/);
+  assert.match(result.output, /Unable to validate schedule/);
 });

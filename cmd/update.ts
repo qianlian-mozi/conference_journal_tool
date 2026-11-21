@@ -182,6 +182,11 @@ async function main(): Promise<void> {
       continue;
     }
 
+    if (source.adapter === 'manual' || source.cadence === 'manual') {
+      console.log(`\n[${source.venue_id}] manual 信源或手动更新频率，跳过自动抓取`);
+      continue;
+    }
+
     const page = source.pages.find((entry) => entry.role === 'dates');
     if (!page) {
       // 期刊是滚动投稿，本来就没有截止日期页；跳过而不是记失败。

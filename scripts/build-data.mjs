@@ -72,8 +72,15 @@ const venues = readDir(join(DATA, 'venues'))
     })),
   }));
 
+// 用数据里最新的核验日期作为「生成时间」，而不是当前时钟：
+// 否则每次构建都会改一行时间戳，git diff 永远不干净。
+const fetchedDates = venues
+  .flatMap((venue) => venue.editions.flatMap((edition) => edition.deadlines.map((deadline) => deadline.evidence.fetched_at)))
+  .sort();
+const generated_at = fetchedDates.at(-1) ?? null;
+
 const bundle = {
-  generated_at: new Date().toISOString(),
+  generated_at,
   field: {
     id: field.id,
     name_zh: field.names.zh,

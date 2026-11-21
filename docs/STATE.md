@@ -55,7 +55,7 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 ## 关键决策
 
 - **数据放仓库 YAML**，不用数据库：PR diff 就是审核界面，fork 即可分叉。
-- **quote 闸门**：每条日期必须带官网原文，且能在当次快照里逐字命中，否则拒收。
+- **quote 闸门**：edition 与每条日期必须带官网原文，且能在对应快照里逐字命中，否则拒收；`validate` 两层都回验。
 - **两种时间口径**：页面上有倒计时时间戳就用它（`due_source: timestamp`），没有才从文本解析（`text`），后者在数据里可辨认。
 - **滚动期刊**：`submission_model: rolling`，没有 deadline，`validate` 强制这一点。
 - **幂等更新**：值没变就沿用原证据（含 `fetched_at`），避免"只改时间戳"的伪 PR。
@@ -64,7 +64,7 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 ## 已知问题 / 待办
 
 1. **候选清单仍靠人工维护**。`discover` 只匹配 `data/discovery/<field>.yaml`，不做搜索引擎抓取；新增会议/期刊仍需人工确认官网后补候选。
-2. **自动抽取覆盖 CVF / NeurIPS 同模板与 3DV 风格 countdown 表格**；ACM、Springer、EasyChair 等平台仍需要新适配器。`table-dates` 只信页面自带 UTC 时间戳，缺失时跳过，不从纯文本猜时区。
+2. **自动抽取覆盖 CVF / NeurIPS 同模板与 3DV 风格 countdown 表格**；ACM、Springer、EasyChair 等平台仍需要新适配器。`table-dates` 只信页面自带时间戳，并把它保留进快照；页面明示且互校通过的 AoE / Pacific Time 会还原本地时区。抽取失败若会删除既有日期，写入会中止。
 3. **"真实变更 → 自动开 PR" 路径尚未被真实触发**（官网一直没变）。
 4. **前端只有货架**，没有"论文→期刊推荐"，也没有 AI 问答。
 5. **仓库仍为 Private**；公开前需跑 `npm run audit:privacy` 并决定 LICENSE 署名、`orchestration/` 是否保留。

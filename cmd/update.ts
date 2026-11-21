@@ -14,7 +14,8 @@ import { dirname, join } from 'node:path';
 import { stringify as stringifyYaml } from 'yaml';
 import { fetchPage } from '../acquire/fetch.ts';
 import { htmlToText, sha256Hex, snapshotContainsQuote } from '../acquire/snapshot.ts';
-import { extractTheCvf, type ExtractedDeadline } from '../acquire/adapters/thecvf.ts';
+import { editionUrlFromDatesUrl, yearFromDatesUrl } from '../acquire/edition.ts';
+import { extractTheCvf, type AdapterResult, type ExtractedDeadline } from '../acquire/adapters/thecvf.ts';
 import { extractTableDates } from '../acquire/adapters/table-dates.ts';
 import { loadRegistry, loadVenues, repoPath } from '../core/load.ts';
 import type { Deadline, Edition, Venue } from '../core/schema.ts';
@@ -46,23 +47,6 @@ function parseArgs(argv: string[]): Args {
 
 function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
-}
-
-function yearFromUrl(url: string): number | null {
-  const conferenceMatch = /\/Conferences\/(\d{4})\b/.exec(url);
-  if (conferenceMatch) return Number(conferenceMatch[1]);
-  try {
-    const segment = new URL(url).pathname
-      .split('/')
-      .find((part) => /^\d{4}$/.test(part) && Number(part) >= 2000 && Number(part) <= 2100);
-    return segment ? Number(segment) : null;
-  } catch {
-    return null;
-  }
-}
-
-function editionUrlFromDatesUrl(url: string): string {
-  return url.replace(/\/Dates\/?$/i, '');
 }
 
 interface BuiltDeadlines {
@@ -153,7 +137,14 @@ function diffDeadlines(existing: Deadline[], incoming: Deadline[]) {
   for (const [id, next] of after) {
     const old = before.get(id);
     if (!old) added.push(next);
-    else if (old.due_utc !== next.due_utc || old.raw_text !== next.raw_text) {
+    else if (
+      old.due_utc !== next.due_utc ||
+      old.raw_text !== next.raw_text ||
+      old.kind !== next.kind ||
+      old.due !== next.due ||
+      old.timezone !== next.timezone ||
+      old.due_source !== next.due_source
+    ) {
       changed.push({ old, next });
     }
   }
@@ -165,6 +156,28 @@ function diffDeadlines(existing: Deadline[], incoming: Deadline[]) {
 
 function formatDeadline(deadline: Deadline): string {
   return `${deadline.due} ${deadline.timezone}${deadline.due_utc ? ` (UTC ${deadline.due_utc})` : ''}`;
+}
+
+function findEditionEvidenceQuote(snapshotText: string): string | null {
+  const lines = snapshotText.split('\n').map((line) => line.trim());
+  return (
+    lines.find((line) => /^(?:Dates and Deadlines|Important Dates)$/i.test(line)) ??
+    lines.find((line) => line.length <= 120 && /\bImportant Dates\b/i.test(line)) ??
+    null
+  );
+}
+
+function extractPage(adapter: 'thecvf' | 'table-dates' | 'manual', html: string): AdapterResult {
+  switch (adapter) {
+    case 'thecvf':
+      return extractTheCvf(html);
+    case 'table-dates':
+      return extractTableDates(html);
+    case 'manual':
+      throw new Error('manual 信源不应进入自动抽取');
+    default:
+      throw new Error(`未实现的适配器: ${String(adapter)}`);
+  }
 }
 
 async function main(): Promise<void> {
@@ -208,7 +221,7 @@ async function main(): Promise<void> {
       continue;
     }
 
-    const year = yearFromUrl(page.url);
+    const year = yearFromDatesUrl(page.url);
     if (!year) {
       console.error(`✗ ${source.venue_id}: 无法从 URL 推导年份: ${page.url}`);
       failures += 1;
@@ -225,10 +238,7 @@ async function main(): Promise<void> {
 
     const snapshotText = htmlToText(response.html);
     const snapshotHash = sha256Hex(snapshotText);
-    const result =
-      source.adapter === 'table-dates'
-        ? extractTableDates(response.html)
-        : extractTheCvf(response.html);
+    const result = extractPage(source.adapter, response.html);
 
     if (result.status !== 'ok') {
       console.log(`  · 页面可访问，但未公布日期（${result.status}），不写入任何数据`);
@@ -280,6 +290,21 @@ async function main(): Promise<void> {
       continue;
     }
 
+    const extractionGap =
+      built.skipped.length > 0 || result.warnings.some((warning) => warning.includes('已跳过'));
+    if (diff.removed.length > 0 && extractionGap) {
+      console.error('  ✗ 有节点抽取失败且本次将移除既有 deadline，拒绝写入；请先修复页面适配');
+      failures += 1;
+      continue;
+    }
+
+    const editionQuote = findEditionEvidenceQuote(snapshotText);
+    if (!editionQuote) {
+      console.error('  ✗ 找不到可回验的日期页标题，拒绝写入 edition evidence');
+      failures += 1;
+      continue;
+    }
+
     const snapshotFile = repoPath('data', 'snapshots', source.venue_id, `${snapshotHash}.txt`);
     mkdirSync(dirname(snapshotFile), { recursive: true });
     writeFileSync(snapshotFile, snapshotText, 'utf8');
@@ -287,12 +312,14 @@ async function main(): Promise<void> {
     // 页面哈希没变时沿用原证据，避免只改 fetched_at 造成无意义的 diff。
     const previousEditionEvidence = existingEdition?.evidence?.[0];
     const editionEvidence =
-      existingEdition && previousEditionEvidence?.snapshot_hash === snapshotHash
+      existingEdition &&
+      previousEditionEvidence?.snapshot_hash === snapshotHash &&
+      existingEdition.evidence.every((item) => snapshotContainsQuote(snapshotText, item.quote))
         ? existingEdition.evidence
         : [
             {
               url: page.url,
-              quote: 'Dates and Deadlines',
+              quote: editionQuote,
               fetched_at: todayIso(),
               snapshot_hash: snapshotHash,
             },

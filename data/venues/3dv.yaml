@@ -13,80 +13,83 @@ editions:
   - id: 3dv-2027
     year: 2027
     label: 3DV 2027
+    dates:
+      start: 2027-04-06
+      end: 2027-04-09
     official_url: https://3dvconf.github.io/2027
     evidence:
       - url: https://3dvconf.github.io/2027/dates/
-        quote: Dates and Deadlines
+        quote: Important Dates
         fetched_at: 2026-11-21
-        snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+        snapshot_hash: cc0c4ee58d6ff037834faf676a0790c3bb02828a13779a65583c27222fca72bd
     deadlines:
       - id: 3dv-2027-abstract-registration
-        kind: registration
+        kind: abstract
         label: Abstract Registration
-        raw_text: Abstract Registration Aug 28, 2026
-        due: 2026-08-29T11:59:59
-        timezone: UTC
+        raw_text: Abstract Registration Aug 28, 2026 [data-countdown="2026/08/29 11:59:59 +0000"]
+        due: 2026-08-28T23:59:59
+        timezone: AoE
         due_utc: 2026-08-29T11:59:59.000Z
         due_source: timestamp
         status: confirmed
         evidence:
           url: https://3dvconf.github.io/2027/dates/
-          quote: Abstract Registration Aug 28, 2026
+          quote: Abstract Registration Aug 28, 2026 [data-countdown="2026/08/29 11:59:59 +0000"]
           fetched_at: 2026-11-21
-          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+          snapshot_hash: cc0c4ee58d6ff037834faf676a0790c3bb02828a13779a65583c27222fca72bd
       - id: 3dv-2027-paper-submission
         kind: paper
         label: Paper Submission
-        raw_text: Paper Submission Aug 28, 2026
-        due: 2026-08-29T11:59:59
-        timezone: UTC
+        raw_text: Paper Submission Aug 28, 2026 [data-countdown="2026/08/29 11:59:59 +0000"]
+        due: 2026-08-28T23:59:59
+        timezone: AoE
         due_utc: 2026-08-29T11:59:59.000Z
         due_source: timestamp
         status: confirmed
         evidence:
           url: https://3dvconf.github.io/2027/dates/
-          quote: Paper Submission Aug 28, 2026
+          quote: Paper Submission Aug 28, 2026 [data-countdown="2026/08/29 11:59:59 +0000"]
           fetched_at: 2026-11-21
-          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+          snapshot_hash: cc0c4ee58d6ff037834faf676a0790c3bb02828a13779a65583c27222fca72bd
       - id: 3dv-2027-supplementary-material
         kind: supplement
         label: Supplementary Material
-        raw_text: Supplementary Material Sep 02, 2026
-        due: 2026-09-03T11:59:59
-        timezone: UTC
+        raw_text: Supplementary Material Sep 02, 2026 [data-countdown="2026/09/03 11:59:59 +0000"]
+        due: 2026-09-02T23:59:59
+        timezone: AoE
         due_utc: 2026-09-03T11:59:59.000Z
         due_source: timestamp
         status: confirmed
         evidence:
           url: https://3dvconf.github.io/2027/dates/
-          quote: Supplementary Material Sep 02, 2026
+          quote: Supplementary Material Sep 02, 2026 [data-countdown="2026/09/03 11:59:59 +0000"]
           fetched_at: 2026-11-21
-          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+          snapshot_hash: cc0c4ee58d6ff037834faf676a0790c3bb02828a13779a65583c27222fca72bd
       - id: 3dv-2027-preliminary-notification
         kind: notification
         label: Preliminary Notification
-        raw_text: Preliminary Notification Oct 27, 2026
-        due: 2026-10-27T18:00:00
-        timezone: UTC
+        raw_text: Preliminary Notification Oct 27, 2026 [data-countdown="2026/10/27 18:00:00 +0000"]
+        due: 2026-10-27T11:00:00
+        timezone: America/Los_Angeles
         due_utc: 2026-10-27T18:00:00.000Z
         due_source: timestamp
         status: confirmed
         evidence:
           url: https://3dvconf.github.io/2027/dates/
-          quote: Preliminary Notification Oct 27, 2026
+          quote: Preliminary Notification Oct 27, 2026 [data-countdown="2026/10/27 18:00:00 +0000"]
           fetched_at: 2026-11-21
-          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+          snapshot_hash: cc0c4ee58d6ff037834faf676a0790c3bb02828a13779a65583c27222fca72bd
       - id: 3dv-2027-final-notification
         kind: notification
         label: Final Notification
-        raw_text: Final Notification Dec 02, 2026
-        due: 2026-12-02T19:00:00
-        timezone: UTC
+        raw_text: Final Notification Dec 02, 2026 [data-countdown="2026/12/02 19:00:00 +0000"]
+        due: 2026-12-02T11:00:00
+        timezone: America/Los_Angeles
         due_utc: 2026-12-02T19:00:00.000Z
         due_source: timestamp
         status: confirmed
         evidence:
           url: https://3dvconf.github.io/2027/dates/
-          quote: Final Notification Dec 02, 2026
+          quote: Final Notification Dec 02, 2026 [data-countdown="2026/12/02 19:00:00 +0000"]
           fetched_at: 2026-11-21
-          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+          snapshot_hash: cc0c4ee58d6ff037834faf676a0790c3bb02828a13779a65583c27222fca72bd

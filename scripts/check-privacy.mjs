@@ -19,11 +19,14 @@ const SKIP_EXT = new Set([
   '.woff', '.woff2', '.ttf', '.otf', '.pdf', '.zip', '.gz',
 ]);
 const MAX_BYTES = 512 * 1024;
+// 只有逐条审阅过的公开职能邮箱可以豁免；个人邮箱仍会报警。
+const PUBLIC_SNAPSHOT_EMAILS = new Set(['3dv27-sponsors' + '@' + 'googlegroups.com']);
+const SNAPSHOT_PATH = /^data\/snapshots\/[a-z0-9-]+\/[a-f0-9]{64}\.txt$/;
 
 const CHECKS = [
   { name: 'Windows 绝对路径', re: /\b[A-Za-z]:\\[^\s"'<>|]+/g },
   { name: 'Unix 家目录', re: /\/Users\/[A-Za-z0-9._-]+|\/home\/[A-Za-z0-9._-]+/g },
-  { name: '邮箱地址', re: /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g },
+  { id: 'email', name: '邮箱地址', re: /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g },
   { name: 'API key', re: /\b(sk-[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16})\b/g },
   { name: '机器名', re: /\bDESKTOP-[A-Z0-9]{5,}\b/g },
 ];
@@ -69,6 +72,7 @@ function walk(dir, out = []) {
 }
 
 const findings = [];
+const exemptions = [];
 
 for (const file of walk(ROOT)) {
   if (SKIP_EXT.has(extname(file).toLowerCase())) continue;
@@ -84,19 +88,30 @@ for (const file of walk(ROOT)) {
   const rel = relative(ROOT, file).replace(/\\/g, '/');
   // 快照是已公开官网的原文，可能含公开的联系/赞助商邮箱；这不是本地隐私。
   // 其它检查（密钥、路径、机器名）仍然对快照生效。
-  const publicSourceSnapshot = rel.startsWith('data/snapshots/') && rel.endsWith('.txt');
+  const publicSourceSnapshot = SNAPSHOT_PATH.test(rel);
   const lines = text.split(/\r?\n/);
   for (const check of CHECKS) {
-    if (publicSourceSnapshot && check.name === '邮箱地址') continue;
     for (let index = 0; index < lines.length; index += 1) {
       const matches = lines[index].match(check.re);
       if (!matches) continue;
       for (const match of matches) {
         const masked = match.length <= 4 ? '***' : `${match.slice(0, 4)}…(${match.length})`;
+        if (
+          check.id === 'email' &&
+          publicSourceSnapshot &&
+          PUBLIC_SNAPSHOT_EMAILS.has(match.toLowerCase())
+        ) {
+          exemptions.push({ file: rel, line: index + 1, kind: '公开职能邮箱', masked });
+          continue;
+        }
         findings.push({ file: rel, line: index + 1, kind: check.name, masked });
       }
     }
   }
+}
+
+for (const item of exemptions) {
+  console.log(`  ℹ ${item.file}:${item.line}  [${item.kind}豁免]  ${item.masked}`);
 }
 
 if (findings.length === 0) {

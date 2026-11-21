@@ -45,16 +45,22 @@ Important Dates
 The Abstract Registration, Paper Submission and Supplementary Material deadlines are 23:59 Anywhere on Earth (AoE). All other deadlines are 11:00 am Pacific Time (PDT). No extensions will be granted.
 Abstract Registration
 Aug 28, 2026
+[data-countdown="2026/08/29 11:59:59 +0000"]
 Paper Submission
 Aug 28, 2026
+[data-countdown="2026/08/29 11:59:59 +0000"]
 Supplementary Material
 Sep 02, 2026
+[data-countdown="2026/09/03 11:59:59 +0000"]
 Preliminary Notification
 Oct 27, 2026
+[data-countdown="2026/10/27 18:00:00 +0000"]
 Final Notification
 Dec 02, 2026
+[data-countdown="2026/12/02 19:00:00 +0000"]
 Main conference
 Apr 6-9, 2027
+[data-countdown="2027/04/6 07:59:59 +0200"]
 Rebuttals:
 Note that rebuttals will be requested only if reviewers and area chairs need additional information to make their decision.
 Notification on Decisions:

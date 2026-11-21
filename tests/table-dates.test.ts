@@ -3,6 +3,7 @@ import { extractTableDates, parseCountdownUtc } from '../acquire/adapters/table-
 
 const page = `
 <h3>Important Dates</h3>
+<p>The Abstract Registration, Paper Submission and Supplementary Material deadlines are 23:59 Anywhere on Earth (AoE). All other deadlines are 11:00 am Pacific Time (PDT).</p>
 <table>
   <tr><th>Abstract Registration</th><td>Aug 28, 2026</td><td><span data-countdown="2026/08/29 11:59:59 +0000"></span></td></tr>
   <tr><th>Paper Submission</th><td>Aug 28, 2026</td><td><span data-countdown="2026/08/29 11:59:59 +0000"></span></td></tr>
@@ -18,6 +19,8 @@ describe('table-dates countdown', () => {
     expect(parseCountdownUtc('2026/08/29 11:59:59 +0000')).toBe('2026-08-29T11:59:59.000Z');
     expect(parseCountdownUtc('2026/08/29 13:59:59 +0200')).toBe('2026-08-29T11:59:59.000Z');
     expect(parseCountdownUtc('2026/08/29 06:29:59 -0530')).toBe('2026-08-29T11:59:59.000Z');
+    expect(parseCountdownUtc('2027/04/6 07:59:59 +02:00')).toBe('2027-04-06T05:59:59.000Z');
+    expect(parseCountdownUtc('2027/04/6 07:59 +0000')).toBe('2027-04-06T07:59:00.000Z');
     expect(parseCountdownUtc('2026/08/29 11:59:59 UTC')).toBe('2026-08-29T11:59:59.000Z');
   });
 
@@ -42,14 +45,17 @@ describe('table-dates 页面抽取', () => {
       'Final Notification',
     ]);
     expect(result.deadlines[0]).toMatchObject({
-      rawText: 'Aug 28, 2026',
+      rawText: 'Aug 28, 2026 [data-countdown="2026/08/29 11:59:59 +0000"]',
       dueUtc: '2026-08-29T11:59:59.000Z',
-      timezone: 'UTC',
+      timezone: 'AoE',
       dueSource: 'timestamp',
       key: 'abstract-registration',
     });
+    expect(result.deadlines[0].kind).toBe('abstract');
     expect(result.deadlines[1].kind).toBe('paper');
     expect(result.deadlines.at(-1)?.dueUtc).toBe('2026-12-02T19:00:00.000Z');
+    expect(result.deadlines.at(-1)?.timezone).toBe('America/Los_Angeles');
+    expect(result.editionDates).toEqual({ start: '2027-04-06', end: '2027-04-09' });
     expect(result.warnings).toEqual([]);
   });
 

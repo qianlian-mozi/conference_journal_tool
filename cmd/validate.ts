@@ -6,11 +6,12 @@
  * 1. schema（由 core/load 的 zod 解析完成）
  * 2. 领域归属、id 唯一性
  * 3. 时区合法，且 due + timezone 换算出的 UTC 与 due_utc 一致（容差 60 秒）
- * 4. 每条截止日期的 quote 必须能在其 snapshot_hash 对应的快照里逐字命中
+ * 4. edition 与每条截止日期的 quote 必须能在其 snapshot_hash 对应的快照里逐字命中
  * 5. 期刊（rolling）不得有截止日期
  * 6. registry 里的 venue 必须存在
  */
-import { loadFieldPacks, loadRegistry, loadVenues, readSnapshot } from '../core/load.ts';
+import { loadFieldPacks, loadRegistry, loadVenues } from '../core/load.ts';
+import { snapshotEvidenceError } from '../acquire/evidence.ts';
 import type { Venue } from '../core/schema.ts';
 import { isValidTimeZone, localToUtcIso, sameInstant } from '../core/time.ts';
 
@@ -51,6 +52,14 @@ function checkVenue(venue: Venue, fieldIds: Set<string>): void {
       fail(`${where}: 期刊为滚动投稿，edition "${edition.id}" 不应有截止日期`);
     }
 
+    if (edition.deadlines.length > 0 && edition.evidence.length === 0) {
+      fail(`${where}: ${edition.id} 有截止日期但缺少 edition 级 evidence`);
+    }
+    for (const evidence of edition.evidence) {
+      const problem = snapshotEvidenceError(venue.id, evidence);
+      if (problem) fail(`${where}: ${edition.id}/evidence ${problem}`);
+    }
+
     for (const deadline of edition.deadlines) {
       const label = `${where}: ${edition.id}/${deadline.id}`;
 
@@ -78,23 +87,8 @@ function checkVenue(venue: Venue, fieldIds: Set<string>): void {
         );
       }
 
-      const hash = deadline.evidence.snapshot_hash;
-      if (!hash) {
-        fail(`${label}: evidence 缺少 snapshot_hash，无法回验 quote`);
-        continue;
-      }
-
-      const snapshot = readSnapshot(venue.id, hash);
-      if (snapshot === null) {
-        fail(`${label}: 缺少快照文件 data/snapshots/${venue.id}/${hash}.txt`);
-        continue;
-      }
-
-      const haystack = snapshot.replace(/\s+/g, ' ');
-      const needle = deadline.evidence.quote.replace(/\s+/g, ' ');
-      if (!haystack.includes(needle)) {
-        fail(`${label}: quote 未能在快照中命中：「${deadline.evidence.quote}」`);
-      }
+      const problem = snapshotEvidenceError(venue.id, deadline.evidence);
+      if (problem) fail(`${label}: ${problem}`);
     }
   }
 }

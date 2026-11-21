@@ -60,12 +60,12 @@ function compact(input: string): string {
 export function classifyDeadline(label: string): DeadlineKind {
   const value = label.toLowerCase();
   if (value.includes('workshop')) return 'other';
+  if (value.includes('abstract')) return 'abstract';
   if (value.includes('registration')) return 'registration';
   if (value.includes('supplement')) return 'supplement';
   if (value.includes('rebuttal')) return 'rebuttal';
   if (value.includes('camera')) return 'camera_ready';
   if (value.includes('decision') || value.includes('notification')) return 'notification';
-  if (value.includes('abstract')) return 'abstract';
   if (value.includes('submission') || value.includes('paper')) return 'paper';
   return 'other';
 }
@@ -86,7 +86,7 @@ export function deadlineKey(label: string): string {
  */
 export function isRelevantLabel(label: string): boolean {
   const normalized = label.replace(/\s+/g, ' ').trim();
-  if (/sponsor|careers|registration open|portal|archival|program guide|author metadata/i.test(normalized)) {
+  if (/sponsor|careers|registration open|portal|archival|program guide|author metadata|paper submission (site|server|system) (?:opens?|launch)/i.test(normalized)) {
     return false;
   }
   if (/\b(ACs?|SACs?)\b|meta-?review/i.test(normalized)) return false;

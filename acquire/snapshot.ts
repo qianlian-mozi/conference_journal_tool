@@ -3,7 +3,7 @@
  *
  * 为什么不是直接存 HTML：
  * - 官网模板一变，原始 HTML 差异巨大，但正文往往没变；规范化后 hash 才稳定。
- * - quote 回验只需要正文，不需要标签。
+ * - quote 回验需要正文；对依赖倒计时属性的页面，还要保留机器可读时间戳。
  */
 import { createHash } from 'node:crypto';
 
@@ -50,6 +50,12 @@ function decodeEntities(input: string): string {
 export function htmlToText(html: string): string {
   let text = html
     .replace(/<!--[\s\S]*?-->/g, ' ')
+    // data-countdown 是部分页面唯一的精确时刻来源；以明确的文本行保留进快照，
+    // 让 due_source=timestamp 的 evidence.quote 同时证明标签、日期与倒计时。
+    .replace(
+      /<[a-zA-Z][^>]*\sdata-countdown\s*=\s*(["'])(.*?)\1[^>]*>/gi,
+      (_whole, _quote, value: string) => `\n[data-countdown="${value}"]\n`,
+    )
     .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
     .replace(/<noscript\b[\s\S]*?<\/noscript>/gi, ' ')

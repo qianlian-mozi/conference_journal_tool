@@ -60,6 +60,18 @@ describe('htmlToText', () => {
     expect(text).toContain("Nov 16 '26 (Anywhere on Earth)");
     expect(text).not.toContain('<script');
   });
+
+  it('保留 countdown 时间戳，让 timestamp 证据可以回验', () => {
+    const text = htmlToText(
+      '<table><tr><th>Paper Submission</th><td>Aug 28, 2026</td><td><span class="countdown" data-countdown="2026/08/29 11:59:59 +0000"></span></td></tr></table>',
+    );
+    expect(
+      snapshotContainsQuote(
+        text,
+        'Paper Submission Aug 28, 2026 [data-countdown="2026/08/29 11:59:59 +0000"]',
+      ),
+    ).toBe(true);
+  });
 });
 
 describe('snapshotContainsQuote', () => {
@@ -134,6 +146,7 @@ describe('classifyDeadline / isRelevantLabel', () => {
     expect(isRelevantLabel('Competition Acceptance Notification')).toBe(false);
     expect(isRelevantLabel('Child Care Registration Deadline')).toBe(false);
     expect(isRelevantLabel('Paper Location Assignment Notifications')).toBe(false);
+    expect(isRelevantLabel('Paper Submission Site Opens')).toBe(false);
     expect(isRelevantLabel('Early Registration Deadline')).toBe(true);
   });
 });

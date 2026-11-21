@@ -203,7 +203,7 @@ editions:
 
 ### 5.2 关键约束（由校验器强制）
 
-- `deadline.evidence.quote` 必须是对应 `snapshot_hash` 快照文本的子串；否则校验失败。
+- `edition.evidence[].quote` 与 `deadline.evidence.quote` 必须是对应 `snapshot_hash` 快照文本的子串；否则校验失败。
 - `due` 必须能由 `raw_text` + `timezone` 推导出一致结果（防止手改 due 忘了改原文）。
 - `status: tentative` 的 deadline 必须带 `tentative_reason`（例如"官方 CFP 未发布，来自第三方 tracker"）。
 - 同一 edition 的 deadline `kind` 不应重复（允许覆盖时用 `superseded_by`）。

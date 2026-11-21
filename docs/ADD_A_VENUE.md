@@ -87,7 +87,7 @@ editions: []
 `adapter: thecvf` 与 `adapter: table-dates` 的信源能直接走现有自动抽取：
 
 - `thecvf`：CVF / NeurIPS 同模板，识别表格行和脚本里的 UTC 倒计时变量；
-- `table-dates`：3DV 这类 `<th>/<td>` 日期表，只接受行内 `data-countdown` 的显式 UTC/offset 时间戳，输出 `timezone: UTC`。缺少可解析时间戳的相关行会跳过并警告，不会从纯文本猜时区。
+- `table-dates`：3DV 这类 `<th>/<td>` 日期表，只接受行内 `data-countdown` 的显式 UTC/offset 时间戳；快照会保留该属性作为时刻证据。页面明示 AoE / Pacific Time 且本地时间换算与 countdown 完全一致时，保留官网本地时区，否则使用 UTC。缺少可解析时间戳的相关行会跳过并警告；若这会导致删除既有日期，`--write` 整体拒绝写入。
 
 ```bash
 npm run update:dry -- --venue eccv   # 看看会抽出什么，不落盘

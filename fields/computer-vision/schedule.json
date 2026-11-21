@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "field_id": "computer-vision",
+  "editions": [
+    {
+      "id": "cvpr-2027",
+      "venue_id": "cvpr",
+      "year": 2027,
+      "label": "CVPR 2027",
+      "official_url": "https://cvpr.thecvf.com/Conferences/2027",
+      "evidence": [
+        {
+          "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": "iccv-2027",
+      "venue_id": "iccv",
+      "year": 2027,
+      "label": "ICCV 2027",
+      "official_url": "https://iccv.thecvf.com/",
+      "evidence": [
+        {
+          "url": "https://iccv.thecvf.com/",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    }
+  ],
+  "deadlines": [
+    {
+      "id": "cvpr-2027-submission",
+      "edition_id": "cvpr-2027",
+      "kind": "paper",
+      "raw_text": "Submission Deadline Nov 16 '26 (Anywhere on Earth); Date is fixed, no extension will be given",
+      "due_local": "2026-11-16T23:59:59",
+      "timezone": "Etc/GMT+12",
+      "status": "scheduled",
+      "evidence": [
+        {
+          "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": "cvpr-2027-supplementary",
+      "edition_id": "cvpr-2027",
+      "kind": "supplement",
+      "raw_text": "Supplementary Materials Deadline Nov 23 '26 (Anywhere on Earth)",
+      "due_local": "2026-11-23T23:59:59",
+      "timezone": "Etc/GMT+12",
+      "status": "scheduled",
+      "evidence": [
+        {
+          "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": "cvpr-2027-reviews",
+      "edition_id": "cvpr-2027",
+      "kind": "other",
+      "raw_text": "Reviews Released Jan 25 '27 (Anywhere on Earth)",
+      "due_local": "2027-01-25T23:59:59",
+      "timezone": "Etc/GMT+12",
+      "status": "scheduled",
+      "evidence": [
+        {
+          "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": "cvpr-2027-rebuttal-end",
+      "edition_id": "cvpr-2027",
+      "kind": "rebuttal",
+      "raw_text": "Rebuttal Period January 25 - February 1, 2027 AOE",
+      "due_local": "2027-02-01T23:59:59",
+      "timezone": "Etc/GMT+12",
+      "status": "scheduled",
+      "evidence": [
+        {
+          "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": "cvpr-2027-decision",
+      "edition_id": "cvpr-2027",
+      "kind": "notification",
+      "raw_text": "Final Decisions Feb 25 '27 (Anywhere on Earth)",
+      "due_local": "2027-02-25T23:59:59",
+      "timezone": "Etc/GMT+12",
+      "status": "scheduled",
+      "evidence": [
+        {
+          "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": "iccv-2027-submission",
+      "edition_id": "iccv-2027",
+      "kind": "paper",
+      "raw_text": "Paper deadline March 5, 2027 (tentative, per third-party tracker; official CFP not yet published)",
+      "due_local": "2027-03-05T23:59:59",
+      "timezone": "Etc/GMT+12",
+      "status": "tentative",
+      "evidence": [
+        {
+          "url": "https://iccv.thecvf.com/",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    }
+  ]
+}

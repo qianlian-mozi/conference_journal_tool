@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "field_id": "computer-vision",
+  "venues": [
+    {
+      "id": "cvpr",
+      "slug": "cvpr",
+      "name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+      "short_name": "CVPR",
+      "type": "conference",
+      "official_url": "https://cvpr.thecvf.com/",
+      "field_ids": ["computer-vision"],
+      "evidence": [
+        {
+          "url": "https://cvpr.thecvf.com/",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": "iccv",
+      "slug": "iccv",
+      "name": "IEEE/CVF International Conference on Computer Vision",
+      "short_name": "ICCV",
+      "type": "conference",
+      "official_url": "https://iccv.thecvf.com/",
+      "field_ids": ["computer-vision"],
+      "evidence": [
+        {
+          "url": "https://iccv.thecvf.com/",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": "eccv",
+      "slug": "eccv",
+      "name": "European Conference on Computer Vision",
+      "short_name": "ECCV",
+      "type": "conference",
+      "official_url": "https://eccv.ecva.net/",
+      "field_ids": ["computer-vision"],
+      "evidence": [
+        {
+          "url": "https://eccv.ecva.net/",
+          "last_verified_at": "2026-11-20"
+        }
+      ]
+    }
+  ]
+}

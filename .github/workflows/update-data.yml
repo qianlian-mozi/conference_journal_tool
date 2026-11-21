@@ -1,0 +1,98 @@
+name: Update venue data
+
+on:
+  # 每周一 02:00 UTC 跑一次；临近期可改成每天。
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # 先确认现有数据是干净的，再抓取；避免在坏数据上继续叠加。
+      - run: npm run validate
+
+      - name: Fetch official pages and update data
+        run: npm run update
+
+      - name: Re-validate after update
+        run: npm run validate
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet -- data/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "没有数据变更。"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat -- data/
+          fi
+
+      - name: Build PR body
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          {
+            echo "## 自动更新 $(date -u +%F)"
+            echo
+            echo "由 \`npm run update\` 抓取官方 Dates 页生成。每条日期的 \`evidence.quote\` 都已通过快照回验。"
+            echo
+            echo "### 变更"
+            echo
+            echo '```diff'
+            git diff --unified=2 -- data/venues data/fields
+            echo '```'
+            echo
+            echo "### 校验"
+            echo
+            echo "- \`npm run validate\`：通过"
+            echo "- 快照 hash 对应的页面文本已随本次提交写入 \`data/snapshots/\`"
+          } > pr-body.md
+
+      - name: Create pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          branch="data/auto/$(date -u +%Y-%m-%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$branch"
+          git add data/
+          git commit -m "data: 自动更新 $(date -u +%F)"
+          git push -u origin "$branch"
+
+          gh pr create \
+            --title "data: 自动更新 $(date -u +%F)" \
+            --body-file pr-body.md \
+            --base "${{ github.event.repository.default_branch }}" \
+            --head "$branch"
+
+      - name: Enable auto-merge (optional)
+        # 只有仓库变量 AUTO_MERGE=true 时才自动合并。
+        # 建议先开着观察几周，确认没有误判再打开。
+        if: steps.diff.outputs.changed == 'true' && vars.AUTO_MERGE == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          branch="data/auto/$(date -u +%Y-%m-%d)"
+          gh pr merge --auto --squash "$branch"

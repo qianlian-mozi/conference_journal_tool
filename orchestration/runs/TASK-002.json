@@ -1,0 +1,41 @@
+{
+  "task_id": "TASK-002",
+  "date": "2026-11-20",
+  "status": "done",
+  "attempts": 1,
+  "planner": "Kimi K3.1 Pro",
+  "executor_model_requested": "HY4 Flash",
+  "executor_route_accepted": true,
+  "execution_mode": "background_with_main_supervision",
+  "executor_duration_ms": 211685,
+  "executor_changed_files": [
+    "scripts/validate-schedule.mjs",
+    "tests/validate-schedule.test.mjs",
+    "examples/computer-vision/schedule.example.json"
+  ],
+  "scope_violations": [],
+  "executor_reported_deviations": [],
+  "planner_verification": {
+    "files_inspected": true,
+    "tests": [
+      {
+        "command": "node --test tests/validate-schedule.test.mjs",
+        "exit_code": 0,
+        "passed": 13,
+        "failed": 0
+      },
+      {
+        "command": "node scripts/validate-schedule.mjs examples/computer-vision/schedule.example.json",
+        "exit_code": 0
+      },
+      {
+        "command": "node --test tests/validate-field-pack.test.mjs",
+        "exit_code": 0,
+        "passed": 4,
+        "failed": 0
+      }
+    ],
+    "acceptance_passed": true
+  },
+  "notes": "主任务在后台子代理运行期间保持监督并完成既有测试回归。Schedule 样例明确虚构，仅用于校验，不是实际会议日期。"
+}

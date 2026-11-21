@@ -1,0 +1,25 @@
+schema_version: 2
+sources:
+  - venue_id: cvpr
+    adapter: thecvf
+    cadence: daily
+    pages:
+      - role: dates
+        url: https://cvpr.thecvf.com/Conferences/2027/Dates
+    cross_check: []
+
+  - venue_id: iccv
+    adapter: thecvf
+    cadence: daily
+    pages:
+      - role: dates
+        url: https://iccv.thecvf.com/Conferences/2027/Dates
+    cross_check: []
+
+  - venue_id: wacv
+    adapter: thecvf
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://wacv.thecvf.com/Conferences/2027/Dates
+    cross_check: []

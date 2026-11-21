@@ -1,0 +1,13 @@
+schema_version: 2
+id: iccv
+type: conference
+names:
+  short: ICCV
+  full: IEEE/CVF International Conference on Computer Vision
+field_ids:
+  - computer-vision
+official_url: https://iccv.thecvf.com/
+publisher: IEEE / CVF
+submission_model: fixed
+qualifications: []
+editions: []

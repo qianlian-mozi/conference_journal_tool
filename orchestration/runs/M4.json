@@ -1,0 +1,45 @@
+{
+  "milestone": "M4",
+  "date": "2026-11-20",
+  "goal": "核实并写入真实届次与截止日期，按新粒度复验 HY4-FLASH 执行",
+  "status": "completed",
+  "data_verified": {
+    "cvpr-2027": {
+      "location": "Seattle, USA",
+      "dates": "2027-06-20 至 2027-06-25",
+      "source": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+      "deadlines": [
+        "submission 2026-11-16 AoE (已截止)",
+        "supplementary 2026-11-23 AoE",
+        "reviews 2027-01-25",
+        "rebuttal-end 2027-02-01",
+        "decision 2027-02-25"
+      ]
+    },
+    "iccv-2027": {
+      "location": "Hong Kong",
+      "dates": "2027-10-02 至 2027-10-08",
+      "source": "https://iccv.thecvf.com/",
+      "deadlines": ["submission 2027-03-05 (tentative, 官方 CFP 未公布)"]
+    },
+    "eccv": "下一届 ECCV 2028 官方信息尚未公布，暂不写入"
+  },
+  "files_changed": [
+    "orchestration/DATA_CONTRACT.md",
+    "fields/computer-vision/schedule.json",
+    "src/data.ts",
+    "src/components/VenueDetail.tsx",
+    "src/styles.css",
+    "src/data.test.ts"
+  ],
+  "verification": {
+    "schedule_validation": "node scripts/validate-schedule.mjs fields/computer-vision/schedule.json -> exit 0",
+    "tests": { "command": "npm test", "passed": 16, "failed": 0 },
+    "build": { "command": "npm run build", "exit_code": 0 }
+  },
+  "hy4_flash_recheck": {
+    "task": "单文件 data.test.ts + 单命令 vitest",
+    "result": "成功，5/5 通过",
+    "conclusion": "单文件/单命令粒度下 HY4-FLASH 后台执行稳定，验证 D011 结论"
+  }
+}

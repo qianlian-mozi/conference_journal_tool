@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "milestone_complete",
+  "active_milestone": {
+    "id": "M4",
+    "goal": "核实并写入真实届次与截止日期，按新粒度复验 HY4-FLASH",
+    "status": "completed"
+  },
+  "current_task": null,
+  "completed_tasks": ["TASK-001", "TASK-002", "TASK-003", "TASK-004", "M4"],
+  "queue": [],
+  "attempts": {
+    "TASK-001": 1,
+    "TASK-002": 1,
+    "TASK-003": 1,
+    "TASK-004": 1
+  },
+  "last_checkpoint": "2026-11-20:M4-verified",
+  "stop_reason": "M4 完成：真实数据已核实写入并通过校验，HY4-FLASH 单文件粒度复验成功",
+  "resume_action": "规划 M5：接入用户自有 API Key 的信息采集与核验能力，或扩充更多 CV 会议/期刊"
+}

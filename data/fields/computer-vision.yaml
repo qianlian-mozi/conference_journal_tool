@@ -1,0 +1,11 @@
+schema_version: 2
+id: computer-vision
+slug: computer-vision
+names:
+  zh: 计算机视觉
+  en: Computer Vision
+status: active
+description_zh: 首个开放领域。核心系统保持领域无关，新增领域通过新增本文件与对应 venue 数据接入。
+qualification_systems:
+  - ccf
+  - core

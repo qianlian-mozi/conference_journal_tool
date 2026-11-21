@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "field_id": "computer-vision",
+  "editions": [
+    {
+      "id": "example-cv-conference-2099",
+      "venue_id": "example-cv-conference",
+      "year": 2099,
+      "label": "Example CV Conference 2099 (Fictional)",
+      "official_url": "https://example.com/example-cv-conference-2099",
+      "evidence": [
+        {
+          "url": "https://example.com/example-cv-conference-2099/official",
+          "last_verified_at": "2099-01-15"
+        }
+      ]
+    }
+  ],
+  "deadlines": [
+    {
+      "id": "example-cv-conference-2099-paper",
+      "edition_id": "example-cv-conference-2099",
+      "kind": "paper",
+      "raw_text": "Fictional paper deadline: 2099-03-01 23:59:59 UTC",
+      "due_local": "2099-03-01T23:59:59",
+      "timezone": "Etc/UTC",
+      "status": "scheduled",
+      "evidence": [
+        {
+          "url": "https://example.com/example-cv-conference-2099/paper-deadline",
+          "last_verified_at": "2099-01-15"
+        }
+      ]
+    }
+  ]
+}

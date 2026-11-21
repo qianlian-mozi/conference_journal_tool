@@ -1,0 +1,135 @@
+schema_version: 2
+id: wacv
+type: conference
+names:
+  short: WACV
+  full: IEEE/CVF Winter Conference on Applications of Computer Vision
+field_ids:
+  - computer-vision
+official_url: https://wacv.thecvf.com/
+publisher: IEEE / CVF
+submission_model: fixed
+qualifications: []
+editions:
+  - id: wacv-2027
+    year: 2027
+    label: WACV 2027
+    official_url: https://wacv.thecvf.com/Conferences/2027
+    evidence:
+      - url: https://wacv.thecvf.com/Conferences/2027/Dates
+        quote: Dates and Deadlines
+        fetched_at: 2026-11-21
+        snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
+    deadlines:
+      - id: wacv-2027-early-registration-deadline
+        kind: registration
+        label: Early Registration Deadline
+        raw_text: Early Registration Deadline Nov 08 '26 04:59 AM UTC
+        due: 2026-11-08T04:59:00
+        timezone: UTC
+        due_utc: 2026-11-08T04:59:00.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://wacv.thecvf.com/Conferences/2027/Dates
+          quote: Early Registration Deadline Nov 08 '26 04:59 AM UTC
+          fetched_at: 2026-11-21
+          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
+      - id: wacv-2027-round-1-paper-registration-deadline
+        kind: registration
+        label: Round 1 Paper Registration Deadline
+        raw_text: Round 1 Paper Registration Deadline Jun 19 '26 (Anywhere on Earth)
+        due: 2026-06-19T23:59:59
+        timezone: AoE
+        due_utc: 2026-06-20T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://wacv.thecvf.com/Conferences/2027/Dates
+          quote: Round 1 Paper Registration Deadline Jun 19 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
+      - id: wacv-2027-round-1-paper-submission-deadline
+        kind: paper
+        label: Round 1 Paper Submission Deadline
+        raw_text: Round 1 Paper Submission Deadline Jun 26 '26 (Anywhere on Earth)
+        due: 2026-06-26T23:59:59
+        timezone: AoE
+        due_utc: 2026-06-27T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://wacv.thecvf.com/Conferences/2027/Dates
+          quote: Round 1 Paper Submission Deadline Jun 26 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
+      - id: wacv-2027-round-1-supplementary-material
+        kind: supplement
+        label: Round 1 Supplementary Material
+        raw_text: Round 1 Supplementary Material Jun 28 '26 (Anywhere on Earth)
+        due: 2026-06-28T23:59:59
+        timezone: AoE
+        due_utc: 2026-06-29T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://wacv.thecvf.com/Conferences/2027/Dates
+          quote: Round 1 Supplementary Material Jun 28 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
+      - id: wacv-2027-round-2-reviews-and-final-decisions-to-authors
+        kind: notification
+        label: Round 2 Reviews and Final Decisions to Authors
+        raw_text: Round 2 Reviews and Final Decisions to Authors Oct 14 '26 (Anywhere on Earth)
+        due: 2026-10-14T23:59:59
+        timezone: AoE
+        due_utc: 2026-10-15T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://wacv.thecvf.com/Conferences/2027/Dates
+          quote: Round 2 Reviews and Final Decisions to Authors Oct 14 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
+      - id: wacv-2027-round-1-final-decisions-released-to-authors
+        kind: notification
+        label: Round 1 Final Decisions Released to Authors
+        raw_text: Round 1 Final Decisions Released to Authors Oct 14 '26 (Anywhere on Earth)
+        due: 2026-10-14T23:59:59
+        timezone: AoE
+        due_utc: 2026-10-15T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://wacv.thecvf.com/Conferences/2027/Dates
+          quote: Round 1 Final Decisions Released to Authors Oct 14 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
+      - id: wacv-2027-camera-ready-both-rounds
+        kind: camera_ready
+        label: Camera Ready Both Rounds
+        raw_text: Camera Ready Both Rounds Nov 02 '26 (Anywhere on Earth)
+        due: 2026-11-02T23:59:59
+        timezone: AoE
+        due_utc: 2026-11-03T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://wacv.thecvf.com/Conferences/2027/Dates
+          quote: Camera Ready Both Rounds Nov 02 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
+      - id: wacv-2027-workshop-acceptance-notification
+        kind: other
+        label: Workshop Acceptance Notification
+        raw_text: Workshop Acceptance Notification Aug 16 '26
+        due: 2026-08-16T23:59:59
+        timezone: AoE
+        due_utc: 2026-08-17T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://wacv.thecvf.com/Conferences/2027/Dates
+          quote: Workshop Acceptance Notification Aug 16 '26
+          fetched_at: 2026-11-21
+          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb

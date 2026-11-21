@@ -1,0 +1,124 @@
+schema_version: 2
+id: cvpr
+type: conference
+names:
+  short: CVPR
+  full: IEEE/CVF Conference on Computer Vision and Pattern Recognition
+field_ids:
+  - computer-vision
+official_url: https://cvpr.thecvf.com/
+publisher: IEEE / CVF
+submission_model: fixed
+qualifications: []
+editions:
+  - id: cvpr-2027
+    year: 2027
+    label: CVPR 2027
+    dates:
+      start: 2027-06-22
+      end: 2027-06-24
+    official_url: https://cvpr.thecvf.com/Conferences/2027
+    evidence:
+      - url: https://cvpr.thecvf.com/Conferences/2027/Dates
+        quote: Dates and Deadlines
+        fetched_at: 2026-11-21
+        snapshot_hash: bf9325da345377afac7cd9df414f8c15d69c1a473302cbe312aff37335536432
+    deadlines:
+      - id: cvpr-2027-paper-registration-deadline
+        kind: registration
+        label: Paper Registration Deadline
+        raw_text: Paper Registration Deadline Nov 10 '26 (Anywhere on Earth)
+        due: 2026-11-10T23:59:59
+        timezone: AoE
+        due_utc: 2026-11-11T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://cvpr.thecvf.com/Conferences/2027/Dates
+          quote: Paper Registration Deadline Nov 10 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: bf9325da345377afac7cd9df414f8c15d69c1a473302cbe312aff37335536432
+      - id: cvpr-2027-submission-deadline
+        kind: paper
+        label: Submission Deadline
+        raw_text: Submission Deadline Nov 16 '26 (Anywhere on Earth)
+        due: 2026-11-16T23:59:59
+        timezone: AoE
+        due_utc: 2026-11-17T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://cvpr.thecvf.com/Conferences/2027/Dates
+          quote: Submission Deadline Nov 16 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: bf9325da345377afac7cd9df414f8c15d69c1a473302cbe312aff37335536432
+      - id: cvpr-2027-supplementary-materials-deadline
+        kind: supplement
+        label: Supplementary Materials Deadline
+        raw_text: Supplementary Materials Deadline Nov 23 '26 (Anywhere on Earth)
+        due: 2026-11-23T23:59:59
+        timezone: AoE
+        due_utc: 2026-11-24T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://cvpr.thecvf.com/Conferences/2027/Dates
+          quote: Supplementary Materials Deadline Nov 23 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: bf9325da345377afac7cd9df414f8c15d69c1a473302cbe312aff37335536432
+      - id: cvpr-2027-final-decisions
+        kind: notification
+        label: Final Decisions
+        raw_text: Final Decisions Feb 25 '27 (Anywhere on Earth)
+        due: 2027-02-25T23:59:59
+        timezone: AoE
+        due_utc: 2027-02-26T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://cvpr.thecvf.com/Conferences/2027/Dates
+          quote: Final Decisions Feb 25 '27 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: bf9325da345377afac7cd9df414f8c15d69c1a473302cbe312aff37335536432
+      - id: cvpr-2027-reviews-released
+        kind: other
+        label: Reviews Released
+        raw_text: Reviews Released Jan 25 '27 (Anywhere on Earth)
+        due: 2027-01-25T23:59:59
+        timezone: AoE
+        due_utc: 2027-01-26T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://cvpr.thecvf.com/Conferences/2027/Dates
+          quote: Reviews Released Jan 25 '27 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: bf9325da345377afac7cd9df414f8c15d69c1a473302cbe312aff37335536432
+      - id: cvpr-2027-reviews-due
+        kind: other
+        label: Reviews due
+        raw_text: Reviews due Jan 08 '27
+        due: 2027-01-08T08:00:00
+        timezone: AoE
+        due_utc: 2027-01-08T20:00:00.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://cvpr.thecvf.com/Conferences/2027/Dates
+          quote: Reviews due Jan 08 '27
+          fetched_at: 2026-11-21
+          snapshot_hash: bf9325da345377afac7cd9df414f8c15d69c1a473302cbe312aff37335536432
+      - id: cvpr-2027-author-rebuttals-due
+        kind: rebuttal
+        label: Author rebuttals due
+        raw_text: Author rebuttals due Feb 01 '27
+        due: 2027-02-01T08:00:00
+        timezone: AoE
+        due_utc: 2027-02-01T20:00:00.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://cvpr.thecvf.com/Conferences/2027/Dates
+          quote: Author rebuttals due Feb 01 '27
+          fetched_at: 2026-11-21
+          snapshot_hash: bf9325da345377afac7cd9df414f8c15d69c1a473302cbe312aff37335536432

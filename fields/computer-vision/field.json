@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "computer-vision",
+  "slug": "computer-vision",
+  "name_zh": "计算机视觉",
+  "name_en": "Computer Vision",
+  "status": "active"
+}

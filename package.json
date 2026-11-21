@@ -17,6 +17,7 @@
     "update:dry": "node cmd/update.ts --dry-run",
     "audit:privacy": "node scripts/check-privacy.mjs",
     "query": "node cmd/query.ts",
+    "ask": "node cmd/ask.ts",
     "add-venue": "node cmd/add-venue.ts",
     "discover": "node cmd/discover.ts",
     "mcp": "node mcp/server.ts"

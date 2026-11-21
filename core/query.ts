@@ -99,6 +99,9 @@ export interface QueryOptions {
   withinDays?: number | null;
   openOnly?: boolean;
   venueId?: string | null;
+  submissionModel?: 'fixed' | 'rolling' | null;
+  qualification?: { system: string; level: string } | null;
+  states?: Array<'open' | 'soon' | 'passed' | 'rolling' | 'unknown'> | null;
 }
 
 export interface VenueRow {
@@ -114,6 +117,16 @@ export function queryVenues(venues: Venue[], options: QueryOptions = {}, now = D
     .filter((venue) => (options.field ? venue.field_ids.includes(options.field) : true))
     .filter((venue) => (options.type ? venue.type === options.type : true))
     .filter((venue) => (options.venueId ? venue.id === options.venueId : true))
+    .filter((venue) => (options.submissionModel ? venue.submission_model === options.submissionModel : true))
+    .filter((venue) =>
+      options.qualification
+        ? venue.qualifications.some(
+            (item) =>
+              item.system.toLowerCase() === options.qualification!.system.toLowerCase() &&
+              item.level.toUpperCase() === options.qualification!.level.toUpperCase(),
+          )
+        : true,
+    )
     .map((venue) => {
       const picked = submitDeadline(venue, now);
       return {
@@ -125,6 +138,7 @@ export function queryVenues(venues: Venue[], options: QueryOptions = {}, now = D
       };
     })
     .filter((row) => {
+      if (options.states && options.states.length > 0 && !options.states.includes(row.state)) return false;
       if (options.openOnly && row.state !== 'open' && row.state !== 'soon' && row.state !== 'rolling') {
         return false;
       }

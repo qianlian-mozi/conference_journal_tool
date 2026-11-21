@@ -32,6 +32,7 @@ npm run validate     # 校验数据：schema、时区换算、原文回验
 npm run update:dry   # 抓官网，看看会改什么（不落盘，需要联网）
 npm run dev          # 本地货架式 Web 界面（按截止时间与状态排序）
 npm run query -- --within 90 --json  # 给脚本 / agent 的结构化查询
+npm run ask -- "未来三个月还能投的会议"  # 确定性自然语言筛选，不调用模型
 npm run add-venue -- https://example.org/2027/dates --id example --short EXAMPLE --full "Example Conference"  # 预览新 venue
 npm run discover -- bmvc                     # 在领域候选清单里找还没收录的 venue
 ```
@@ -142,6 +143,7 @@ docs/DISCOVER.md     候选发现与人工确认流程
 | `npm run discover -- <关键词>` | 在领域候选清单里找未收录的 venue，给出下一步 |
 | `npm run query -- --open --json` | 查询仍可投稿的 venue，保留全部届次与证据 |
 | `npm run query -- --venue cvpr --json` | 查询单个 venue 的全部日期 |
+| `npm run ask -- "<问题>"` | 自然语言筛选（确定性规则；未识别会明确拒绝） |
 | `npm run mcp` | 启动 MCP stdio server（`search_venues` / `get_venue` / `get_deadlines`） |
 | `npm run test:all` | 全部单元测试与旧版 CLI 集成测试 |
 
@@ -154,7 +156,7 @@ docs/DISCOVER.md     候选发现与人工确认流程
 - [x] **M2** GitHub Actions 定时 + PR 机器人
 - [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（当前 7 个会议 + 6 个 rolling 期刊）
 - [x] **M4** Web 界面首版：首页回答「接下来该投什么」
-- [ ] **M5** AI 层：自然语言筛选、变更摘要、论文→会议匹配（自带 key，默认关闭）
+- [ ] **M5** AI 层：✅ 确定性自然语言筛选基线（12 条测试）；⬜ 模型编译、变更摘要、论文→会议匹配（自带 key，默认关闭）
 - [ ] **M6** 发布 v0.1.0：CLI 打包、文档、贡献指南
 
 详见 [docs/PLAN.md](docs/PLAN.md)。

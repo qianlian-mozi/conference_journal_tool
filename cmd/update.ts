@@ -67,10 +67,12 @@ function buildDeadlines(
   snapshotText: string,
   snapshotHash: string,
   sourceUrl: string,
+  existing: Deadline[] = [],
 ): BuiltDeadlines {
   const deadlines: Deadline[] = [];
   const skipped: Array<{ label: string; reason: string }> = [];
   const usedIds = new Set<string>();
+  const previous = new Map(existing.map((item) => [item.id, item]));
 
   for (const item of extracted) {
     // quote 优先取「标签 + 日期」的连续文本；页面上若被其它内容隔开，退回只取日期文本。
@@ -95,6 +97,19 @@ function buildDeadlines(
     }
     usedIds.add(id);
 
+    // 值没变就沿用原来的证据（含 fetched_at 与旧快照哈希）：
+    // 否则每次抓取都会改 fetched_at，导致「没有任何真实变更」也开一个 PR。
+    const prev = previous.get(id);
+    const evidence =
+      prev && prev.due_utc === item.dueUtc && prev.raw_text === quote
+        ? prev.evidence
+        : {
+            url: sourceUrl,
+            quote,
+            fetched_at: todayIso(),
+            snapshot_hash: snapshotHash,
+          };
+
     deadlines.push({
       id,
       kind: item.kind,
@@ -105,12 +120,7 @@ function buildDeadlines(
       due_utc: item.dueUtc,
       due_source: item.dueSource,
       status: 'confirmed',
-      evidence: {
-        url: sourceUrl,
-        quote,
-        fetched_at: todayIso(),
-        snapshot_hash: snapshotHash,
-      },
+      evidence,
     });
   }
 
@@ -206,15 +216,16 @@ async function main(): Promise<void> {
 
     const editionId = `${source.venue_id}-${year}`;
     const editionUrl = editionUrlFromDatesUrl(page.url);
+    const existingEdition = loaded.data.editions.find((entry) => entry.id === editionId);
     const built = buildDeadlines(
       editionId,
       result.deadlines,
       snapshotText,
       snapshotHash,
       page.url,
+      existingEdition?.deadlines ?? [],
     );
 
-    const existingEdition = loaded.data.editions.find((entry) => entry.id === editionId);
     const diff = diffDeadlines(existingEdition?.deadlines ?? [], built.deadlines);
 
     console.log(`  快照 ${snapshotHash.slice(0, 12)}…  行 ${result.deadlines.length} 条`);
@@ -251,21 +262,33 @@ async function main(): Promise<void> {
     mkdirSync(dirname(snapshotFile), { recursive: true });
     writeFileSync(snapshotFile, snapshotText, 'utf8');
 
+    // 页面哈希没变时沿用原证据，避免只改 fetched_at 造成无意义的 diff。
+    const previousEditionEvidence = existingEdition?.evidence?.[0];
+    const editionEvidence =
+      existingEdition && previousEditionEvidence?.snapshot_hash === snapshotHash
+        ? existingEdition.evidence
+        : [
+            {
+              url: page.url,
+              quote: 'Dates and Deadlines',
+              fetched_at: todayIso(),
+              snapshot_hash: snapshotHash,
+            },
+          ];
+
     const edition: Edition = {
       id: editionId,
       year,
       label: `${loaded.data.names.short} ${year}`,
       ...(existingEdition?.location ? { location: existingEdition.location } : {}),
-      ...(result.editionDates ? { dates: result.editionDates } : {}),
+      // 页面解析不出会期时保留已有值，不要因为一次解析失败把已知日期删掉。
+      ...(result.editionDates
+        ? { dates: result.editionDates }
+        : existingEdition?.dates
+          ? { dates: existingEdition.dates }
+          : {}),
       official_url: editionUrl,
-      evidence: [
-        {
-          url: page.url,
-          quote: 'Dates and Deadlines',
-          fetched_at: todayIso(),
-          snapshot_hash: snapshotHash,
-        },
-      ],
+      evidence: editionEvidence,
       deadlines: built.deadlines,
     };
 

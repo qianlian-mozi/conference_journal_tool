@@ -90,6 +90,10 @@ export function isRelevantLabel(label: string): boolean {
     return false;
   }
   if (/\b(ACs?|SACs?)\b|meta-?review/i.test(normalized)) return false;
+  // 主会日期表常混入卫星活动与运营节点；它们不是本会议论文的投稿节点。
+  if (/affinity|child care|competition|tutorial|workshop|social|expo|educational resources|location assignment/i.test(normalized)) {
+    return false;
+  }
   return /abstract deadline|paper deadline|submission deadline|registration deadline|supplementary|reviews? released|reviews? due|author\s*-\s*reviewer discussion|author (response|rebuttal)|rebuttal period|final decisions?|notification|camera ready/i.test(
     normalized,
   );

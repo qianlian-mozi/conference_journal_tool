@@ -125,6 +125,15 @@ describe('classifyDeadline / isRelevantLabel', () => {
     expect(isRelevantLabel('Round 1  Paper  Submission  Deadline')).toBe(true);
     expect(isRelevantLabel('Final Decisions')).toBe(true);
   });
+
+  it('过滤卫星活动与运营节点，避免污染主会投稿时间线', () => {
+    expect(isRelevantLabel('Workshop Submission Deadline')).toBe(false);
+    expect(isRelevantLabel('Tutorial Submission Deadline')).toBe(false);
+    expect(isRelevantLabel('Competition Acceptance Notification')).toBe(false);
+    expect(isRelevantLabel('Child Care Registration Deadline')).toBe(false);
+    expect(isRelevantLabel('Paper Location Assignment Notifications')).toBe(false);
+    expect(isRelevantLabel('Early Registration Deadline')).toBe(true);
+  });
 });
 
 describe('extractTheCvf', () => {

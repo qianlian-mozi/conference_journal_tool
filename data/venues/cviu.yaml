@@ -1,0 +1,13 @@
+schema_version: 2
+id: cviu
+type: journal
+names:
+  short: CVIU
+  full: Computer Vision and Image Understanding
+field_ids:
+  - computer-vision
+official_url: https://www.sciencedirect.com/journal/computer-vision-and-image-understanding
+publisher: Elsevier
+submission_model: rolling
+qualifications: []
+editions: []

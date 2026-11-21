@@ -18,6 +18,7 @@
     "audit:privacy": "node scripts/check-privacy.mjs",
     "query": "node cmd/query.ts",
     "add-venue": "node cmd/add-venue.ts",
+    "discover": "node cmd/discover.ts",
     "mcp": "node mcp/server.ts"
   },
   "dependencies": {

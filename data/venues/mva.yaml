@@ -1,0 +1,13 @@
+schema_version: 2
+id: mva
+type: journal
+names:
+  short: MVA
+  full: Machine Vision and Applications
+field_ids:
+  - computer-vision
+official_url: https://link.springer.com/journal/00138
+publisher: Springer
+submission_model: rolling
+qualifications: []
+editions: []

@@ -4,7 +4,7 @@
 
 它不只是把会议列出来：**它自己盯着官网更新，并且每条日期都能追溯到官网页面上那一行原文。**
 
-> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / NeurIPS，以及 TPAMI / IJCV / IEEE TIP / Pattern Recognition 等 rolling 期刊。
+> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / NeurIPS，以及 TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA 等 rolling 期刊。
 
 ---
 
@@ -33,6 +33,7 @@ npm run update:dry   # 抓官网，看看会改什么（不落盘，需要联网
 npm run dev          # 本地货架式 Web 界面（按截止时间与状态排序）
 npm run query -- --within 90 --json  # 给脚本 / agent 的结构化查询
 npm run add-venue -- https://example.org/2027/dates --id example --short EXAMPLE --full "Example Conference"  # 预览新 venue
+npm run discover -- 3dv                     # 在领域候选清单里找还没收录的 venue
 ```
 
 没有任何账号、没有后端服务、没有数据库。数据就是仓库里的 YAML 文件。
@@ -117,14 +118,15 @@ editions:
 ```text
 core/         schema(zod)、时间与 AoE 换算、YAML 加载
 acquire/      抓取、快照、适配器、更新入口
-cmd/          validate / update / query / add-venue 命令
+cmd/          validate / update / query / add-venue / discover 命令
 mcp/          零依赖 MCP stdio server 与工具实现
-data/         fields/ 领域包、venues/ 数据、snapshots/ 快照
+data/         fields/ 领域包、venues/ 数据、snapshots/ 快照、discovery/ 候选清单
 sources/      registry.yaml 源登记表
 tests/        校验器与适配器测试（vitest）
 src/          React 货架式 Web 界面
 docs/PLAN.md  产品与技术规划 v2
 docs/ADD_A_VENUE.md  新 venue 接入手册
+docs/DISCOVER.md     候选发现与人工确认流程
 ```
 
 ---
@@ -137,6 +139,7 @@ docs/ADD_A_VENUE.md  新 venue 接入手册
 | `npm run update:dry` | 抓官网并打印将要发生的变更 |
 | `npm run update` | 抓官网并写回 YAML 与快照 |
 | `npm run add-venue -- <url> ...` | 预览新 venue 骨架 + 源登记（`--write` 落盘） |
+| `npm run discover -- <关键词>` | 在领域候选清单里找未收录的 venue，给出下一步 |
 | `npm run query -- --open --json` | 查询仍可投稿的 venue，保留全部届次与证据 |
 | `npm run query -- --venue cvpr --json` | 查询单个 venue 的全部日期 |
 | `npm run mcp` | 启动 MCP stdio server（`search_venues` / `get_venue` / `get_deadlines`） |
@@ -149,7 +152,7 @@ docs/ADD_A_VENUE.md  新 venue 接入手册
 - [x] **M0** 数据契约 v2 + 校验器（含原文回验）
 - [x] **M1** 一条真实链路：CVPR / ICCV / WACV 的采集、快照、抽取、写回
 - [x] **M2** GitHub Actions 定时 + PR 机器人
-- [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（当前 5 个会议 + 4 个 rolling 期刊）
+- [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（当前 5 个会议 + 6 个 rolling 期刊）
 - [x] **M4** Web 界面首版：首页回答「接下来该投什么」
 - [ ] **M5** AI 层：自然语言筛选、变更摘要、论文→会议匹配（自带 key，默认关闭）
 - [ ] **M6** 发布 v0.1.0：CLI 打包、文档、贡献指南

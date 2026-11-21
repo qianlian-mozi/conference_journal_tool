@@ -72,3 +72,19 @@ sources:
       - role: dates
         url: https://neurips.cc/Conferences/2026/Dates
     cross_check: []
+
+  - venue_id: cviu
+    adapter: manual
+    cadence: manual
+    pages:
+      - role: home
+        url: https://www.sciencedirect.com/journal/computer-vision-and-image-understanding
+    cross_check: []
+
+  - venue_id: mva
+    adapter: manual
+    cadence: manual
+    pages:
+      - role: home
+        url: https://link.springer.com/journal/00138
+    cross_check: []

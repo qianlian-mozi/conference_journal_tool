@@ -7,6 +7,17 @@
   },
   "venues": [
     {
+      "id": "cviu",
+      "type": "journal",
+      "short": "CVIU",
+      "full": "Computer Vision and Image Understanding",
+      "official_url": "https://www.sciencedirect.com/journal/computer-vision-and-image-understanding",
+      "publisher": "Elsevier",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    },
+    {
       "id": "cvpr",
       "type": "conference",
       "short": "CVPR",
@@ -276,6 +287,17 @@
       "short": "IJCV",
       "full": "International Journal of Computer Vision",
       "official_url": "https://link.springer.com/journal/11263",
+      "publisher": "Springer",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    },
+    {
+      "id": "mva",
+      "type": "journal",
+      "short": "MVA",
+      "full": "Machine Vision and Applications",
+      "official_url": "https://link.springer.com/journal/00138",
       "publisher": "Springer",
       "submission_model": "rolling",
       "qualifications": [],

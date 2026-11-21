@@ -1,0 +1,145 @@
+schema_version: 2
+field_id: computer-vision
+
+# 人工维护的候选清单：只放「官网可确认」的会议/期刊。
+# discover 不会自动抓搜索页，也不会自动写 data/venues。
+candidates:
+  - id: 3dv
+    names:
+      short: 3DV
+      full: International Conference on 3D Vision
+    type: conference
+    official_url: https://3dvconf.github.io/
+    aliases: [3dv, three-dimensional vision]
+    note: 2027 Dates 页可读，但当前没有通用 Dates 页适配器，先别自动接入
+
+  - id: eccv
+    names:
+      short: ECCV
+      full: European Conference on Computer Vision
+    type: conference
+    official_url: https://eccv.ecva.net/
+    publisher: ECVA
+    aliases: [eccv, european conference on computer vision]
+    note: 偶数年会议；下一届 2028，官网尚未公布 Dates
+
+  - id: bmvc
+    names:
+      short: BMVC
+      full: British Machine Vision Conference
+    type: conference
+    official_url: https://www.bmva.org/
+    publisher: BMVA
+    aliases: [bmvc, british machine vision conference]
+    note: 当届 Dates/CFP 页需人工确认
+
+  - id: miccai
+    names:
+      short: MICCAI
+      full: International Conference on Medical Image Computing and Computer-Assisted Intervention
+    type: conference
+    official_url: https://miccai.org/
+    publisher: MICCAI Society
+    aliases: [miccai, medical image computing]
+    note: 当届 Dates/CFP 页需人工确认
+
+  - id: icra
+    names:
+      short: ICRA
+      full: IEEE International Conference on Robotics and Automation
+    type: conference
+    official_url: https://www.ieee-ras.org/conferences-workshops/fully-sponsored/icra
+    publisher: IEEE RAS
+    aliases: [icra, robotics and automation]
+    note: 机器人旗舰会议；当届 Dates 页需人工确认
+
+  - id: corl
+    names:
+      short: CoRL
+      full: Conference on Robot Learning
+    type: conference
+    official_url: https://www.corl.org/
+    aliases: [corl, robot learning]
+    note: 当届 Dates/CFP 页需人工确认
+
+  - id: icip
+    names:
+      short: ICIP
+      full: IEEE International Conference on Image Processing
+    type: conference
+    official_url: https://ieeeicip.org/
+    publisher: IEEE SPS
+    aliases: [icip, image processing]
+    note: 当届 Dates/CFP 页需人工确认
+
+  - id: cviu
+    names:
+      short: CVIU
+      full: Computer Vision and Image Understanding
+    type: journal
+    official_url: https://www.sciencedirect.com/journal/computer-vision-and-image-understanding
+    publisher: Elsevier
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [cviu, computer vision and image understanding]
+
+  - id: ivc
+    names:
+      short: IVC
+      full: Image and Vision Computing
+    type: journal
+    official_url: https://www.sciencedirect.com/journal/image-and-vision-computing
+    publisher: Elsevier
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [ivc, image and vision computing]
+
+  - id: mva
+    names:
+      short: MVA
+      full: Machine Vision and Applications
+    type: journal
+    official_url: https://link.springer.com/journal/00138
+    publisher: Springer
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [mva, machine vision and applications]
+
+  - id: jrtip
+    names:
+      short: JRTIP
+      full: Journal of Real-Time Image Processing
+    type: journal
+    official_url: https://link.springer.com/journal/11554
+    publisher: Springer
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [jrtip, real-time image processing]
+
+  - id: tcsvt
+    names:
+      short: TCSVT
+      full: IEEE Transactions on Circuits and Systems for Video Technology
+    type: journal
+    official_url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=76
+    publisher: IEEE
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [tcsvt, circuits and systems for video technology]
+
+  - id: tmm
+    names:
+      short: TMM
+      full: IEEE Transactions on Multimedia
+    type: journal
+    official_url: https://signalprocessingsociety.org/publications-resources/ieee-transactions-multimedia
+    publisher: IEEE SPS
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [tmm, transactions on multimedia]

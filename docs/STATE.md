@@ -73,4 +73,4 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 
 1. 扩充 `data/discovery/computer-vision.yaml` 候选，并给候选补当届 Dates/CFP 页；只加人工确认过的官网。
 2. 扩展其他非 CVF 平台适配器（ACM、Springer、EasyChair 等），同时保持 quote 回验硬闸门。
-3. 继续补 M3 数据覆盖（目标 8–12 会议 + 4–6 期刊），再评估 M5 自然语言筛选与变更摘要。
+3. 继续补 M3 数据覆盖（目标 8–12 会议 + 4–6 期刊）。截至 2026-11-21 已有 7 个会议，第 8 个暂时被官网发布时间阻塞：ICPR 2028、ACM MM 2027、MICCAI 2027、ICRA 2027、BMVC 2027 的论文日期均尚未公布；它们已列入 discover 候选，公布后再接入。数据侧可先转 M5 的自然语言筛选。

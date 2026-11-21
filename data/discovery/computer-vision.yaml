@@ -78,6 +78,26 @@ candidates:
     aliases: [icip, image processing]
     note: 2027 官网 ARIA 日期表；全站节点统一声明 23:59 AoE
 
+  - id: icpr
+    names:
+      short: ICPR
+      full: International Conference on Pattern Recognition
+    type: conference
+    official_url: https://icpr2028.org/
+    publisher: IAPR
+    aliases: [icpr, pattern recognition]
+    note: 2028 官网 Important dates 仍为 “Will be available soon”（2026-11-21 核验）；日期公布后再补 source_url
+
+  - id: acm-mm
+    names:
+      short: ACM MM
+      full: ACM International Conference on Multimedia
+    type: conference
+    official_url: https://2027.acmmm.org/
+    publisher: ACM
+    aliases: [acm mm, acmmm, multimedia]
+    note: 2027 官网已公布会期 8–12 November 2027，但论文日期尚未发布（2026-11-21 核验）
+
   - id: cviu
     names:
       short: CVIU

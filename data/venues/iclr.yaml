@@ -1,0 +1,107 @@
+schema_version: 2
+id: iclr
+type: conference
+names:
+  short: ICLR
+  full: International Conference on Learning Representations
+field_ids:
+  - computer-vision
+official_url: https://iclr.cc/
+publisher: OpenReview
+submission_model: fixed
+qualifications: []
+editions:
+  - id: iclr-2027
+    year: 2027
+    label: ICLR 2027
+    official_url: https://iclr.cc/Conferences/2027
+    evidence:
+      - url: https://iclr.cc/Conferences/2027/Dates
+        quote: Dates and Deadlines
+        fetched_at: 2026-11-21
+        snapshot_hash: ed9084705fc7d780732549d2904c743039c79c3e3ec6c82ac4310a40134498bf
+    deadlines:
+      - id: iclr-2027-abstract-deadline
+        kind: abstract
+        label: Abstract Deadline
+        raw_text: Abstract Deadline Sep 18 '26 (Anywhere on Earth)
+        due: 2026-09-18T23:59:59
+        timezone: AoE
+        due_utc: 2026-09-19T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://iclr.cc/Conferences/2027/Dates
+          quote: Abstract Deadline Sep 18 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: ed9084705fc7d780732549d2904c743039c79c3e3ec6c82ac4310a40134498bf
+      - id: iclr-2027-paper-deadline
+        kind: paper
+        label: Paper Deadline
+        raw_text: Paper Deadline Sep 25 '26 (Anywhere on Earth)
+        due: 2026-09-25T23:59:59
+        timezone: AoE
+        due_utc: 2026-09-26T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://iclr.cc/Conferences/2027/Dates
+          quote: Paper Deadline Sep 25 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: ed9084705fc7d780732549d2904c743039c79c3e3ec6c82ac4310a40134498bf
+      - id: iclr-2027-reviews-released
+        kind: other
+        label: Reviews Released
+        raw_text: Reviews Released Nov 05 '26
+        due: 2026-11-05T23:59:59
+        timezone: AoE
+        due_utc: 2026-11-06T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://iclr.cc/Conferences/2027/Dates
+          quote: Reviews Released Nov 05 '26
+          fetched_at: 2026-11-21
+          snapshot_hash: ed9084705fc7d780732549d2904c743039c79c3e3ec6c82ac4310a40134498bf
+      - id: iclr-2027-author-reviewer-discussion-begins
+        kind: other
+        label: Author- Reviewer Discussion Begins
+        raw_text: Author- Reviewer Discussion Begins Nov 05 '26
+        due: 2026-11-05T23:59:59
+        timezone: AoE
+        due_utc: 2026-11-06T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://iclr.cc/Conferences/2027/Dates
+          quote: Author- Reviewer Discussion Begins Nov 05 '26
+          fetched_at: 2026-11-21
+          snapshot_hash: ed9084705fc7d780732549d2904c743039c79c3e3ec6c82ac4310a40134498bf
+      - id: iclr-2027-author-reviewer-discussion-ends
+        kind: other
+        label: Author- Reviewer Discussion Ends
+        raw_text: Author- Reviewer Discussion Ends Nov 18 '26
+        due: 2026-11-18T23:59:59
+        timezone: AoE
+        due_utc: 2026-11-19T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://iclr.cc/Conferences/2027/Dates
+          quote: Author- Reviewer Discussion Ends Nov 18 '26
+          fetched_at: 2026-11-21
+          snapshot_hash: ed9084705fc7d780732549d2904c743039c79c3e3ec6c82ac4310a40134498bf
+      - id: iclr-2027-final-decisions
+        kind: notification
+        label: Final Decisions
+        raw_text: Final Decisions Dec 16 '26
+        due: 2026-12-16T23:59:59
+        timezone: AoE
+        due_utc: 2026-12-17T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://iclr.cc/Conferences/2027/Dates
+          quote: Final Decisions Dec 16 '26
+          fetched_at: 2026-11-21
+          snapshot_hash: ed9084705fc7d780732549d2904c743039c79c3e3ec6c82ac4310a40134498bf

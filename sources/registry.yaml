@@ -23,3 +23,20 @@ sources:
       - role: dates
         url: https://wacv.thecvf.com/Conferences/2027/Dates
     cross_check: []
+
+  - venue_id: iclr
+    adapter: thecvf
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://iclr.cc/Conferences/2027/Dates
+    cross_check: []
+
+  # 期刊是滚动投稿，没有截止日期页；这里只登记官网入口。
+  - venue_id: tpami
+    adapter: manual
+    cadence: manual
+    pages:
+      - role: home
+        url: https://www.computer.org/csdl/journal/tp
+    cross_check: []

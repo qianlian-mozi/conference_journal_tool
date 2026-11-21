@@ -1,0 +1,13 @@
+schema_version: 2
+id: tpami
+type: journal
+names:
+  short: TPAMI
+  full: IEEE Transactions on Pattern Analysis and Machine Intelligence
+field_ids:
+  - computer-vision
+official_url: https://www.computer.org/csdl/journal/tp
+publisher: IEEE
+submission_model: rolling
+qualifications: []
+editions: []

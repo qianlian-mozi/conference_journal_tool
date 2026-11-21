@@ -184,6 +184,11 @@ async function main(): Promise<void> {
 
     const page = source.pages.find((entry) => entry.role === 'dates');
     if (!page) {
+      // 期刊是滚动投稿，本来就没有截止日期页；跳过而不是记失败。
+      if (loaded.data.submission_model === 'rolling') {
+        console.log(`\n[${source.venue_id}] 滚动投稿期刊，无截止日期页，跳过`);
+        continue;
+      }
       console.error(`✗ ${source.venue_id}: registry 里没有 role=dates 的页面`);
       failures += 1;
       continue;

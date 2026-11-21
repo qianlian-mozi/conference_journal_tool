@@ -80,15 +80,17 @@ export function deadlineKey(label: string): string {
 
 /**
  * 只收作者关心的节点。
- * 官网日期表里混着大量内部流程行（"ACs draft meta review due"、"SACs oversee…"），
- * 也有 workshop / archival 等旁支。它们有日期但对投稿决策没有意义，全部丢掉。
+ * 官网日期表里混着大量内部流程行（"ACs draft meta review due"）、赞助商行
+ * （"SponsorApplicationClose"）和运营行（"Careers Site Opens"），它们有日期
+ * 但对投稿决策没有意义，全部丢掉。
  */
 export function isRelevantLabel(label: string): boolean {
   const normalized = label.replace(/\s+/g, ' ').trim();
-  if (/meta|ACs?\b|SAC|archival|program guide|author metadata|triplet/i.test(normalized)) {
+  if (/sponsor|careers|registration open|portal|archival|program guide|author metadata/i.test(normalized)) {
     return false;
   }
-  return /registration deadline|submission deadline|supplementary|reviews? released|reviews? due|author (response|rebuttal)|rebuttal period|final decisions?|notification|camera ready/i.test(
+  if (/\b(ACs?|SACs?)\b|meta-?review/i.test(normalized)) return false;
+  return /abstract deadline|paper deadline|submission deadline|registration deadline|supplementary|reviews? released|reviews? due|author\s*-\s*reviewer discussion|author (response|rebuttal)|rebuttal period|final decisions?|notification|camera ready/i.test(
     normalized,
   );
 }

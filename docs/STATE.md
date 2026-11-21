@@ -14,7 +14,7 @@ CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML�
 | M0 数据契约 v2 | ✅ | `core/schema.ts`（zod）；`cmd/validate.ts` 校验 schema、时区互校、原文回验 |
 | M1 采集链路 | ✅ | `acquire/`：抓取、内容寻址快照、CVF 家族与 table-dates 适配器、quote 闸门；`cmd/update.ts` 抓取→diff→写回 |
 | M2 Actions | ✅ | `.github/workflows/ci.yml`（validate + privacy + test + build）、`update-data.yml`（每周一 + 手动，自动开 PR） |
-| M3 数据 | 🟡 部分 | 6 会议：CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、NeurIPS 2026（已结束）、3DV 2027；6 期刊：TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA（均 rolling，期刊目标已达标） |
+| M3 数据 | 🟡 部分 | 7 会议：CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、NeurIPS 2026（已结束）、3DV 2027、ICIP 2027；6 期刊：TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA（均 rolling，期刊目标已达标） |
 | M4 前端 | ✅ 首个版本 | 货架视图：按截止天数排序、状态色、筛选、详情带来源 |
 | M5 AI 层 | ❌ | 未开始 |
 | Agent 层（CLI/MCP/AGENTS.md） | ✅ 首版 | 共用查询引擎；CLI 与 MCP 保留全部届次和 evidence；有契约回归测试 |
@@ -64,7 +64,7 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 ## 已知问题 / 待办
 
 1. **候选清单仍靠人工维护**。`discover` 只匹配 `data/discovery/<field>.yaml`，不做搜索引擎抓取；新增会议/期刊仍需人工确认官网后补候选。
-2. **自动抽取覆盖 CVF / NeurIPS 同模板与 3DV 风格 countdown 表格**；ACM、Springer、EasyChair 等平台仍需要新适配器。`table-dates` 只信页面自带时间戳，并把它保留进快照；页面明示且互校通过的 AoE / Pacific Time 会还原本地时区。抽取失败若会删除既有日期，写入会中止。
+2. **自动抽取覆盖 CVF / NeurIPS 同模板与 3DV / ICIP 风格表格**；ACM、Springer、EasyChair 等平台仍需要新适配器。`table-dates` 支持原生与 ARIA 表格：优先信页面自带时间戳并保留进快照；无时间戳时只接受页面统一明示的 23:59 AoE 纯文本日期。本地时区必须与时间戳互校，抽取失败若会删除既有日期则中止写入。
 3. **"真实变更 → 自动开 PR" 路径尚未被真实触发**（官网一直没变）。
 4. **前端只有货架**，没有"论文→期刊推荐"，也没有 AI 问答。
 5. **仓库仍为 Private**；公开前需跑 `npm run audit:privacy` 并决定 LICENSE 署名、`orchestration/` 是否保留。

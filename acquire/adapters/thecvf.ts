@@ -64,7 +64,7 @@ export function classifyDeadline(label: string): DeadlineKind {
   if (value.includes('registration')) return 'registration';
   if (value.includes('supplement')) return 'supplement';
   if (value.includes('rebuttal')) return 'rebuttal';
-  if (value.includes('camera')) return 'camera_ready';
+  if (value.includes('camera') || /\bfinal\b.*\bpaper\b.*\bsubmission\b/.test(value)) return 'camera_ready';
   if (value.includes('decision') || value.includes('notification')) return 'notification';
   if (value.includes('submission') || value.includes('paper')) return 'paper';
   return 'other';
@@ -86,15 +86,15 @@ export function deadlineKey(label: string): string {
  */
 export function isRelevantLabel(label: string): boolean {
   const normalized = label.replace(/\s+/g, ' ').trim();
-  if (/sponsor|careers|registration open|portal|archival|program guide|author metadata|paper submission (site|server|system) (?:opens?|launch)/i.test(normalized)) {
+  if (/sponsor|careers|registration open|portal|archival|program guide|author metadata|special session proposal|paper submission (site|server|system) (?:opens?|launch)/i.test(normalized)) {
     return false;
   }
   if (/\b(ACs?|SACs?)\b|meta-?review/i.test(normalized)) return false;
   // 主会日期表常混入卫星活动与运营节点；它们不是本会议论文的投稿节点。
-  if (/affinity|child care|competition|tutorial|workshop|social|expo|educational resources|location assignment/i.test(normalized)) {
+  if (/affinity|child care|competition|tutorial|workshop|social|expo|educational resources|location assignment|grand challenge|industry demo|journal (?:paper )?presentation/i.test(normalized)) {
     return false;
   }
-  return /abstract (deadline|registration)|paper (deadline|submission)|submission deadline|registration deadline|supplementary|reviews? released|reviews? due|author\s*-\s*reviewer discussion|author (response|rebuttal)|rebuttal period|final decisions?|notification|camera ready/i.test(
+  return /abstract (deadline|registration)|paper (deadline|submission)|submission deadline|registration deadline|supplementary|reviews? (?:released|made available)|reviews? due|author\s*-\s*reviewer discussion|author (response|rebuttal)|rebuttal period|final decisions?|notification|camera ready/i.test(
     normalized,
   );
 }

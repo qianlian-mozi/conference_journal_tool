@@ -1,12 +1,12 @@
 /**
- * 通用「表格 + 倒计时」Dates 页适配器。
+ * 通用「表格 + 倒计时 / 明示时区文本」Dates 页适配器。
  *
- * 适用结构：每行一个 <th>/<td> 标签、一个文本日期，以及带 UTC 的
- * data-countdown 属性（3DV 2027 使用这种结构）。
+ * 适用结构：原生 <tr>/<th>/<td> 或 ARIA role=table/row/cell；每行一个标签、
+ * 一个文本日期，可带 UTC data-countdown 属性（3DV、ICIP 使用这些结构）。
  *
- * 保守原则：只接受页面自带的机器可读时间戳，不从纯文本猜时区。
- * 页面明示 AoE / Pacific Time 且本地时间换算与 countdown 完全一致时，
- * 保留官网本地时区；否则才使用 countdown 本身的 UTC 钟面。
+ * 保守原则：优先接受页面自带的机器可读时间戳；没有 countdown 时，只接受
+ * 页面统一明示为 23:59 AoE 的纯文本日期。timestamp 场景下，页面明示
+ * AoE / Pacific Time 且本地时间换算与 countdown 完全一致时，保留官网本地时区。
  */
 import { load } from 'cheerio';
 import { localToUtcIso } from '../../core/time.ts';
@@ -73,12 +73,7 @@ function pad(value: number): string {
   return String(value).padStart(2, '0');
 }
 
-function rawDateIso(rawText: string): string | null {
-  const match = /([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:\s*[-–]\s*\d{1,2})?,\s*(\d{4})/.exec(rawText);
-  if (!match) return null;
-  const month = MONTHS[match[1].toLowerCase()];
-  const day = Number(match[2]);
-  const year = Number(match[3]);
+function calendarDateIso(year: number, month: number, day: number): string | null {
   if (!month) return null;
   const calendar = new Date(Date.UTC(year, month - 1, day));
   if (
@@ -89,6 +84,17 @@ function rawDateIso(rawText: string): string | null {
     return null;
   }
   return `${year}-${pad(month)}-${pad(day)}`;
+}
+
+function rawDateIso(rawText: string): string | null {
+  const text = cleanText(rawText);
+  const monthFirst = /([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:\s*[-–]\s*\d{1,2})?,\s*(\d{4})/.exec(text);
+  if (monthFirst) {
+    return calendarDateIso(Number(monthFirst[3]), MONTHS[monthFirst[1].toLowerCase()], Number(monthFirst[2]));
+  }
+  const dayFirst = /(\d{1,2})\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})/.exec(text);
+  if (!dayFirst) return null;
+  return calendarDateIso(Number(dayFirst[3]), MONTHS[dayFirst[2].toLowerCase()], Number(dayFirst[1]));
 }
 
 /** 只有页面明确写出时区、且换算结果与 countdown 完全相同时才还原本地钟面。 */
@@ -115,26 +121,32 @@ function inferDisplayTimezone(rawText: string, dueUtc: string, pageText: string)
 }
 
 function parseMainConferenceDates(rawText: string): { start: string; end: string } | null {
-  const match = /([A-Za-z]{3,9})\.?\s+(\d{1,2})\s*[-–]\s*(\d{1,2}),\s*(\d{4})/.exec(rawText);
-  if (!match) return null;
-  const month = MONTHS[match[1].toLowerCase()];
-  if (!month) return null;
-  const year = Number(match[4]);
-  const startDay = Number(match[2]);
-  const endDay = Number(match[3]);
-  const start = new Date(Date.UTC(year, month - 1, startDay));
-  const end = new Date(Date.UTC(year, month - 1, endDay));
-  if (
-    start.getUTCFullYear() !== year || start.getUTCMonth() !== month - 1 || start.getUTCDate() !== startDay ||
-    end.getUTCFullYear() !== year || end.getUTCMonth() !== month - 1 || end.getUTCDate() !== endDay ||
-    end < start
-  ) {
+  const text = cleanText(rawText);
+  const sameMonth = /([A-Za-z]{3,9})\.?\s+(\d{1,2})\s*[-–]\s*(\d{1,2}),\s*(\d{4})/.exec(text);
+  if (sameMonth) {
+    const year = Number(sameMonth[4]);
+    const month = MONTHS[sameMonth[1].toLowerCase()];
+    const start = calendarDateIso(year, month, Number(sameMonth[2]));
+    const end = calendarDateIso(year, month, Number(sameMonth[3]));
+    return start && end && end >= start ? { start, end } : null;
+  }
+
+  const dayFirst = /(\d{1,2})\s+([A-Za-z]{3,9})\.?\s*[-–]\s*(\d{1,2})\s+([A-Za-z]{3,9})\.?,?\s*(\d{4})/.exec(text);
+  if (!dayFirst) return null;
+  const year = Number(dayFirst[5]);
+  const start = calendarDateIso(year, MONTHS[dayFirst[2].toLowerCase()], Number(dayFirst[1]));
+  const end = calendarDateIso(year, MONTHS[dayFirst[4].toLowerCase()], Number(dayFirst[3]));
+  return start && end && end >= start ? { start, end } : null;
+}
+
+function parseExplicitAoeDate(rawText: string, pageText: string): string | null {
+  const fullDate = /^(?:[A-Za-z]{3,9}\.?\s+\d{1,2},\s*\d{4}|\d{1,2}\s+[A-Za-z]{3,9}\.?,?\s+\d{4})$/;
+  if (!fullDate.test(cleanText(rawText))) return null;
+  if (!/\ball deadlines\b.{0,80}\b23:59\b.{0,80}\b(?:anywhere on earth|AoE)\b/i.test(pageText)) {
     return null;
   }
-  return {
-    start: `${year}-${pad(month)}-${pad(startDay)}`,
-    end: `${year}-${pad(month)}-${pad(endDay)}`,
-  };
+  const date = rawDateIso(rawText);
+  return date ? localToUtcIso(`${date}T23:59:59`, 'AoE') : null;
 }
 
 export function extractTableDates(html: string): AdapterResult {
@@ -146,9 +158,11 @@ export function extractTableDates(html: string): AdapterResult {
   let editionDates: { start: string; end: string } | null = null;
   let dateRows = 0;
 
-  $('tr').each((_index, element) => {
+  $('tr, [role="row"]').each((_index, element) => {
     const row = $(element);
-    const cells = row.children('th,td');
+    const cells = element.tagName.toLowerCase() === 'tr'
+      ? row.children('th,td')
+      : row.children('[role="cell"],[role="columnheader"]');
     if (cells.length < 2) return;
 
     const label = cleanText(cells.eq(0).text());
@@ -161,10 +175,27 @@ export function extractTableDates(html: string): AdapterResult {
     if (!isRelevantLabel(label)) return;
 
     const countdown = row.find('[data-countdown]').first().attr('data-countdown');
-    const dueUtc = countdown ? parseCountdownUtc(countdown) : null;
-    if (!dueUtc || !countdown) {
-      warnings.push(`行「${label}」没有可解析的 data-countdown UTC，已跳过（不猜日期）`);
-      return;
+    let dueUtc: string | null = null;
+    let timezone = 'UTC';
+    let dueSource: ExtractedDeadline['dueSource'] = 'timestamp';
+    let evidenceText = rawText;
+
+    if (countdown) {
+      dueUtc = parseCountdownUtc(countdown);
+      if (!dueUtc) {
+        warnings.push(`行「${label}」的 data-countdown 无法解析，已跳过（不猜日期）`);
+        return;
+      }
+      timezone = inferDisplayTimezone(rawText, dueUtc, pageText);
+      evidenceText = `${rawText} [data-countdown="${cleanText(countdown)}"]`;
+    } else {
+      dueUtc = parseExplicitAoeDate(rawText, pageText);
+      if (!dueUtc) {
+        warnings.push(`行「${label}」没有可解析时间戳，也不符合页面明示的 23:59 AoE 文本日期，已跳过（不猜日期）`);
+        return;
+      }
+      timezone = 'AoE';
+      dueSource = 'text';
     }
 
     const key = deadlineKey(label);
@@ -173,17 +204,21 @@ export function extractTableDates(html: string): AdapterResult {
       return;
     }
     seen.add(key);
-    const machineText = `[data-countdown="${cleanText(countdown)}"]`;
     deadlines.push({
       label,
-      rawText: `${rawText} ${machineText}`,
+      rawText: evidenceText,
       dueUtc,
-      timezone: inferDisplayTimezone(rawText, dueUtc, pageText),
+      timezone,
       kind: classifyDeadline(label),
       key,
-      dueSource: 'timestamp',
+      dueSource,
     });
   });
+
+  if (!editionDates) {
+    const statement = /(?:takes place|conference dates?)\b.{0,180}/i.exec(pageText);
+    if (statement) editionDates = parseMainConferenceDates(statement[0]);
+  }
 
   return {
     status: deadlines.length > 0 ? 'ok' : dateRows > 0 ? 'no_published_dates' : 'no_dates_table',

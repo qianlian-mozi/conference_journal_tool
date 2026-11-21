@@ -77,7 +77,9 @@ export function inferVenueId(rawUrl: string): string | null {
 export function inferAdapter(rawUrl: string): SourceAdapter {
   const host = new URL(normalizeHttpsUrl(rawUrl)).hostname.toLowerCase();
   if (host === 'thecvf.com' || host.endsWith('.thecvf.com')) return 'thecvf';
-  if (host === '3dvconf.github.io') return 'table-dates';
+  if (host === '3dvconf.github.io' || host === 'ieeeicip.org' || host.endsWith('.ieeeicip.org')) {
+    return 'table-dates';
+  }
   return 'manual';
 }
 

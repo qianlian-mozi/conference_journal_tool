@@ -72,8 +72,11 @@ candidates:
     type: conference
     official_url: https://ieeeicip.org/
     publisher: IEEE SPS
+    source_url: https://2027.ieeeicip.org/important-dates/
+    adapter: table-dates
+    cadence: weekly
     aliases: [icip, image processing]
-    note: 当届 Dates/CFP 页需人工确认
+    note: 2027 官网 ARIA 日期表；全站节点统一声明 23:59 AoE
 
   - id: cviu
     names:

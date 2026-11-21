@@ -105,6 +105,6 @@ npm run validate
 ## 已知边界
 
 - 候选清单目前由人维护，不是全量会议数据库；
-- 自动抽取支持 `adapter: thecvf` 与 `adapter: table-dates`（带 UTC `data-countdown` 的表格页），其他站点需要新适配器或手工补证据；
+- 自动抽取支持 `adapter: thecvf` 与 `adapter: table-dates`（原生 / ARIA 表格，倒计时时间戳或页面统一明示的 23:59 AoE 文本日期），其他站点需要新适配器或手工补证据；
 - `--verify` 只检查官网入口，不证明 Dates 页存在或日期正确；
 - 期刊是 rolling 模式，没有「当届截止日期」，不要给它们排 deadline。

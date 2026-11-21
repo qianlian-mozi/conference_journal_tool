@@ -68,6 +68,46 @@ describe('table-dates 页面抽取', () => {
     expect(result.warnings[0]).toContain('不猜日期');
   });
 
+  it('读取 ICIP 风格 ARIA 表格，仅在页面统一明示时接受 AoE 文本日期', () => {
+    const result = extractTableDates(`
+      <h1>Important Dates</h1>
+      <p>All deadlines are 23:59 Anywhere on Earth (AoE). ICIP 2027 takes place at Singapore, 29 November – 3 December 2027.</p>
+      <div role="table">
+        <div role="row"><div role="columnheader">Event</div><div role="columnheader">Date</div></div>
+        <div role="row"><div role="cell">Regular &amp; Special Session Paper Submission Deadline</div><div role="cell">31 March 2027</div></div>
+        <div role="row"><div role="cell">Reviews Made Available to Authors</div><div role="cell">25 June 2027</div></div>
+        <div role="row"><div role="cell">Author Rebuttal Deadline</div><div role="cell">7 July 2027</div></div>
+        <div role="row"><div role="cell">Final Regular Paper Submission Deadline</div><div role="cell">11 August 2027</div></div>
+        <div role="row"><div role="cell">Grand Challenge Paper Submission</div><div role="cell">11 August 2027</div></div>
+      </div>
+    `);
+    expect(result.status).toBe('ok');
+    expect(result.deadlines.map((item) => item.label)).toEqual([
+      'Regular & Special Session Paper Submission Deadline',
+      'Reviews Made Available to Authors',
+      'Author Rebuttal Deadline',
+      'Final Regular Paper Submission Deadline',
+    ]);
+    expect(result.deadlines[0]).toMatchObject({
+      rawText: '31 March 2027',
+      dueUtc: '2027-04-01T11:59:59.000Z',
+      timezone: 'AoE',
+      dueSource: 'text',
+      kind: 'paper',
+    });
+    expect(result.deadlines.at(-1)?.kind).toBe('camera_ready');
+    expect(result.editionDates).toEqual({ start: '2027-11-29', end: '2027-12-03' });
+    expect(result.warnings).toEqual([]);
+  });
+
+  it('ARIA 文本日期没有页面级 AoE 声明时仍拒绝推断', () => {
+    const result = extractTableDates(`
+      <div role="table"><div role="row"><div role="cell">Paper Submission Deadline</div><div role="cell">31 March 2027</div></div></div>
+    `);
+    expect(result.status).toBe('no_published_dates');
+    expect(result.deadlines).toEqual([]);
+  });
+
   it('没有日期表时返回 no_dates_table', () => {
     expect(extractTableDates('<html><body>No dates yet</body></html>').status).toBe('no_dates_table');
   });

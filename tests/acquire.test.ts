@@ -128,6 +128,7 @@ describe('classifyDeadline / isRelevantLabel', () => {
     expect(classifyDeadline('Author rebuttals due')).toBe('rebuttal');
     expect(classifyDeadline('Final Decisions')).toBe('notification');
     expect(classifyDeadline('Camera Ready')).toBe('camera_ready');
+    expect(classifyDeadline('Final Regular Paper Submission Deadline')).toBe('camera_ready');
   });
 
   it('过滤内部流程行，保留作者关心的节点', () => {
@@ -148,6 +149,10 @@ describe('classifyDeadline / isRelevantLabel', () => {
     expect(isRelevantLabel('Paper Location Assignment Notifications')).toBe(false);
     expect(isRelevantLabel('Paper Submission Site Opens')).toBe(false);
     expect(isRelevantLabel('Early Registration Deadline')).toBe(true);
+    expect(isRelevantLabel('Reviews Made Available to Authors')).toBe(true);
+    expect(isRelevantLabel('Grand Challenge Paper Submission')).toBe(false);
+    expect(isRelevantLabel('Industry Demo Abstract Submission Deadline')).toBe(false);
+    expect(isRelevantLabel('Special Session Proposal Acceptance Notification')).toBe(false);
   });
 });
 

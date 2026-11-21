@@ -11,6 +11,14 @@ describe('edition URL 推导', () => {
     );
   });
 
+  it('支持年份子域，并拒绝子域与路径冲突', () => {
+    expect(yearFromDatesUrl('https://2027.ieeeicip.org/important-dates/')).toBe(2027);
+    expect(editionUrlFromDatesUrl('https://2027.ieeeicip.org/important-dates/')).toBe(
+      'https://2027.ieeeicip.org',
+    );
+    expect(yearFromDatesUrl('https://2027.ieeeicip.org/2026/important-dates/')).toBeNull();
+  });
+
   it('多个不同年份时拒绝猜测', () => {
     expect(yearFromDatesUrl('https://example.org/2026/2027/dates/')).toBeNull();
     expect(yearFromDatesUrl('https://example.org/2027/2027/dates/')).toBe(2027);

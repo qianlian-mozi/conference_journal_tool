@@ -1,0 +1,138 @@
+schema_version: 2
+id: icip
+type: conference
+names:
+  short: ICIP
+  full: IEEE International Conference on Image Processing
+field_ids:
+  - computer-vision
+official_url: https://ieeeicip.org/
+publisher: IEEE SPS
+submission_model: fixed
+qualifications: []
+editions:
+  - id: icip-2027
+    year: 2027
+    label: ICIP 2027
+    dates:
+      start: 2027-11-29
+      end: 2027-12-03
+    official_url: https://2027.ieeeicip.org
+    evidence:
+      - url: https://2027.ieeeicip.org/important-dates/
+        quote: Important Dates
+        fetched_at: 2026-11-21
+        snapshot_hash: 312c41ff3409054eb47330a84a3312e4aa453847c3a0b53996236e09c2971d74
+    deadlines:
+      - id: icip-2027-regular-special-session-paper-submission-deadline-6-pages-inclusive
+        kind: paper
+        label: Regular & Special Session Paper Submission Deadline (6 pages inclusive)
+        raw_text: Regular & Special Session Paper Submission Deadline (6 pages inclusive) 31 March 2027
+        due: 2027-03-31T23:59:59
+        timezone: AoE
+        due_utc: 2027-04-01T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://2027.ieeeicip.org/important-dates/
+          quote: Regular & Special Session Paper Submission Deadline (6 pages inclusive) 31 March 2027
+          fetched_at: 2026-11-21
+          snapshot_hash: 312c41ff3409054eb47330a84a3312e4aa453847c3a0b53996236e09c2971d74
+      - id: icip-2027-open-journal-of-signal-processing-paper-submission-deadline-9-pages
+        kind: paper
+        label: Open Journal of Signal Processing Paper Submission Deadline (9 pages)
+        raw_text: Open Journal of Signal Processing Paper Submission Deadline (9 pages) 31 March 2027
+        due: 2027-03-31T23:59:59
+        timezone: AoE
+        due_utc: 2027-04-01T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://2027.ieeeicip.org/important-dates/
+          quote: Open Journal of Signal Processing Paper Submission Deadline (9 pages) 31 March 2027
+          fetched_at: 2026-11-21
+          snapshot_hash: 312c41ff3409054eb47330a84a3312e4aa453847c3a0b53996236e09c2971d74
+      - id: icip-2027-reviews-made-available-to-authors
+        kind: other
+        label: Reviews Made Available to Authors
+        raw_text: Reviews Made Available to Authors 25 June 2027
+        due: 2027-06-25T23:59:59
+        timezone: AoE
+        due_utc: 2027-06-26T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://2027.ieeeicip.org/important-dates/
+          quote: Reviews Made Available to Authors 25 June 2027
+          fetched_at: 2026-11-21
+          snapshot_hash: 312c41ff3409054eb47330a84a3312e4aa453847c3a0b53996236e09c2971d74
+      - id: icip-2027-author-rebuttal-deadline
+        kind: rebuttal
+        label: Author Rebuttal Deadline
+        raw_text: Author Rebuttal Deadline 7 July 2027
+        due: 2027-07-07T23:59:59
+        timezone: AoE
+        due_utc: 2027-07-08T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://2027.ieeeicip.org/important-dates/
+          quote: Author Rebuttal Deadline 7 July 2027
+          fetched_at: 2026-11-21
+          snapshot_hash: 312c41ff3409054eb47330a84a3312e4aa453847c3a0b53996236e09c2971d74
+      - id: icip-2027-regular-paper-acceptance-notification-6-pages
+        kind: notification
+        label: Regular Paper Acceptance Notification (6 pages)
+        raw_text: Regular Paper Acceptance Notification (6 pages) 6 August 2027
+        due: 2027-08-06T23:59:59
+        timezone: AoE
+        due_utc: 2027-08-07T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://2027.ieeeicip.org/important-dates/
+          quote: Regular Paper Acceptance Notification (6 pages) 6 August 2027
+          fetched_at: 2026-11-21
+          snapshot_hash: 312c41ff3409054eb47330a84a3312e4aa453847c3a0b53996236e09c2971d74
+      - id: icip-2027-journal-track-paper-acceptance-notification-9-pages
+        kind: notification
+        label: Journal Track Paper Acceptance Notification (9 pages)
+        raw_text: Journal Track Paper Acceptance Notification (9 pages) 6 August 2027
+        due: 2027-08-06T23:59:59
+        timezone: AoE
+        due_utc: 2027-08-07T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://2027.ieeeicip.org/important-dates/
+          quote: Journal Track Paper Acceptance Notification (9 pages) 6 August 2027
+          fetched_at: 2026-11-21
+          snapshot_hash: 312c41ff3409054eb47330a84a3312e4aa453847c3a0b53996236e09c2971d74
+      - id: icip-2027-final-regular-paper-submission-deadline
+        kind: camera_ready
+        label: Final Regular Paper Submission Deadline
+        raw_text: Final Regular Paper Submission Deadline 11 August 2027
+        due: 2027-08-11T23:59:59
+        timezone: AoE
+        due_utc: 2027-08-12T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://2027.ieeeicip.org/important-dates/
+          quote: Final Regular Paper Submission Deadline 11 August 2027
+          fetched_at: 2026-11-21
+          snapshot_hash: 312c41ff3409054eb47330a84a3312e4aa453847c3a0b53996236e09c2971d74
+      - id: icip-2027-regular-paper-and-journal-paper-registration-deadline
+        kind: registration
+        label: Regular Paper and Journal Paper Registration Deadline
+        raw_text: Regular Paper and Journal Paper Registration Deadline 25 August 2027
+        due: 2027-08-25T23:59:59
+        timezone: AoE
+        due_utc: 2027-08-26T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://2027.ieeeicip.org/important-dates/
+          quote: Regular Paper and Journal Paper Registration Deadline 25 August 2027
+          fetched_at: 2026-11-21
+          snapshot_hash: 312c41ff3409054eb47330a84a3312e4aa453847c3a0b53996236e09c2971d74

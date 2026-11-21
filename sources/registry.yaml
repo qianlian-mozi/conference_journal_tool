@@ -96,3 +96,11 @@ sources:
       - role: dates
         url: https://3dvconf.github.io/2027/dates/
     cross_check: []
+
+  - venue_id: icip
+    adapter: table-dates
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://2027.ieeeicip.org/important-dates/
+    cross_check: []

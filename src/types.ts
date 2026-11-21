@@ -1,69 +1,59 @@
-export type FieldStatus = 'active' | 'planned';
-
-export interface Field {
-  schema_version: number;
-  id: string;
-  slug: string;
-  name_zh: string;
-  name_en: string;
-  status: FieldStatus;
-}
-
 export type VenueType = 'conference' | 'journal';
+export type SubmissionModel = 'fixed' | 'rolling';
 
-export interface Evidence {
+export interface ShelfEvidence {
   url: string;
-  last_verified_at: string;
+  quote: string | null;
+  fetched_at: string;
 }
 
-export interface Venue {
+export interface ShelfDeadline {
   id: string;
-  slug: string;
-  name: string;
-  short_name: string;
-  type: VenueType;
-  official_url: string;
-  field_ids: string[];
-  evidence: Evidence[];
-}
-
-export type DeadlineKind =
-  | 'abstract'
-  | 'paper'
-  | 'supplement'
-  | 'rebuttal'
-  | 'camera_ready'
-  | 'notification'
-  | 'other';
-
-export type DeadlineStatus = 'tentative' | 'scheduled' | 'extended' | 'cancelled';
-
-export interface VenueEdition {
-  id: string;
-  venue_id: string;
-  year: number;
-  label: string;
-  official_url: string;
-  evidence: Evidence[];
-}
-
-export interface Deadline {
-  id: string;
-  edition_id: string;
-  kind: DeadlineKind;
-  raw_text: string;
-  due_local: string;
+  kind: string;
+  label: string | null;
+  due: string;
   timezone: string;
-  status: DeadlineStatus;
-  evidence: Evidence[];
+  due_utc: string | null;
+  due_source: 'timestamp' | 'text';
+  status: string;
+  evidence: ShelfEvidence;
 }
 
-export interface ScheduleDocument {
-  schema_version: number;
-  field_id: string;
-  editions: VenueEdition[];
-  deadlines: Deadline[];
+export interface ShelfEdition {
+  id: string;
+  year: number;
+  label: string | null;
+  location: string | null;
+  dates: { start: string; end: string } | null;
+  official_url: string;
+  deadlines: ShelfDeadline[];
 }
+
+export interface ShelfQualification {
+  system: string;
+  level: string;
+  year: number;
+}
+
+export interface ShelfVenue {
+  id: string;
+  type: VenueType;
+  short: string;
+  full: string;
+  official_url: string;
+  publisher: string | null;
+  submission_model: SubmissionModel;
+  qualifications: ShelfQualification[];
+  editions: ShelfEdition[];
+}
+
+export interface ShelfBundle {
+  generated_at: string;
+  field: { id: string; name_zh: string; name_en: string };
+  venues: ShelfVenue[];
+}
+
+// ---- 旧的投稿计划类型：仍被 src/lib/planner.ts 与 ics.ts 使用 ----
 
 export interface PlanMilestone {
   id: string;

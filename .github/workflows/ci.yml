@@ -12,14 +12,19 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: npm
 
-      - run: npm ci
+      - name: Install dependencies
+        run: |
+          node -v
+          npm -v
+          npm config get registry
+          npm ci --no-audit --no-fund || npm install --no-audit --no-fund
 
       # 数据闸门：schema、时区换算、原文回验。有错误直接失败。
       - run: npm run validate

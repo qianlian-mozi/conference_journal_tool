@@ -18,14 +18,19 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: npm
 
-      - run: npm ci
+      - name: Install dependencies
+        run: |
+          node -v
+          npm -v
+          npm config get registry
+          npm ci --no-audit --no-fund || npm install --no-audit --no-fund
 
       # 先确认现有数据是干净的，再抓取；避免在坏数据上继续叠加。
       - run: npm run validate

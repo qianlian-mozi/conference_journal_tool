@@ -67,6 +67,7 @@ describe('add-venue URL 与推断', () => {
     expect(inferVenueId('https://www.computer.org/csdl/journal/tp')).toBe('computer');
     expect(inferVenueId('not a url')).toBeNull();
     expect(inferAdapter('https://cvpr.thecvf.com/Conferences/2027/Dates')).toBe('thecvf');
+    expect(inferAdapter('https://3dvconf.github.io/2027/dates/')).toBe('table-dates');
     expect(inferAdapter('https://eccv.ecva.net/')).toBe('manual');
   });
 });

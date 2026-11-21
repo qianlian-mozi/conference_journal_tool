@@ -1,0 +1,92 @@
+schema_version: 2
+id: 3dv
+type: conference
+names:
+  short: 3DV
+  full: International Conference on 3D Vision
+field_ids:
+  - computer-vision
+official_url: https://3dvconf.github.io/
+submission_model: fixed
+qualifications: []
+editions:
+  - id: 3dv-2027
+    year: 2027
+    label: 3DV 2027
+    official_url: https://3dvconf.github.io/2027
+    evidence:
+      - url: https://3dvconf.github.io/2027/dates/
+        quote: Dates and Deadlines
+        fetched_at: 2026-11-21
+        snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+    deadlines:
+      - id: 3dv-2027-abstract-registration
+        kind: registration
+        label: Abstract Registration
+        raw_text: Abstract Registration Aug 28, 2026
+        due: 2026-08-29T11:59:59
+        timezone: UTC
+        due_utc: 2026-08-29T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://3dvconf.github.io/2027/dates/
+          quote: Abstract Registration Aug 28, 2026
+          fetched_at: 2026-11-21
+          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+      - id: 3dv-2027-paper-submission
+        kind: paper
+        label: Paper Submission
+        raw_text: Paper Submission Aug 28, 2026
+        due: 2026-08-29T11:59:59
+        timezone: UTC
+        due_utc: 2026-08-29T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://3dvconf.github.io/2027/dates/
+          quote: Paper Submission Aug 28, 2026
+          fetched_at: 2026-11-21
+          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+      - id: 3dv-2027-supplementary-material
+        kind: supplement
+        label: Supplementary Material
+        raw_text: Supplementary Material Sep 02, 2026
+        due: 2026-09-03T11:59:59
+        timezone: UTC
+        due_utc: 2026-09-03T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://3dvconf.github.io/2027/dates/
+          quote: Supplementary Material Sep 02, 2026
+          fetched_at: 2026-11-21
+          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+      - id: 3dv-2027-preliminary-notification
+        kind: notification
+        label: Preliminary Notification
+        raw_text: Preliminary Notification Oct 27, 2026
+        due: 2026-10-27T18:00:00
+        timezone: UTC
+        due_utc: 2026-10-27T18:00:00.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://3dvconf.github.io/2027/dates/
+          quote: Preliminary Notification Oct 27, 2026
+          fetched_at: 2026-11-21
+          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a
+      - id: 3dv-2027-final-notification
+        kind: notification
+        label: Final Notification
+        raw_text: Final Notification Dec 02, 2026
+        due: 2026-12-02T19:00:00
+        timezone: UTC
+        due_utc: 2026-12-02T19:00:00.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://3dvconf.github.io/2027/dates/
+          quote: Final Notification Dec 02, 2026
+          fetched_at: 2026-11-21
+          snapshot_hash: 288ae3361674172a4b475c8c6054345dff8e1ff03ea3138ebade16fca83f905a

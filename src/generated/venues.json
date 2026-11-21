@@ -7,6 +7,103 @@
   },
   "venues": [
     {
+      "id": "3dv",
+      "type": "conference",
+      "short": "3DV",
+      "full": "International Conference on 3D Vision",
+      "official_url": "https://3dvconf.github.io/",
+      "publisher": null,
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": [
+        {
+          "id": "3dv-2027",
+          "year": 2027,
+          "label": "3DV 2027",
+          "location": null,
+          "dates": null,
+          "official_url": "https://3dvconf.github.io/2027",
+          "deadlines": [
+            {
+              "id": "3dv-2027-abstract-registration",
+              "kind": "registration",
+              "label": "Abstract Registration",
+              "due": "2026-08-29T11:59:59",
+              "timezone": "UTC",
+              "due_utc": "2026-08-29T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Abstract Registration Aug 28, 2026",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "3dv-2027-paper-submission",
+              "kind": "paper",
+              "label": "Paper Submission",
+              "due": "2026-08-29T11:59:59",
+              "timezone": "UTC",
+              "due_utc": "2026-08-29T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Paper Submission Aug 28, 2026",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "3dv-2027-supplementary-material",
+              "kind": "supplement",
+              "label": "Supplementary Material",
+              "due": "2026-09-03T11:59:59",
+              "timezone": "UTC",
+              "due_utc": "2026-09-03T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Supplementary Material Sep 02, 2026",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "3dv-2027-preliminary-notification",
+              "kind": "notification",
+              "label": "Preliminary Notification",
+              "due": "2026-10-27T18:00:00",
+              "timezone": "UTC",
+              "due_utc": "2026-10-27T18:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Preliminary Notification Oct 27, 2026",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "3dv-2027-final-notification",
+              "kind": "notification",
+              "label": "Final Notification",
+              "due": "2026-12-02T19:00:00",
+              "timezone": "UTC",
+              "due_utc": "2026-12-02T19:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Final Notification Dec 02, 2026",
+                "fetched_at": "2026-11-21"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "cviu",
       "type": "journal",
       "short": "CVIU",
@@ -516,6 +613,21 @@
               }
             },
             {
+              "id": "wacv-2027-round-2-paper-submissions",
+              "kind": "paper",
+              "label": "Round 2 Paper Submissions",
+              "due": "2026-08-28T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-08-29T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://wacv.thecvf.com/Conferences/2027/Dates",
+                "quote": "Round 2 Paper Submissions Aug 28 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
               "id": "wacv-2027-round-2-reviews-and-final-decisions-to-authors",
               "kind": "notification",
               "label": "Round 2 Reviews and Final Decisions to Authors",
@@ -557,21 +669,6 @@
               "evidence": {
                 "url": "https://wacv.thecvf.com/Conferences/2027/Dates",
                 "quote": "Camera Ready Both Rounds Nov 02 '26 (Anywhere on Earth)",
-                "fetched_at": "2026-11-21"
-              }
-            },
-            {
-              "id": "wacv-2027-workshop-acceptance-notification",
-              "kind": "other",
-              "label": "Workshop Acceptance Notification",
-              "due": "2026-08-16T23:59:59",
-              "timezone": "AoE",
-              "due_utc": "2026-08-17T11:59:59.000Z",
-              "due_source": "text",
-              "status": "confirmed",
-              "evidence": {
-                "url": "https://wacv.thecvf.com/Conferences/2027/Dates",
-                "quote": "Workshop Acceptance Notification Aug 16 '26",
                 "fetched_at": "2026-11-21"
               }
             }

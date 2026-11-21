@@ -82,8 +82,12 @@ for (const file of walk(ROOT)) {
   }
 
   const rel = relative(ROOT, file).replace(/\\/g, '/');
+  // 快照是已公开官网的原文，可能含公开的联系/赞助商邮箱；这不是本地隐私。
+  // 其它检查（密钥、路径、机器名）仍然对快照生效。
+  const publicSourceSnapshot = rel.startsWith('data/snapshots/') && rel.endsWith('.txt');
   const lines = text.split(/\r?\n/);
   for (const check of CHECKS) {
+    if (publicSourceSnapshot && check.name === '邮箱地址') continue;
     for (let index = 0; index < lines.length; index += 1) {
       const matches = lines[index].match(check.re);
       if (!matches) continue;

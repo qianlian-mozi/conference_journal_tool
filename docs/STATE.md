@@ -12,9 +12,9 @@ CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML�
 | 模块 | 状态 | 说明 |
 |---|---|---|
 | M0 数据契约 v2 | ✅ | `core/schema.ts`（zod）；`cmd/validate.ts` 校验 schema、时区互校、原文回验 |
-| M1 采集链路 | ✅ | `acquire/`：抓取、内容寻址快照、CVF 家族适配器、quote 闸门；`cmd/update.ts` 抓取→diff→写回 |
+| M1 采集链路 | ✅ | `acquire/`：抓取、内容寻址快照、CVF 家族与 table-dates 适配器、quote 闸门；`cmd/update.ts` 抓取→diff→写回 |
 | M2 Actions | ✅ | `.github/workflows/ci.yml`（validate + privacy + test + build）、`update-data.yml`（每周一 + 手动，自动开 PR） |
-| M3 数据 | 🟡 部分 | 5 会议：CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、NeurIPS 2026（已结束）；6 期刊：TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA（均 rolling，期刊目标已达标） |
+| M3 数据 | 🟡 部分 | 6 会议：CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、NeurIPS 2026（已结束）、3DV 2027；6 期刊：TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA（均 rolling，期刊目标已达标） |
 | M4 前端 | ✅ 首个版本 | 货架视图：按截止天数排序、状态色、筛选、详情带来源 |
 | M5 AI 层 | ❌ | 未开始 |
 | Agent 层（CLI/MCP/AGENTS.md） | ✅ 首版 | 共用查询引擎；CLI 与 MCP 保留全部届次和 evidence；有契约回归测试 |
@@ -25,7 +25,7 @@ CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML�
 
 ```text
 core/          schema(zod)、时间/AoE 换算、YAML 加载
-acquire/       fetch、snapshot（sha256 内容寻址）、adapters/thecvf.ts
+acquire/       fetch、snapshot（sha256 内容寻址）、adapters/thecvf.ts、adapters/table-dates.ts
 cmd/           update（抓取→diff→写回）、validate（三道闸门）、query、add-venue、discover
 mcp/           MCP stdio server 与三个查询工具
 data/          fields/ 领域包、venues/ 数据、snapshots/ 快照、discovery/ 候选清单
@@ -46,7 +46,7 @@ npm run update:dry    # 抓官网看会改什么（不落盘）
 npm run update        # 抓官网并写回 YAML + 快照
 npm run add-venue -- <url> --id <id> --short <简称> --full "<全称>"  # 预览新 venue 骨架
 npm run add-venue -- --write <url> ...                              # 落盘
-npm run discover -- 3dv                                             # 在候选清单里找未收录 venue
+npm run discover -- bmvc                                             # 在候选清单里找未收录 venue
 npm run dev           # 本地货架视图（先 build-data）
 npm run test:all      # 全部单元测试与旧版 CLI 集成测试
 npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
@@ -64,7 +64,7 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 ## 已知问题 / 待办
 
 1. **候选清单仍靠人工维护**。`discover` 只匹配 `data/discovery/<field>.yaml`，不做搜索引擎抓取；新增会议/期刊仍需人工确认官网后补候选。
-2. **只覆盖 CVF 家族 / NeurIPS 同模板页面**；其他平台（ACM、Springer、EasyChair）需要新适配器。3DV 等简单 Dates 页也还不能自动抽取。
+2. **自动抽取覆盖 CVF / NeurIPS 同模板与 3DV 风格 countdown 表格**；ACM、Springer、EasyChair 等平台仍需要新适配器。`table-dates` 只信页面自带 UTC 时间戳，缺失时跳过，不从纯文本猜时区。
 3. **"真实变更 → 自动开 PR" 路径尚未被真实触发**（官网一直没变）。
 4. **前端只有货架**，没有"论文→期刊推荐"，也没有 AI 问答。
 5. **仓库仍为 Private**；公开前需跑 `npm run audit:privacy` 并决定 LICENSE 署名、`orchestration/` 是否保留。
@@ -72,5 +72,5 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 ## 下一步建议
 
 1. 扩充 `data/discovery/computer-vision.yaml` 候选，并给候选补当届 Dates/CFP 页；只加人工确认过的官网。
-2. 扩展非 CVF 平台适配器（先做 3DV 这类简单 Dates 页），同时保持 quote 回验硬闸门。
+2. 扩展其他非 CVF 平台适配器（ACM、Springer、EasyChair 等），同时保持 quote 回验硬闸门。
 3. 继续补 M3 数据覆盖（目标 8–12 会议 + 4–6 期刊），再评估 M5 自然语言筛选与变更摘要。

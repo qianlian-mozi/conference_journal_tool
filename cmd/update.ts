@@ -15,6 +15,7 @@ import { stringify as stringifyYaml } from 'yaml';
 import { fetchPage } from '../acquire/fetch.ts';
 import { htmlToText, sha256Hex, snapshotContainsQuote } from '../acquire/snapshot.ts';
 import { extractTheCvf, type ExtractedDeadline } from '../acquire/adapters/thecvf.ts';
+import { extractTableDates } from '../acquire/adapters/table-dates.ts';
 import { loadRegistry, loadVenues, repoPath } from '../core/load.ts';
 import type { Deadline, Edition, Venue } from '../core/schema.ts';
 import { utcIsoToLocal } from '../core/time.ts';
@@ -48,8 +49,16 @@ function todayIso(): string {
 }
 
 function yearFromUrl(url: string): number | null {
-  const match = /\/Conferences\/(\d{4})\b/.exec(url);
-  return match ? Number(match[1]) : null;
+  const conferenceMatch = /\/Conferences\/(\d{4})\b/.exec(url);
+  if (conferenceMatch) return Number(conferenceMatch[1]);
+  try {
+    const segment = new URL(url).pathname
+      .split('/')
+      .find((part) => /^\d{4}$/.test(part) && Number(part) >= 2000 && Number(part) <= 2100);
+    return segment ? Number(segment) : null;
+  } catch {
+    return null;
+  }
 }
 
 function editionUrlFromDatesUrl(url: string): string {
@@ -216,7 +225,10 @@ async function main(): Promise<void> {
 
     const snapshotText = htmlToText(response.html);
     const snapshotHash = sha256Hex(snapshotText);
-    const result = extractTheCvf(response.html);
+    const result =
+      source.adapter === 'table-dates'
+        ? extractTableDates(response.html)
+        : extractTheCvf(response.html);
 
     if (result.status !== 'ok') {
       console.log(`  · 页面可访问，但未公布日期（${result.status}），不写入任何数据`);

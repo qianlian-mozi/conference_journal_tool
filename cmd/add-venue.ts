@@ -166,7 +166,7 @@ async function main(): Promise<void> {
     console.log(`  source[${plan.source.pages[0].role}] ${plan.source.pages[0].url}`);
     for (const warning of plan.warnings) console.log(`  注意：${warning}`);
     console.log('\n下一步：');
-    if (plan.venue.submission_model === 'fixed' && plan.source.adapter === 'thecvf') {
+    if (plan.venue.submission_model === 'fixed' && plan.source.adapter !== 'manual') {
       console.log(`  npm run update:dry -- --venue ${id}`);
       console.log(`  npm run update -- --venue ${id}`);
     } else if (plan.venue.submission_model === 'fixed') {

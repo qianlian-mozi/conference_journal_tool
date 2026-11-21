@@ -88,3 +88,11 @@ sources:
       - role: home
         url: https://link.springer.com/journal/00138
     cross_check: []
+
+  - venue_id: 3dv
+    adapter: table-dates
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://3dvconf.github.io/2027/dates/
+    cross_check: []

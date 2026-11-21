@@ -10,8 +10,11 @@ candidates:
       full: International Conference on 3D Vision
     type: conference
     official_url: https://3dvconf.github.io/
+    source_url: https://3dvconf.github.io/2027/dates/
+    adapter: table-dates
+    cadence: weekly
     aliases: [3dv, three-dimensional vision]
-    note: 2027 Dates 页可读，但当前没有通用 Dates 页适配器，先别自动接入
+    note: 2027 Dates 页含 data-countdown UTC，可由 table-dates 适配器采集
 
   - id: eccv
     names:

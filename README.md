@@ -4,7 +4,7 @@
 
 它不只是把会议列出来：**它自己盯着官网更新，并且每条日期都能追溯到官网页面上那一行原文。**
 
-> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / NeurIPS，以及 TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA 等 rolling 期刊。
+> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / NeurIPS / 3DV，以及 TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA 等 rolling 期刊。
 
 ---
 
@@ -33,7 +33,7 @@ npm run update:dry   # 抓官网，看看会改什么（不落盘，需要联网
 npm run dev          # 本地货架式 Web 界面（按截止时间与状态排序）
 npm run query -- --within 90 --json  # 给脚本 / agent 的结构化查询
 npm run add-venue -- https://example.org/2027/dates --id example --short EXAMPLE --full "Example Conference"  # 预览新 venue
-npm run discover -- 3dv                     # 在领域候选清单里找还没收录的 venue
+npm run discover -- bmvc                     # 在领域候选清单里找还没收录的 venue
 ```
 
 没有任何账号、没有后端服务、没有数据库。数据就是仓库里的 YAML 文件。
@@ -60,7 +60,7 @@ fetch  ──► 规范化文本快照 ──► sha256
 2. **时区自校**：`due + timezone` 换算出的 UTC 必须与页面上内嵌的 UTC 时间戳一致（容差 60 秒），AoE / UTC / IANA 时区都在校验范围内。
 3. **结构变化不覆盖**：页面改版导致抽取为空时，保留旧数据并报警，不会把已有信息清空。
 
-抽取分三级：L1 确定性适配器（CVF 系列，靠页面内嵌的倒计时时间戳）→ L2 家族模板 → L3 LLM 兜底（必须原样引用，找不到就返回 null）。模型只负责「解析」，不负责「发明」。
+抽取分三级：L1 确定性适配器（CVF 家族、带 `data-countdown` 的表格页，靠页面内嵌时间戳）→ L2 家族模板 → L3 LLM 兜底（必须原样引用，找不到就返回 null）。模型只负责「解析」，不负责「发明」。
 
 ---
 
@@ -109,7 +109,7 @@ editions:
 3. `npm run update:dry -- --venue <id>` 看抽取结果；确认无误后 `npm run update -- --venue <id>`。
 4. `npm run validate` 必须全绿，然后提 PR。
 
-目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 详细参数、交互模式与手工兜底见 [docs/ADD_A_VENUE.md](docs/ADD_A_VENUE.md)。目前自动抽取只支持 `adapter: thecvf`（`*.thecvf.com` 系列）；其他站点需要新适配器，或按数据契约手工补带证据的日期。
+目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 详细参数、交互模式与手工兜底见 [docs/ADD_A_VENUE.md](docs/ADD_A_VENUE.md)。自动抽取支持 `adapter: thecvf`（CVF / NeurIPS 同模板）与 `adapter: table-dates`（3DV 这类带 UTC `data-countdown` 的表格页）；其他站点需要新适配器，或按数据契约手工补带证据的日期。
 
 ---
 
@@ -152,7 +152,7 @@ docs/DISCOVER.md     候选发现与人工确认流程
 - [x] **M0** 数据契约 v2 + 校验器（含原文回验）
 - [x] **M1** 一条真实链路：CVPR / ICCV / WACV 的采集、快照、抽取、写回
 - [x] **M2** GitHub Actions 定时 + PR 机器人
-- [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（当前 5 个会议 + 6 个 rolling 期刊）
+- [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（当前 6 个会议 + 6 个 rolling 期刊）
 - [x] **M4** Web 界面首版：首页回答「接下来该投什么」
 - [ ] **M5** AI 层：自然语言筛选、变更摘要、论文→会议匹配（自带 key，默认关闭）
 - [ ] **M6** 发布 v0.1.0：CLI 打包、文档、贡献指南

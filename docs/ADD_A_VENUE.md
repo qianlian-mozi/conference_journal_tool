@@ -35,7 +35,7 @@ npm run add-venue -- \
 |---|---|
 | `--type conference\|journal` | 默认 `conference` |
 | `--model fixed\|rolling` | 默认会议 `fixed`、期刊 `rolling` |
-| `--adapter thecvf\|manual` | 默认按域名推断；`*.thecvf.com` 为 `thecvf` |
+| `--adapter thecvf\|table-dates\|manual` | 默认按域名推断；`*.thecvf.com` 为 `thecvf`，`3dvconf.github.io` 为 `table-dates` |
 | `--cadence daily\|weekly\|monthly\|manual` | 默认会议 `weekly`、期刊 `manual`；`manual` 表示 `update` / Actions 永不自抓 |
 | `--official-url <url>` | 官网主页；会议默认取入口 URL 的 origin，期刊默认取入口 URL |
 | `--publisher <name>` | 出版社 / 学会 |
@@ -84,7 +84,10 @@ editions: []
 
 ## 4. 抓取日期
 
-只有 `adapter: thecvf` 的信源能直接走现有自动抽取：
+`adapter: thecvf` 与 `adapter: table-dates` 的信源能直接走现有自动抽取：
+
+- `thecvf`：CVF / NeurIPS 同模板，识别表格行和脚本里的 UTC 倒计时变量；
+- `table-dates`：3DV 这类 `<th>/<td>` 日期表，只接受行内 `data-countdown` 的显式 UTC/offset 时间戳，输出 `timezone: UTC`。缺少可解析时间戳的相关行会跳过并警告，不会从纯文本猜时区。
 
 ```bash
 npm run update:dry -- --venue eccv   # 看看会抽出什么，不落盘

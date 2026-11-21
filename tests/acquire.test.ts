@@ -123,6 +123,8 @@ describe('classifyDeadline / isRelevantLabel', () => {
     expect(isRelevantLabel('SACs oversee reviewer-author discussions')).toBe(false);
     expect(isRelevantLabel('Submission Deadline')).toBe(true);
     expect(isRelevantLabel('Round 1  Paper  Submission  Deadline')).toBe(true);
+    expect(isRelevantLabel('Round 2 Paper Submissions')).toBe(true);
+    expect(isRelevantLabel('Abstract Registration')).toBe(true);
     expect(isRelevantLabel('Final Decisions')).toBe(true);
   });
 

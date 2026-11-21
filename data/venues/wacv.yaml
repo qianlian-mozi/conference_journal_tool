@@ -77,6 +77,20 @@ editions:
           quote: Round 1 Supplementary Material Jun 28 '26 (Anywhere on Earth)
           fetched_at: 2026-11-21
           snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
+      - id: wacv-2027-round-2-paper-submissions
+        kind: paper
+        label: Round 2 Paper Submissions
+        raw_text: Round 2 Paper Submissions Aug 28 '26 (Anywhere on Earth)
+        due: 2026-08-28T23:59:59
+        timezone: AoE
+        due_utc: 2026-08-29T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://wacv.thecvf.com/Conferences/2027/Dates
+          quote: Round 2 Paper Submissions Aug 28 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
       - id: wacv-2027-round-2-reviews-and-final-decisions-to-authors
         kind: notification
         label: Round 2 Reviews and Final Decisions to Authors
@@ -117,19 +131,5 @@ editions:
         evidence:
           url: https://wacv.thecvf.com/Conferences/2027/Dates
           quote: Camera Ready Both Rounds Nov 02 '26 (Anywhere on Earth)
-          fetched_at: 2026-11-21
-          snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb
-      - id: wacv-2027-workshop-acceptance-notification
-        kind: other
-        label: Workshop Acceptance Notification
-        raw_text: Workshop Acceptance Notification Aug 16 '26
-        due: 2026-08-16T23:59:59
-        timezone: AoE
-        due_utc: 2026-08-17T11:59:59.000Z
-        due_source: text
-        status: confirmed
-        evidence:
-          url: https://wacv.thecvf.com/Conferences/2027/Dates
-          quote: Workshop Acceptance Notification Aug 16 '26
           fetched_at: 2026-11-21
           snapshot_hash: 2f801e26f3e7749f5e120cb1ce485eae7785a854e3a33db26ae54e03b050a9bb

@@ -94,7 +94,7 @@ export function isRelevantLabel(label: string): boolean {
   if (/affinity|child care|competition|tutorial|workshop|social|expo|educational resources|location assignment/i.test(normalized)) {
     return false;
   }
-  return /abstract deadline|paper deadline|submission deadline|registration deadline|supplementary|reviews? released|reviews? due|author\s*-\s*reviewer discussion|author (response|rebuttal)|rebuttal period|final decisions?|notification|camera ready/i.test(
+  return /abstract (deadline|registration)|paper (deadline|submission)|submission deadline|registration deadline|supplementary|reviews? released|reviews? due|author\s*-\s*reviewer discussion|author (response|rebuttal)|rebuttal period|final decisions?|notification|camera ready/i.test(
     normalized,
   );
 }

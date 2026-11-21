@@ -118,8 +118,8 @@ export function parseAddVenueArgs(argv: string[]): AddVenueArgs {
         }
         args.model = value;
       } else if (name === '--adapter') {
-        if (value !== 'thecvf' && value !== 'manual') {
-          throw new Error('--adapter 只支持 thecvf 或 manual');
+        if (value !== 'thecvf' && value !== 'table-dates' && value !== 'manual') {
+          throw new Error('--adapter 只支持 thecvf、table-dates 或 manual');
         }
         args.adapter = value;
       } else {

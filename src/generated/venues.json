@@ -260,6 +260,151 @@
       ]
     },
     {
+      "id": "ieee-tip",
+      "type": "journal",
+      "short": "TIP",
+      "full": "IEEE Transactions on Image Processing",
+      "official_url": "https://signalprocessingsociety.org/publications-resources/ieee-transactions-image-processing",
+      "publisher": "IEEE",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    },
+    {
+      "id": "ijcv",
+      "type": "journal",
+      "short": "IJCV",
+      "full": "International Journal of Computer Vision",
+      "official_url": "https://link.springer.com/journal/11263",
+      "publisher": "Springer",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    },
+    {
+      "id": "neurips",
+      "type": "conference",
+      "short": "NeurIPS",
+      "full": "Conference on Neural Information Processing Systems",
+      "official_url": "https://neurips.cc/",
+      "publisher": "NeurIPS Foundation",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": [
+        {
+          "id": "neurips-2026",
+          "year": 2026,
+          "label": "NeurIPS 2026",
+          "location": null,
+          "dates": null,
+          "official_url": "https://neurips.cc/Conferences/2026",
+          "deadlines": [
+            {
+              "id": "neurips-2026-paper-abstract-submission-deadline",
+              "kind": "abstract",
+              "label": "Paper Abstract Submission Deadline",
+              "due": "2026-05-04T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-05-05T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Paper Abstract Submission Deadline May 04 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-full-paper-submission-deadline",
+              "kind": "paper",
+              "label": "Full Paper Submission Deadline",
+              "due": "2026-05-06T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-05-07T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Full Paper Submission Deadline May 06 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-reviews-released-to-authors",
+              "kind": "other",
+              "label": "Reviews Released to Authors",
+              "due": "2026-07-22T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-07-23T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Reviews Released to Authors Jul 22 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-paper-author-notifications",
+              "kind": "notification",
+              "label": "Paper Author Notifications",
+              "due": "2026-09-24T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-09-25T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Paper Author Notifications Sep 24 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-paper-camera-ready-deadline",
+              "kind": "camera_ready",
+              "label": "Paper Camera Ready Deadline",
+              "due": "2026-11-06T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-11-07T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Paper Camera Ready Deadline Nov 06 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-early-registration-deadline",
+              "kind": "registration",
+              "label": "Early Registration Deadline",
+              "due": "2026-10-30T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-10-31T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Early Registration Deadline Oct 30 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pattern-recognition",
+      "type": "journal",
+      "short": "PR",
+      "full": "Pattern Recognition",
+      "official_url": "https://www.sciencedirect.com/journal/pattern-recognition",
+      "publisher": "Elsevier",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    },
+    {
       "id": "tpami",
       "type": "journal",
       "short": "TPAMI",

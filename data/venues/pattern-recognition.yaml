@@ -1,0 +1,13 @@
+schema_version: 2
+id: pattern-recognition
+type: journal
+names:
+  short: PR
+  full: Pattern Recognition
+field_ids:
+  - computer-vision
+official_url: https://www.sciencedirect.com/journal/pattern-recognition
+publisher: Elsevier
+submission_model: rolling
+qualifications: []
+editions: []

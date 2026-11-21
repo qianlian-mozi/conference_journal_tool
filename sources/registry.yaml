@@ -40,3 +40,35 @@ sources:
       - role: home
         url: https://www.computer.org/csdl/journal/tp
     cross_check: []
+
+  - venue_id: ijcv
+    adapter: manual
+    cadence: manual
+    pages:
+      - role: home
+        url: https://link.springer.com/journal/11263
+    cross_check: []
+
+  - venue_id: ieee-tip
+    adapter: manual
+    cadence: manual
+    pages:
+      - role: home
+        url: https://signalprocessingsociety.org/publications-resources/ieee-transactions-image-processing
+    cross_check: []
+
+  - venue_id: pattern-recognition
+    adapter: manual
+    cadence: manual
+    pages:
+      - role: home
+        url: https://www.sciencedirect.com/journal/pattern-recognition
+    cross_check: []
+
+  - venue_id: neurips
+    adapter: thecvf
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://neurips.cc/Conferences/2026/Dates
+    cross_check: []

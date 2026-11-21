@@ -4,7 +4,7 @@
 
 它不只是把会议列出来：**它自己盯着官网更新，并且每条日期都能追溯到官网页面上那一行原文。**
 
-> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / TPAMI。
+> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / NeurIPS，以及 TPAMI / IJCV / IEEE TIP / Pattern Recognition 等 rolling 期刊。
 
 ---
 
@@ -149,7 +149,7 @@ docs/ADD_A_VENUE.md  新 venue 接入手册
 - [x] **M0** 数据契约 v2 + 校验器（含原文回验）
 - [x] **M1** 一条真实链路：CVPR / ICCV / WACV 的采集、快照、抽取、写回
 - [x] **M2** GitHub Actions 定时 + PR 机器人
-- [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（当前 4 个会议 + 1 个 rolling 期刊）
+- [ ] **M3** 铺开到 8–12 个会议 + 4–6 个期刊（当前 5 个会议 + 4 个 rolling 期刊）
 - [x] **M4** Web 界面首版：首页回答「接下来该投什么」
 - [ ] **M5** AI 层：自然语言筛选、变更摘要、论文→会议匹配（自带 key，默认关闭）
 - [ ] **M6** 发布 v0.1.0：CLI 打包、文档、贡献指南

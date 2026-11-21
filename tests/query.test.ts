@@ -24,7 +24,7 @@ describe('Agent JSON 契约', () => {
   });
 
   it('rolling 期刊没有 next，也不会被编造截止日期', () => {
-    const [result] = toAgentJson(queryVenues(venues, { type: 'journal' }));
+    const [result] = toAgentJson(queryVenues(venues, { type: 'journal', venueId: 'tpami' }));
     expect(result.id).toBe('tpami');
     expect(result.submission_model).toBe('rolling');
     expect(result.next).toBeNull();

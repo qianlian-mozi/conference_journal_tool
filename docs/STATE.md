@@ -14,7 +14,7 @@ CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML�
 | M0 数据契约 v2 | ✅ | `core/schema.ts`（zod）；`cmd/validate.ts` 校验 schema、时区互校、原文回验 |
 | M1 采集链路 | ✅ | `acquire/`：抓取、内容寻址快照、CVF 家族适配器、quote 闸门；`cmd/update.ts` 抓取→diff→写回 |
 | M2 Actions | ✅ | `.github/workflows/ci.yml`（validate + privacy + test + build）、`update-data.yml`（每周一 + 手动，自动开 PR） |
-| M3 数据 | 🟡 部分 | CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、TPAMI（rolling） |
+| M3 数据 | 🟡 部分 | 5 会议：CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、NeurIPS 2026（已结束）；4 期刊：TPAMI / IJCV / IEEE TIP / Pattern Recognition（均 rolling） |
 | M4 前端 | ✅ 首个版本 | 货架视图：按截止天数排序、状态色、筛选、详情带来源 |
 | M5 AI 层 | ❌ | 未开始 |
 | Agent 层（CLI/MCP/AGENTS.md） | ✅ 首版 | 共用查询引擎；CLI 与 MCP 保留全部届次和 evidence；有契约回归测试 |
@@ -61,7 +61,7 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 ## 已知问题 / 待办
 
 1. **信源仍是人工确认后登记**。`add-venue` 已把「生成骨架 + 写源登记」降到一条命令，但 `discover`（搜索候选 → 判定官网 → 去重）尚未实现。
-2. **只覆盖 CVF 家族模板**；ICLR/NeurIPS 同源已验证，其他平台（ACM、Springer、EasyChair）需要新适配器。
+2. **只覆盖 CVF 家族 / NeurIPS 同模板页面**；其他平台（ACM、Springer、EasyChair）需要新适配器。
 3. **"真实变更 → 自动开 PR" 路径尚未被真实触发**（官网一直没变）。
 4. **前端只有货架**，没有"论文→期刊推荐"，也没有 AI 问答。
 5. **仓库仍为 Private**；公开前需跑 `npm run audit:privacy` 并决定 LICENSE 署名、`orchestration/` 是否保留。

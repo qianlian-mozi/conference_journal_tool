@@ -1,0 +1,13 @@
+schema_version: 2
+id: ijcv
+type: journal
+names:
+  short: IJCV
+  full: International Journal of Computer Vision
+field_ids:
+  - computer-vision
+official_url: https://link.springer.com/journal/11263
+publisher: Springer
+submission_model: rolling
+qualifications: []
+editions: []

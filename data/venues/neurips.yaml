@@ -1,0 +1,107 @@
+schema_version: 2
+id: neurips
+type: conference
+names:
+  short: NeurIPS
+  full: Conference on Neural Information Processing Systems
+field_ids:
+  - computer-vision
+official_url: https://neurips.cc/
+publisher: NeurIPS Foundation
+submission_model: fixed
+qualifications: []
+editions:
+  - id: neurips-2026
+    year: 2026
+    label: NeurIPS 2026
+    official_url: https://neurips.cc/Conferences/2026
+    evidence:
+      - url: https://neurips.cc/Conferences/2026/Dates
+        quote: Dates and Deadlines
+        fetched_at: 2026-11-21
+        snapshot_hash: 0f263a4846f4a375a472f2285619c2f1e57e9db797ee52ca5544d25d18de9942
+    deadlines:
+      - id: neurips-2026-paper-abstract-submission-deadline
+        kind: abstract
+        label: Paper Abstract Submission Deadline
+        raw_text: Paper Abstract Submission Deadline May 04 '26 (Anywhere on Earth)
+        due: 2026-05-04T23:59:59
+        timezone: AoE
+        due_utc: 2026-05-05T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://neurips.cc/Conferences/2026/Dates
+          quote: Paper Abstract Submission Deadline May 04 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 0f263a4846f4a375a472f2285619c2f1e57e9db797ee52ca5544d25d18de9942
+      - id: neurips-2026-full-paper-submission-deadline
+        kind: paper
+        label: Full Paper Submission Deadline
+        raw_text: Full Paper Submission Deadline May 06 '26 (Anywhere on Earth)
+        due: 2026-05-06T23:59:59
+        timezone: AoE
+        due_utc: 2026-05-07T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://neurips.cc/Conferences/2026/Dates
+          quote: Full Paper Submission Deadline May 06 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 0f263a4846f4a375a472f2285619c2f1e57e9db797ee52ca5544d25d18de9942
+      - id: neurips-2026-reviews-released-to-authors
+        kind: other
+        label: Reviews Released to Authors
+        raw_text: Reviews Released to Authors Jul 22 '26 (Anywhere on Earth)
+        due: 2026-07-22T23:59:59
+        timezone: AoE
+        due_utc: 2026-07-23T11:59:59.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://neurips.cc/Conferences/2026/Dates
+          quote: Reviews Released to Authors Jul 22 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 0f263a4846f4a375a472f2285619c2f1e57e9db797ee52ca5544d25d18de9942
+      - id: neurips-2026-paper-author-notifications
+        kind: notification
+        label: Paper Author Notifications
+        raw_text: Paper Author Notifications Sep 24 '26 (Anywhere on Earth)
+        due: 2026-09-24T23:59:59
+        timezone: AoE
+        due_utc: 2026-09-25T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://neurips.cc/Conferences/2026/Dates
+          quote: Paper Author Notifications Sep 24 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 0f263a4846f4a375a472f2285619c2f1e57e9db797ee52ca5544d25d18de9942
+      - id: neurips-2026-paper-camera-ready-deadline
+        kind: camera_ready
+        label: Paper Camera Ready Deadline
+        raw_text: Paper Camera Ready Deadline Nov 06 '26 (Anywhere on Earth)
+        due: 2026-11-06T23:59:59
+        timezone: AoE
+        due_utc: 2026-11-07T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://neurips.cc/Conferences/2026/Dates
+          quote: Paper Camera Ready Deadline Nov 06 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 0f263a4846f4a375a472f2285619c2f1e57e9db797ee52ca5544d25d18de9942
+      - id: neurips-2026-early-registration-deadline
+        kind: registration
+        label: Early Registration Deadline
+        raw_text: Early Registration Deadline Oct 30 '26 (Anywhere on Earth)
+        due: 2026-10-30T23:59:59
+        timezone: AoE
+        due_utc: 2026-10-31T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://neurips.cc/Conferences/2026/Dates
+          quote: Early Registration Deadline Oct 30 '26 (Anywhere on Earth)
+          fetched_at: 2026-11-21
+          snapshot_hash: 0f263a4846f4a375a472f2285619c2f1e57e9db797ee52ca5544d25d18de9942

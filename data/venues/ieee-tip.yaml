@@ -1,0 +1,13 @@
+schema_version: 2
+id: ieee-tip
+type: journal
+names:
+  short: TIP
+  full: IEEE Transactions on Image Processing
+field_ids:
+  - computer-vision
+official_url: https://signalprocessingsociety.org/publications-resources/ieee-transactions-image-processing
+publisher: IEEE
+submission_model: rolling
+qualifications: []
+editions: []

@@ -13,7 +13,8 @@
     "test:all": "vitest run && npm run test:node",
     "validate": "node cmd/validate.ts",
     "update": "node cmd/update.ts --write",
-    "update:dry": "node cmd/update.ts --dry-run"
+    "update:dry": "node cmd/update.ts --dry-run",
+    "audit:privacy": "node scripts/check-privacy.mjs"
   },
   "dependencies": {
     "cheerio": "^1.2.0",

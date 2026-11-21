@@ -1,0 +1,107 @@
+#!/usr/bin/env node
+/**
+ * 隐私自查：把「如果现在公开仓库，会泄露什么」找出来。
+ *
+ * 用法：npm run audit:privacy
+ * 退出码 0 = 干净；1 = 有命中项。
+ *
+ * 设计取向：
+ * - 不调用 git、不 spawn 子进程（受限沙箱、CI、用户本机都能跑）。
+ * - 按 .gitignore 过滤，只检查「会被提交的文件」，否则本地的 .env / key 文件会一直误报。
+ */
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { extname, join, relative } from 'node:path';
+
+const ROOT = process.cwd();
+const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', '.npm-cache', '.tmp', '.workbuddy', 'coverage']);
+const SKIP_EXT = new Set([
+  '.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico', '.bmp',
+  '.woff', '.woff2', '.ttf', '.otf', '.pdf', '.zip', '.gz',
+]);
+const MAX_BYTES = 512 * 1024;
+
+const CHECKS = [
+  { name: 'Windows 绝对路径', re: /\b[A-Za-z]:\\[^\s"'<>|]+/g },
+  { name: 'Unix 家目录', re: /\/Users\/[A-Za-z0-9._-]+|\/home\/[A-Za-z0-9._-]+/g },
+  { name: '邮箱地址', re: /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g },
+  { name: 'API key', re: /\b(sk-[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16})\b/g },
+  { name: '机器名', re: /\bDESKTOP-[A-Z0-9]{5,}\b/g },
+];
+
+function loadIgnorePatterns() {
+  const file = join(ROOT, '.gitignore');
+  if (!existsSync(file)) return [];
+  return readFileSync(file, 'utf8')
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0 && !line.startsWith('#') && !line.startsWith('!'))
+    .map((line) => {
+      const dirOnly = line.endsWith('/');
+      const body = line.replace(/\/$/, '');
+      const escaped = body
+        .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+        .replace(/\*/g, '.*')
+        .replace(/\?/g, '.');
+      return new RegExp(dirOnly ? `(^|/)${escaped}/` : `(^|/)${escaped}$`);
+    });
+}
+
+const ignore = loadIgnorePatterns();
+
+function isIgnored(relPath) {
+  const normalized = relPath.replace(/\\/g, '/');
+  return ignore.some((re) => re.test(normalized));
+}
+
+function walk(dir, out = []) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    const rel = relative(ROOT, full).replace(/\\/g, '/');
+    if (entry.isDirectory()) {
+      if (SKIP_DIRS.has(entry.name) || isIgnored(rel)) continue;
+      walk(full, out);
+    } else if (entry.isFile()) {
+      if (isIgnored(rel)) continue;
+      out.push(full);
+    }
+  }
+  return out;
+}
+
+const findings = [];
+
+for (const file of walk(ROOT)) {
+  if (SKIP_EXT.has(extname(file).toLowerCase())) continue;
+  if (statSync(file).size > MAX_BYTES) continue;
+
+  let text;
+  try {
+    text = readFileSync(file, 'utf8');
+  } catch {
+    continue;
+  }
+
+  const rel = relative(ROOT, file).replace(/\\/g, '/');
+  const lines = text.split(/\r?\n/);
+  for (const check of CHECKS) {
+    for (let index = 0; index < lines.length; index += 1) {
+      const matches = lines[index].match(check.re);
+      if (!matches) continue;
+      for (const match of matches) {
+        const masked = match.length <= 4 ? '***' : `${match.slice(0, 4)}…(${match.length})`;
+        findings.push({ file: rel, line: index + 1, kind: check.name, masked });
+      }
+    }
+  }
+}
+
+if (findings.length === 0) {
+  console.log('✓ 将要提交的文件里，没有发现路径、邮箱、密钥或机器名痕迹。');
+} else {
+  console.log('✗ 发现可疑内容：');
+  for (const item of findings) {
+    console.log(`  - ${item.file}:${item.line}  [${item.kind}]  ${item.masked}`);
+  }
+}
+
+process.exit(findings.length > 0 ? 1 : 0);

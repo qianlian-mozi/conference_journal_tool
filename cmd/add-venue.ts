@@ -10,6 +10,7 @@ import { repoPath, loadFieldPacks, loadRegistry, loadVenues } from '../core/load
 import { buildVenuePlan, inferVenueId } from '../core/add-venue.ts';
 import { withFileLockSync, writeFileAtomicSync } from '../core/fs-safe.ts';
 import { ADD_VENUE_USAGE, parseAddVenueArgs, type AddVenueArgs } from './add-venue-args.ts';
+import { chooseOnboardingField } from './add-venue-field.ts';
 
 function printUsage(): void {
   console.log(ADD_VENUE_USAGE);
@@ -63,26 +64,7 @@ async function main(): Promise<void> {
 
   await fillInteractive(args);
 
-  const activeFields = loadFieldPacks().filter((file) => file.data.status === 'active');
-  let fieldId = args.field;
-  if (!fieldId) {
-    if (activeFields.length !== 1) {
-      throw new Error(
-        `当前有 ${activeFields.length} 个可用领域，请用 --field 指定：` +
-          activeFields.map((file) => file.data.id).join(', '),
-      );
-    }
-    fieldId = activeFields[0].data.id;
-  }
-  const field = activeFields.find(
-    (file) => file.data.id === fieldId || file.data.slug === fieldId,
-  );
-  if (!field) {
-    throw new Error(
-      `领域 ${fieldId} 不存在或未激活；可用领域：` +
-        (activeFields.map((file) => file.data.id).join(', ') || '无'),
-    );
-  }
+  const field = chooseOnboardingField(loadFieldPacks(), args.field);
 
   const id = args.id!;
   const venues = loadVenues();

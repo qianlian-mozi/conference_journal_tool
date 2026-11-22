@@ -42,7 +42,7 @@ node cmd/discover.ts --field 3dgs-avatar --all
 node cmd/discover.ts --field 3dgs-avatar <关键词>
 ```
 
-没有候选文件不代表不能接入；只说明需要用户或 agent 额外确认官网。新领域可以先复制 planned 的 `data/fields/robotics-learning.yaml` 与同名 discovery 文件走通流程。
+没有候选文件不代表不能接入；只说明需要用户或 agent 额外确认官网。新领域可以先复制 planned 的 `data/fields/robotics-learning.yaml` 与同名 discovery 文件走通流程。`add-venue` 接受 active 和 planned 包，因此可以先接首批 venue，再把包改为 active；archived 包仍拒绝。
 
 ### 2. 确认官方信源
 
@@ -131,3 +131,5 @@ npm run build
 - **需要写权限但未获确认**：只给预览和下一步命令。
 
 仓库内置了可复制的 [venue-onboarding skill](../skills/venue-onboarding/SKILL.md)。它只是一套操作约束，不包含模型 API，也不会绕过上述闸门。
+
+外部用户视角的完整实测（含 planned 包阻塞点与修复）见 [EXTERNAL_ONBOARDING_TEST.md](EXTERNAL_ONBOARDING_TEST.md)。

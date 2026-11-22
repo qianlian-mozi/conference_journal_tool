@@ -138,6 +138,38 @@ a:hover {
   outline: none;
 }
 
+.calendar-export {
+  padding: 9px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.calendar-export:hover {
+  filter: brightness(0.95);
+}
+
+.calendar-export:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  outline-offset: 2px;
+}
+
+.calendar-status {
+  flex-basis: 100%;
+  min-height: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.calendar-status:empty {
+  display: none;
+}
+
 .segmented {
   display: inline-flex;
   padding: 3px;

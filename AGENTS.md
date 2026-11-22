@@ -99,6 +99,7 @@ node cmd/query.ts --venue cvpr --json    # 单个 venue 的全部日期
 | "接入一个新会议/期刊" | 按 `skills/venue-onboarding/SKILL.md`、`docs/AGENT_ONBOARDING.md` 与 `CONTRIBUTING.md`；先预览和 dry-run，显式确认后才 `--write` |
 | "创建自己的领域包" | 按 `docs/PACKS.md` 新建 `data/fields/<pack>.yaml`，用 venue 的 `field_ids` 复用数据；可复制 planned 的 `robotics-learning` |
 | "谁延期了 / 最近改了什么" | 读 `data/changelog.yaml` 或调用 `node cmd/query.ts`；只陈述真实 diff，不用模型推断变更 |
+| "导出到日历 / 订阅截止日期" | Web 当前列表点“导出日历”；构建产物在 `dist/calendars/<pack>.ics`。规则见 `docs/CALENDAR.md`，缺 `due_utc` 不得推算 |
 
 ---
 

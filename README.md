@@ -90,6 +90,10 @@ fetch  ──► 规范化文本快照 ──► sha256
 
 `update --write` 只有在数据真正改变时，才向 `data/changelog.yaml` 追加 `added` / `changed` / `removed` 事件；dry-run、抓取失败、值没变都不记录。首页按当前领域包显示近 7 个 UTC 日历日内的事件，并保留前后时间与证据。因此“谁延期了”不是模型摘要，而是可 review、可回验的 diff。详见 [docs/CHANGELOG.md](docs/CHANGELOG.md)。
 
+### 一键放进日历
+
+Web 工具栏的 **导出日历** 会把当前领域包与筛选结果下载为 `.ics`，可导入 Windows/Outlook、Google 和 Apple 日历。事件使用已有 `due_utc`，描述保留官网本地时间、证据和核验日期；没有精确时刻的条目不会被猜测导出。`npm run build` 还会生成 `dist/calendars/<pack>.ics`，部署后可作为订阅 URL。导入步骤、订阅和刷新边界见 [docs/CALENDAR.md](docs/CALENDAR.md)。
+
 ---
 
 ## 数据长什么样
@@ -152,7 +156,7 @@ editions:
 → update dry-run → 检查 diff → update 写入 → validate / test / build
 ```
 
-模型可以寻找候选、解释页面、起草 adapter 和生成 patch；**只有确定性校验器能决定数据是否入库**。模型升级时直接换 agent，证据链不变。操作手册见 [docs/AGENT_ONBOARDING.md](docs/AGENT_ONBOARDING.md)，可复制技能见 [skills/venue-onboarding/SKILL.md](skills/venue-onboarding/SKILL.md)，贡献流程与 PR 清单见 [CONTRIBUTING.md](CONTRIBUTING.md)。仓库内的 planned 包 `robotics-learning` 是可复制的实操样板。
+模型可以寻找候选、解释页面、起草 adapter 和生成 patch；**只有确定性校验器能决定数据是否入库**。模型升级时直接换 agent，证据链不变。操作手册见 [docs/AGENT_ONBOARDING.md](docs/AGENT_ONBOARDING.md)，可复制技能见 [skills/venue-onboarding/SKILL.md](skills/venue-onboarding/SKILL.md)，贡献流程与 PR 清单见 [CONTRIBUTING.md](CONTRIBUTING.md)。仓库内的 planned 包 `robotics-learning` 是可复制的实操样板；已按外部用户视角完整实测，过程中发现并修复了 planned 包不能接入首批 venue 的阻塞点，见 [实测记录](docs/EXTERNAL_ONBOARDING_TEST.md)。
 
 ---
 
@@ -172,7 +176,9 @@ CONTRIBUTING.md  数据、领域包、适配器贡献流程
 docs/PLAN.md  产品与技术规划 v2.1
 docs/PACKS.md 领域包契约与复用指南
 docs/CHANGELOG.md  真实 deadline diff 与近 7 天窗口
+docs/CALENDAR.md  ICS 导入、订阅与时区边界
 docs/AGENT_ONBOARDING.md  用户自带 agent / LLM 的接入流程
+docs/EXTERNAL_ONBOARDING_TEST.md  外部用户流程实测与阻塞点修复
 docs/ADD_A_VENUE.md  新 venue 接入手册
 docs/DISCOVER.md     候选发现与人工确认流程
 ```
@@ -203,7 +209,7 @@ docs/DISCOVER.md     候选发现与人工确认流程
 - [x] **M2** GitHub Actions 定时 + PR 机器人
 - [x] **M3** 铺开到至少 8 个会议 + 4–6 个期刊（当前 12 个会议 + 8 个 rolling 期刊；含 SIGGRAPH / IEEE VR / Eurographics，SIGGRAPH Asia 待官网发布 2027 日期页）
 - [x] **M4** Web 界面首版：首页回答「接下来该投什么」，并展示近 7 天真实变更
-- [ ] **M4.1** ICS 导出与日历订阅
+- [x] **M4.1** ICS 导出与日历订阅（当前筛选下载 + 每包构建产物）
 - [ ] **M5** Agent / AI 层：✅ 确定性自然语言筛选基线；✅ 领域包 + 用户自带 agent 的接入工作流；⬜ 变更摘要、可选模型编译、论文→会议匹配
 - [ ] **M6** 发布 v0.1.0：CLI 打包、截图式 demo、贡献指南（CONTRIBUTING 已完成）
 

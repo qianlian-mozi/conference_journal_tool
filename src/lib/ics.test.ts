@@ -48,7 +48,7 @@ describe('buildPlanIcs', () => {
       deadlineAt: '2027-03-15T23:59',
       timezone: 'Asia/Shanghai',
     });
-    const ics = buildPlanIcs(plan, 'CVPR');
+    const ics = buildPlanIcs(plan, 'CVPR').replace(/\r\n[ \t]/g, '');
     expect(ics).toContain('标题\\,含逗号\\;和分号\\n和换行');
   });
 });

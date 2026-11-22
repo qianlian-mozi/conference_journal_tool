@@ -14,6 +14,7 @@ import {
   submitDeadline,
 } from './data';
 import type { ShelfChange, ShelfChangeValue, ShelfVenue, VenueType } from './types';
+import { buildDeadlineCalendar } from './lib/deadline-ics';
 
 type TypeFilter = 'all' | VenueType;
 
@@ -242,6 +243,7 @@ export default function App() {
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all');
   const [openOnly, setOpenOnly] = useState(false);
   const [selected, setSelected] = useState<ShelfVenue | null>(null);
+  const [calendarMessage, setCalendarMessage] = useState('');
 
   const now = Date.now();
   const pack = packs.find((item) => item.id === packId) ?? defaultPack;
@@ -280,6 +282,29 @@ export default function App() {
     const state = shelfState(venue, now);
     return state === 'open' || state === 'soon';
   }).length;
+
+  function exportCalendar(): void {
+    const result = buildDeadlineCalendar(list, {
+      name: `${pack.name_zh} · CV Venue Radar`,
+      description: `${pack.name_en} 投稿截止日期；每条事件附官网来源，按 UTC 存储并由日历转换为本地时间。`,
+    });
+    if (result.eventCount === 0) {
+      setCalendarMessage('当前列表没有可导出的精确截止日期。');
+      return;
+    }
+    const blob = new Blob([result.ics], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `cv-venue-radar-${pack.id}.ics`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
+    setCalendarMessage(
+      `已导出 ${result.eventCount} 个节点${result.skippedCount > 0 ? `；${result.skippedCount} 条待确认日期未导出` : ''}。`,
+    );
+  }
 
   return (
     <div className="app">
@@ -338,6 +363,15 @@ export default function App() {
           />
           只看还能投
         </label>
+        <button
+          type="button"
+          className="calendar-export"
+          onClick={exportCalendar}
+          title="把当前领域包与筛选结果中的精确截止日期导出为 ICS"
+        >
+          导出日历
+        </button>
+        <span className="calendar-status" role="status">{calendarMessage}</span>
       </div>
 
       <WeeklyChanges packId={pack.id} now={now} />

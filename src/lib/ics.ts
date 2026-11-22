@@ -1,35 +1,7 @@
 import type { SubmissionPlan } from '../types';
+import { escapeIcsText, foldIcsLine, formatIcsUtc, ICS_CRLF } from './ics-core';
 
-const CRLF = '\r\n';
-
-function escapeIcsText(value: string): string {
-  return value
-    .replace(/\\/g, '\\\\')
-    .replace(/;/g, '\\;')
-    .replace(/,/g, '\\,')
-    .replace(/\r?\n/g, '\\n');
-}
-
-function formatUtc(date: Date): string {
-  return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
-}
-
-function foldLine(line: string): string {
-  const maxLen = 75;
-  if (line.length <= maxLen) {
-    return line;
-  }
-  const chunks: string[] = [];
-  let remaining = line;
-  while (remaining.length > maxLen) {
-    chunks.push(remaining.slice(0, maxLen));
-    remaining = remaining.slice(maxLen);
-  }
-  if (remaining.length > 0) {
-    chunks.push(remaining);
-  }
-  return chunks.join(CRLF + ' ');
-}
+const CRLF = ICS_CRLF;
 
 export function buildPlanIcs(plan: SubmissionPlan, venueName: string): string {
   const lines: string[] = [];
@@ -48,11 +20,11 @@ export function buildPlanIcs(plan: SubmissionPlan, venueName: string): string {
 
     lines.push('BEGIN:VEVENT');
     lines.push(`UID:${uid}`);
-    lines.push(`DTSTAMP:${formatUtc(new Date())}`);
-    lines.push(`DTSTART:${formatUtc(due)}`);
-    lines.push(`DTEND:${formatUtc(due)}`);
-    lines.push(foldLine(`SUMMARY:${escapeIcsText(summary)}`));
-    lines.push(foldLine(`DESCRIPTION:${escapeIcsText(description)}`));
+    lines.push(`DTSTAMP:${formatIcsUtc(new Date())}`);
+    lines.push(`DTSTART:${formatIcsUtc(due)}`);
+    lines.push(`DTEND:${formatIcsUtc(new Date(due.getTime() + 15 * 60 * 1000))}`);
+    lines.push(foldIcsLine(`SUMMARY:${escapeIcsText(summary)}`));
+    lines.push(foldIcsLine(`DESCRIPTION:${escapeIcsText(description)}`));
     lines.push('BEGIN:VALARM');
     lines.push('ACTION:DISPLAY');
     lines.push(`DESCRIPTION:${escapeIcsText(summary)}`);

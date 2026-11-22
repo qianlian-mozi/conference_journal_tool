@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/build-data.mjs && vite --host 127.0.0.1",
-    "build": "node scripts/build-data.mjs && tsc -b && vite build",
+    "build": "node scripts/build-data.mjs && tsc -b && vite build && node scripts/export-calendars.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
     "pretest": "node scripts/build-data.mjs",

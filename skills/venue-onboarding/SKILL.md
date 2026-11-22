@@ -42,7 +42,7 @@ Work from the repository root. Read `AGENTS.md`, `docs/PACKS.md`, and `docs/AGEN
    ```
 
    Review warnings, skipped nodes, timezone evidence, and removals. If the page structure is unsupported, draft a tested adapter instead of forcing another adapter to parse it.
-7. After reviewing the diff, write and verify:
+7. After reviewing the diff, write and verify. Only `--write` appends real changes to `data/changelog.yaml`; dry-run must not create events.
 
    ```bash
    node cmd/update.ts --venue <id> --write
@@ -54,7 +54,7 @@ Work from the repository root. Read `AGENTS.md`, `docs/PACKS.md`, and `docs/AGEN
 8. Show the final diff and summarize:
    - venue and pack
    - source URL and adapter
-   - deadlines added/changed/removed
+   - deadlines added/changed/removed, including the changelog entries
    - skipped or unpublished information
    - validation/test results
    - remaining manual decisions

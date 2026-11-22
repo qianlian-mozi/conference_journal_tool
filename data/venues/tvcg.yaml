@@ -1,0 +1,13 @@
+schema_version: 2
+id: tvcg
+type: journal
+names:
+  short: TVCG
+  full: IEEE Transactions on Visualization and Computer Graphics
+field_ids:
+  - 3dgs-avatar
+official_url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945
+publisher: IEEE
+submission_model: rolling
+qualifications: []
+editions: []

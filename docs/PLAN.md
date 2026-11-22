@@ -237,21 +237,26 @@ review_metrics:
 
 ### 5.4 变更日志
 
-每次数据提升写入 `data/changelog/<yyyy-mm>.yaml`，结构化记录字段级变化：
+每次 `update --write` 真正改变数据时，向 `data/changelog.yaml` 追加字段级事件：
 
 ```yaml
-- at: 2026-11-23T02:10:00Z
-  venue_id: cvpr
-  edition_id: cvpr-2027
-  field: deadlines[cvpr-2027-paper].due
-  old: 2026-11-16T23:59:59
-  new: 2026-11-23T23:59:59
-  change_type: date_move    # date_move|new_edition|location_change|structure_change
-  evidence: { url: ..., quote: "...", fetched_at: ... }
-  pr: 128
+changes:
+  - id: change-a1b2c3d4e5f60718
+    detected_at: 2026-11-22
+    venue_id: cvpr
+    edition_id: cvpr-2027
+    deadline_id: cvpr-2027-submission-deadline
+    change: changed
+    deadline_kind: paper
+    label: Submission Deadline
+    before: { due: 2026-11-16T23:59:59, timezone: AoE, due_utc: ..., raw_text: ..., status: confirmed }
+    after:  { due: 2026-11-23T23:59:59, timezone: AoE, due_utc: ..., raw_text: ..., status: confirmed }
+    evidence: { url: ..., quote: ..., fetched_at: ..., snapshot_hash: ... }
 ```
 
-这是"谁延期了"功能的唯一数据来源，也是用户判断信息新鲜度的依据。
+`added` / `changed` / `removed` 由确定性 diff 生成；dry-run 不记录，值未变不记录，抽取失败不删除旧数据。事件 evidence 同样要通过快照 quote 回验。Web 按领域包展示近 7 个 UTC 日历日内的真实变化，完整历史保留在仓库中。
+
+这是“谁延期了”功能的唯一数据来源，也是用户判断信息新鲜度的依据。详见 [CHANGELOG.md](CHANGELOG.md)。
 
 ---
 

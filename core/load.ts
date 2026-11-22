@@ -6,9 +6,11 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { parse as parseYaml } from 'yaml';
 import {
+  ChangelogSchema,
   FieldPackSchema,
   SourceRegistrySchema,
   VenueSchema,
+  type Changelog,
   type FieldPack,
   type SourceEntry,
   type Venue,
@@ -71,6 +73,11 @@ export function loadVenues(root = repoPath('data', 'venues')): Array<LoadedFile<
 export function loadRegistry(path = repoPath('sources', 'registry.yaml')): SourceEntry[] {
   const parsed = SourceRegistrySchema.parse(readYamlFile(path));
   return parsed.sources;
+}
+
+export function loadChangelog(path = repoPath('data', 'changelog.yaml')): Changelog {
+  if (!existsSync(path)) return { schema_version: 2, changes: [] };
+  return ChangelogSchema.parse(readYamlFile(path));
 }
 
 /** 快照按内容寻址存放：data/snapshots/<venue>/<sha256>.txt */

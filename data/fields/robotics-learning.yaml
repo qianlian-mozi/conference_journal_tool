@@ -1,0 +1,9 @@
+schema_version: 2
+id: robotics-learning
+slug: robotics-learning
+names: { zh: 机器人与学习, en: Robotics and Learning }
+description_zh: 机器人学习、操作与 embodied AI 的社区候选包；接入首批 venue 后再激活。
+status: planned
+tier: community
+is_default: false
+qualification_systems: []

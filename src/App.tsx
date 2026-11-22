@@ -7,12 +7,13 @@ import {
   kindLabel,
   latestEdition,
   packs,
+  recentChanges,
   resolvePackId,
   shelfState,
   sortKey,
   submitDeadline,
 } from './data';
-import type { ShelfVenue, VenueType } from './types';
+import type { ShelfChange, ShelfChangeValue, ShelfVenue, VenueType } from './types';
 
 type TypeFilter = 'all' | VenueType;
 
@@ -183,6 +184,56 @@ function DetailPanel({ venue, now, onClose }: { venue: ShelfVenue; now: number; 
   );
 }
 
+function formatChangeValue(value: ShelfChangeValue): string {
+  return `${value.due.replace('T', ' ').slice(0, 16)} ${value.timezone}`;
+}
+
+function WeeklyChanges({ packId, now }: { packId: string; now: number }) {
+  const entries = recentChanges(packId, now);
+  const venueNames = new Map(allVenues.map((venue) => [venue.id, venue.short]));
+
+  return (
+    <section className="changes" aria-labelledby="recent-changes-title">
+      <div className="changes-head">
+        <h2 id="recent-changes-title">近 7 天变更</h2>
+        <span>{entries.length} 条真实 diff</span>
+      </div>
+      {entries.length === 0 ? (
+        <p className="changes-empty">暂无已记录变更；dry-run 和重复抓取不会制造历史。</p>
+      ) : (
+        <ul className="changes-list">
+          {entries.slice(0, 6).map((entry: ShelfChange) => {
+            const subject = entry.after ?? entry.before;
+            const action = entry.change === 'added' ? '新增' : entry.change === 'removed' ? '移除' : '调整';
+            return (
+              <li key={entry.id}>
+                <span className={`change-badge change-${entry.change}`}>{action}</span>
+                <div className="change-main">
+                  <strong>{venueNames.get(entry.venue_id) ?? entry.venue_id}</strong>
+                  <span>{entry.label ?? kindLabel(entry.deadline_kind)}</span>
+                  <span className="change-value">
+                    {entry.change === 'changed' && entry.before && entry.after
+                      ? `${formatChangeValue(entry.before)} → ${formatChangeValue(entry.after)}`
+                      : subject
+                        ? formatChangeValue(subject)
+                        : ''}
+                  </span>
+                </div>
+                <div className="change-meta">
+                  <span>{entry.detected_at}</span>
+                  <a href={entry.evidence.url} target="_blank" rel="noreferrer" title={entry.evidence.quote ?? ''}>
+                    证据
+                  </a>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  );
+}
+
 export default function App() {
   const [packId, setPackId] = useState(() =>
     resolvePackId(new URLSearchParams(window.location.search).get('pack')),
@@ -288,6 +339,8 @@ export default function App() {
           只看还能投
         </label>
       </div>
+
+      <WeeklyChanges packId={pack.id} now={now} />
 
       <main>
         {list.length === 0 ? (

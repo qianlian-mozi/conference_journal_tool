@@ -9,6 +9,7 @@ import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'yaml';
 import { activeFieldPacks, defaultFieldPack, packErrors, venuesForPack } from '../core/packs.ts';
+import { ChangelogSchema } from '../core/schema.ts';
 
 const ROOT = process.cwd();
 const DATA = join(ROOT, 'data');
@@ -26,6 +27,7 @@ function readDir(dir, suffix = '.yaml') {
 
 const fields = readDir(join(DATA, 'fields'));
 const sourceVenues = readDir(join(DATA, 'venues'));
+const changelog = ChangelogSchema.parse(readYaml(join(DATA, 'changelog.yaml')));
 const layoutErrors = packErrors(fields, sourceVenues);
 if (layoutErrors.length > 0) {
   for (const error of layoutErrors) console.error(error);
@@ -103,6 +105,7 @@ const bundle = {
   venues,
   packs,
   all_venues: allVenues,
+  changes: changelog.changes,
 };
 
 mkdirSync(join(ROOT, 'src', 'generated'), { recursive: true });

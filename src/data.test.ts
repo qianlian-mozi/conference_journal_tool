@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { allVenues, daysLeft, defaultPack, kindLabel, latestEdition, packs, resolvePackId, shelfState, sortKey, submitDeadline } from './data';
-import type { ShelfDeadline, ShelfVenue } from './types';
+import { allVenues, changes, daysLeft, defaultPack, kindLabel, latestEdition, packs, recentChanges, resolvePackId, shelfState, sortKey, submitDeadline } from './data';
+import type { ShelfChange, ShelfDeadline, ShelfVenue } from './types';
 
 const DAY = 86_400_000;
 const now = Date.UTC(2026, 10, 21, 0, 0, 0); // 2026-11-21
@@ -155,12 +155,60 @@ describe('shelfState / sortKey', () => {
 describe('packs', () => {
   it('默认展示 3DGS / Avatar，可通过分享参数切换', () => {
     expect(defaultPack.id).toBe('3dgs-avatar');
-    expect(defaultPack.venue_ids).toHaveLength(8);
-    expect(packs.map((pack) => pack.id)).toEqual(['3dgs-avatar', 'computer-vision']);
-    expect(allVenues).toHaveLength(14);
+    expect(defaultPack.venue_ids).toEqual(
+      expect.arrayContaining(['cvpr', '3dv', 'siggraph', 'tvcg']),
+    );
+    expect(new Set(defaultPack.venue_ids).size).toBe(defaultPack.venue_ids.length);
+    expect(packs.map((pack) => pack.id)).toEqual(
+      expect.arrayContaining(['3dgs-avatar', 'computer-vision']),
+    );
+    const allIds = allVenues.map((venue) => venue.id);
+    expect(new Set(allIds).size).toBe(allIds.length);
+    expect(allIds).toEqual(expect.arrayContaining(['cvpr', 'icpr', 'cviu']));
+    expect(allVenues.length).toBeGreaterThanOrEqual(defaultPack.venue_ids.length);
     expect(resolvePackId('computer-vision')).toBe('computer-vision');
     expect(resolvePackId('missing')).toBe('3dgs-avatar');
     expect(resolvePackId(null)).toBe('3dgs-avatar');
+  });
+});
+
+describe('recentChanges', () => {
+  it('按 pack 和滚动 7 天筛选，排除未来日期', () => {
+    const original = changes.splice(0, changes.length);
+    const entry = (id: string, venueId: string, detectedAt: string): ShelfChange => ({
+      id,
+      detected_at: detectedAt,
+      venue_id: venueId,
+      edition_id: `${venueId}-2027`,
+      deadline_id: `${venueId}-2027-paper`,
+      change: 'added',
+      deadline_kind: 'paper',
+      before: null,
+      after: {
+        due: '2027-01-10T23:59:59',
+        timezone: 'AoE',
+        due_utc: '2027-01-11T11:59:59.000Z',
+        raw_text: 'Paper Submission January 10 AoE',
+        status: 'confirmed',
+      },
+      evidence: { url: 'https://example.org', quote: 'Paper Submission', fetched_at: detectedAt },
+    });
+    try {
+      changes.push(
+        entry('change-cvpr-recent', 'cvpr', '2026-11-20'),
+        entry('change-cvpr-old', 'cvpr', '2026-11-15'),
+        entry('change-cvpr-future', 'cvpr', '2026-11-23'),
+        entry('change-icpr-recent', 'icpr', '2026-11-21'),
+      );
+      const now = Date.UTC(2026, 10, 22, 12, 0, 0);
+      expect(recentChanges('3dgs-avatar', now).map((item) => item.id)).toEqual(['change-cvpr-recent']);
+      expect(recentChanges('computer-vision', now).map((item) => item.id)).toEqual([
+        'change-icpr-recent',
+        'change-cvpr-recent',
+      ]);
+    } finally {
+      changes.splice(0, changes.length, ...original);
+    }
   });
 });
 

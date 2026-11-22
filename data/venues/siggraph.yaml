@@ -1,0 +1,68 @@
+schema_version: 2
+id: siggraph
+type: conference
+names:
+  short: SIGGRAPH
+  full: ACM SIGGRAPH Conference and Exhibition on Computer Graphics and Interactive Techniques
+field_ids:
+  - 3dgs-avatar
+official_url: https://s2027.siggraph.org/
+publisher: ACM
+submission_model: fixed
+qualifications: []
+editions:
+  - id: siggraph-2027
+    year: 2027
+    label: SIGGRAPH 2027
+    dates:
+      start: 2027-08-08
+      end: 2027-08-12
+    official_url: https://s2027.siggraph.org
+    evidence:
+      - url: https://s2027.siggraph.org/program/technical-papers/
+        quote: Submissions
+        fetched_at: 2026-11-22
+        snapshot_hash: aa4c26fe3d6e64a61bd84b43a49c0d7a1d91f748b8e19951891878b26a660e61
+    deadlines:
+      - id: siggraph-2027-submissions-form-conflicts
+        kind: abstract
+        label: Submissions Form & Conflicts
+        raw_text: Thu, 21 Jan 2027 22:00 +00:00 2027-01-21 22:00
+        due: 2027-01-21T22:00:00
+        timezone: UTC
+        due_utc: 2027-01-21T22:00:00.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://s2027.siggraph.org/program/technical-papers/
+          quote: Thu, 21 Jan 2027 22:00 +00:00 2027-01-21 22:00
+          fetched_at: 2026-11-22
+          snapshot_hash: aa4c26fe3d6e64a61bd84b43a49c0d7a1d91f748b8e19951891878b26a660e61
+      - id: siggraph-2027-paper-deadline
+        kind: paper
+        label: Paper Deadline
+        raw_text: Thu, 28 Jan 2027 22:00 +00:00 2027-01-28 22:00
+        due: 2027-01-28T22:00:00
+        timezone: UTC
+        due_utc: 2027-01-28T22:00:00.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://s2027.siggraph.org/program/technical-papers/
+          quote: Thu, 28 Jan 2027 22:00 +00:00 2027-01-28 22:00
+          fetched_at: 2026-11-22
+          snapshot_hash: aa4c26fe3d6e64a61bd84b43a49c0d7a1d91f748b8e19951891878b26a660e61
+      - id: siggraph-2027-upload-deadline
+        kind: paper
+        label: Upload Deadline
+        raw_text: Fri, 29 Jan 2027 22:00 +00:00 2027-01-29 22:00
+        due: 2027-01-29T22:00:00
+        timezone: UTC
+        due_utc: 2027-01-29T22:00:00.000Z
+        due_source: timestamp
+        status: confirmed
+        evidence:
+          url: https://s2027.siggraph.org/program/technical-papers/
+          quote: Fri, 29 Jan 2027 22:00 +00:00 2027-01-29 22:00
+          fetched_at: 2026-11-22
+          snapshot_hash: aa4c26fe3d6e64a61bd84b43a49c0d7a1d91f748b8e19951891878b26a660e61

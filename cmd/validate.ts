@@ -10,7 +10,7 @@
  * 5. 期刊（rolling）不得有截止日期
  * 6. registry 里的 venue 必须存在
  */
-import { loadFieldPacks, loadRegistry, loadVenues } from '../core/load.ts';
+import { loadChangelog, loadFieldPacks, loadRegistry, loadVenues } from '../core/load.ts';
 import { snapshotEvidenceError } from '../acquire/evidence.ts';
 import type { Venue } from '../core/schema.ts';
 import { packErrors } from '../core/packs.ts';
@@ -98,6 +98,7 @@ function main(): void {
   const fields = loadFieldPacks();
   const venues = loadVenues();
   const registry = loadRegistry();
+  const changelog = loadChangelog();
 
   if (fields.length === 0) fail('data/fields 为空，至少需要一个领域包');
   if (venues.length === 0) fail('data/venues 为空，至少需要一个 venue');
@@ -126,6 +127,15 @@ function main(): void {
     }
   }
 
+  const changeIds = new Set<string>();
+  for (const entry of changelog.changes) {
+    const where = `data/changelog.yaml: ${entry.id}`;
+    if (changeIds.has(entry.id)) fail(`${where}: change id 重复`);
+    changeIds.add(entry.id);
+    const problem = snapshotEvidenceError(entry.venue_id, entry.evidence);
+    if (problem) fail(`${where}: ${problem}`);
+  }
+
   const deadlineCount = venues.reduce(
     (sum, file) =>
       sum + file.data.editions.reduce((inner, edition) => inner + edition.deadlines.length, 0),
@@ -136,8 +146,8 @@ function main(): void {
   for (const message of errors) console.error(`✗ ${message}`);
 
   console.log(
-    `\n校验完成：${fields.length} 个领域、${venues.length} 个 venue、${deadlineCount} 条截止日期，` +
-      `${errors.length} 个错误、${warnings.length} 个警告。`,
+    `\n校验完成：${fields.length} 个领域、${venues.length} 个 venue、${deadlineCount} 条截止日期、` +
+      `${changelog.changes.length} 条变更，${errors.length} 个错误、${warnings.length} 个警告。`,
   );
 
   if (errors.length > 0) process.exit(1);

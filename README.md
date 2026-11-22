@@ -6,7 +6,7 @@
 
 它不只是把会议列出来：**它自己盯着官网更新，并且每条日期都能追溯到官网页面上那一行原文。**
 
-> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、可切换领域包的 Web 界面，以及面向 agent 的 CLI / MCP 查询层。3DGS / Avatar 包精选 CVPR / ICCV / 3DV / NeurIPS / ICLR 与 TPAMI / IJCV / IEEE TIP；完整 CV 包另含 WACV / ICIP / ICPR 和更多 rolling 期刊。
+> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回 → 变更日志」闭环、GitHub Actions 定时更新、可切换领域包的 Web 界面，以及面向 agent 的 CLI / MCP 查询层。3DGS / Avatar 包精选 CVPR / ICCV / 3DV / NeurIPS / ICLR / SIGGRAPH 与 TPAMI / IJCV / IEEE TIP / TOG / TVCG；完整 CV 包另含 WACV / ICIP / ICPR / ISMAR 和更多 rolling 期刊。
 
 ---
 
@@ -29,7 +29,7 @@ npm run dev
 # 打开 http://localhost:5173/?pack=3dgs-avatar
 ```
 
-默认首页只展示这个方向真正相关的 8 个 venues；切换「领域包」即可查看完整 CV 数据。每个 pack 只声明 venue 成员，不复制日期和证据。
+默认首页只展示这个方向真正相关的 12 个 venues；切换「领域包」即可查看完整 CV 数据。每个 pack 只声明 venue 成员，不复制日期和证据。
 
 想继续扩展这个方向：
 
@@ -38,7 +38,7 @@ npm run discover -- --field 3dgs-avatar --all
 npm run discover -- --field 3dgs-avatar siggraph
 ```
 
-候选清单里还有 SIGGRAPH / SIGGRAPH Asia / Eurographics / IEEE VR / ISMAR，以及 TOG / TVCG / CGF。没有确认当届 Dates 页的候选**不会生成接入命令**，也不会出现猜测日期。
+候选清单里的 SIGGRAPH、ISMAR、TOG、TVCG 已接入；SIGGRAPH Asia、Eurographics、IEEE VR 仍待适配器，候选不会生成未经验证的接入命令，也不会出现猜测日期。
 
 ---
 
@@ -85,6 +85,10 @@ fetch  ──► 规范化文本快照 ──► sha256
 3. **结构变化不覆盖**：页面改版导致抽取为空时，保留旧数据并报警，不会把已有信息清空。
 
 抽取链路分为确定性适配器与可复用模板；遇到新站点时，外部 agent 可以协助阅读页面、起草适配器或 patch，但必须重新经过快照、quote 和时区闸门。当前仓库**不内置 LLM 自动兜底**：模型可以协助「解析」，不能「发明」或直接决定入库。
+
+### 变更不是猜的
+
+`update --write` 只有在数据真正改变时，才向 `data/changelog.yaml` 追加 `added` / `changed` / `removed` 事件；dry-run、抓取失败、值没变都不记录。首页按当前领域包显示近 7 个 UTC 日历日内的事件，并保留前后时间与证据。因此“谁延期了”不是模型摘要，而是可 review、可回验的 diff。详见 [docs/CHANGELOG.md](docs/CHANGELOG.md)。
 
 ---
 
@@ -133,7 +137,7 @@ editions:
 3. `npm run update:dry -- --venue <id>` 看抽取结果；确认无误后 `npm run update -- --venue <id>`。
 4. `npm run validate` 必须全绿，然后提 PR。
 
-目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 详细参数、交互模式与手工兜底见 [docs/ADD_A_VENUE.md](docs/ADD_A_VENUE.md)。自动抽取支持 `adapter: thecvf`（CVF / NeurIPS 同模板）、`adapter: table-dates`（3DV 的 countdown 表格、ICIP 的 ARIA 表格 + 页面明示 AoE 文本日期）与 `adapter: section-dates`（ICPR 的主会文本区块，只接收行内显式 AoE 日期）；其他站点需要新适配器，或按数据契约手工补带证据的日期。
+目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 详细参数、交互模式与手工兜底见 [docs/ADD_A_VENUE.md](docs/ADD_A_VENUE.md)。自动抽取支持 `adapter: thecvf`（CVF / NeurIPS 同模板）、`adapter: table-dates`（3DV 的 countdown 表格、ICIP 的 ARIA 表格、ISMAR 的 TBA 表格）、`adapter: section-dates`（ICPR 的主会文本区块，只接收行内显式 AoE 日期）与 `adapter: siggraph-widget`（SIGGRAPH Technical Papers 专页的 UTC 机器字段）；其他站点需要新适配器，或按数据契约手工补带证据的日期。
 
 ---
 
@@ -148,7 +152,7 @@ editions:
 → update dry-run → 检查 diff → update 写入 → validate / test / build
 ```
 
-模型可以寻找候选、解释页面、起草 adapter 和生成 patch；**只有确定性校验器能决定数据是否入库**。模型升级时直接换 agent，证据链不变。操作手册见 [docs/AGENT_ONBOARDING.md](docs/AGENT_ONBOARDING.md)，可复制技能见 [skills/venue-onboarding/SKILL.md](skills/venue-onboarding/SKILL.md)。
+模型可以寻找候选、解释页面、起草 adapter 和生成 patch；**只有确定性校验器能决定数据是否入库**。模型升级时直接换 agent，证据链不变。操作手册见 [docs/AGENT_ONBOARDING.md](docs/AGENT_ONBOARDING.md)，可复制技能见 [skills/venue-onboarding/SKILL.md](skills/venue-onboarding/SKILL.md)，贡献流程与 PR 清单见 [CONTRIBUTING.md](CONTRIBUTING.md)。仓库内的 planned 包 `robotics-learning` 是可复制的实操样板。
 
 ---
 
@@ -159,13 +163,15 @@ core/         schema(zod)、领域包契约、时间与 AoE 换算、YAML 加载
 acquire/      抓取、快照、适配器、更新入口
 cmd/          validate / update / query / ask / add-venue / discover 命令
 mcp/          零依赖 MCP stdio server 与工具实现
-data/         fields/ 领域包、venues/ 数据、snapshots/ 快照、discovery/ 候选清单
+data/         fields/ 领域包、venues/ 数据、snapshots/ 快照、discovery/ 候选清单、changelog.yaml
 sources/      registry.yaml 源登记表
 skills/       可复制给 agent 的 venue-onboarding 技能
 tests/        校验器、pack、适配器与 Agent 契约测试（vitest）
 src/          支持 pack 切换的 React 货架式 Web 界面
+CONTRIBUTING.md  数据、领域包、适配器贡献流程
 docs/PLAN.md  产品与技术规划 v2.1
 docs/PACKS.md 领域包契约与复用指南
+docs/CHANGELOG.md  真实 deadline diff 与近 7 天窗口
 docs/AGENT_ONBOARDING.md  用户自带 agent / LLM 的接入流程
 docs/ADD_A_VENUE.md  新 venue 接入手册
 docs/DISCOVER.md     候选发现与人工确认流程
@@ -195,10 +201,11 @@ docs/DISCOVER.md     候选发现与人工确认流程
 - [x] **M0** 数据契约 v2 + 校验器（含原文回验）
 - [x] **M1** 一条真实链路：CVPR / ICCV / WACV 的采集、快照、抽取、写回
 - [x] **M2** GitHub Actions 定时 + PR 机器人
-- [x] **M3** 铺开到至少 8 个会议 + 4–6 个期刊（当前 8 个会议 + 6 个 rolling 期刊；继续向 12 个会议扩展）
-- [x] **M4** Web 界面首版：首页回答「接下来该投什么」
+- [x] **M3** 铺开到至少 8 个会议 + 4–6 个期刊（当前 10 个会议 + 8 个 rolling 期刊；含 SIGGRAPH / ISMAR，继续向 12 个有日期的会议扩展）
+- [x] **M4** Web 界面首版：首页回答「接下来该投什么」，并展示近 7 天真实变更
+- [ ] **M4.1** ICS 导出与日历订阅
 - [ ] **M5** Agent / AI 层：✅ 确定性自然语言筛选基线；✅ 领域包 + 用户自带 agent 的接入工作流；⬜ 变更摘要、可选模型编译、论文→会议匹配
-- [ ] **M6** 发布 v0.1.0：CLI 打包、截图式 demo、贡献指南
+- [ ] **M6** 发布 v0.1.0：CLI 打包、截图式 demo、贡献指南（CONTRIBUTING 已完成）
 
 详见 [docs/PLAN.md](docs/PLAN.md)。
 

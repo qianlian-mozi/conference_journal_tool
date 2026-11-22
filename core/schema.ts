@@ -133,6 +133,45 @@ export const VenueSchema = z.object({
 });
 export type Venue = z.infer<typeof VenueSchema>;
 
+/** 一次真实 deadline diff 的最小审计记录；移除后仍保留旧证据。 */
+export const DeadlineChangeValueSchema = z.object({
+  due: localIso,
+  timezone: z.string().min(1),
+  due_utc: z.string().datetime({ offset: true }).optional(),
+  raw_text: z.string().min(3),
+  status: DeadlineStatusSchema,
+});
+export type DeadlineChangeValue = z.infer<typeof DeadlineChangeValueSchema>;
+
+export const ChangelogEntrySchema = z
+  .object({
+    id: slugId,
+    detected_at: isoDate,
+    venue_id: slugId,
+    edition_id: slugId,
+    deadline_id: slugId,
+    change: z.enum(['added', 'changed', 'removed']),
+    deadline_kind: DeadlineKindSchema,
+    label: z.string().min(1).optional(),
+    before: DeadlineChangeValueSchema.nullable(),
+    after: DeadlineChangeValueSchema.nullable(),
+    evidence: DeadlineEvidenceSchema,
+  })
+  .refine(
+    (entry) =>
+      (entry.change === 'added' && entry.before === null && entry.after !== null) ||
+      (entry.change === 'removed' && entry.before !== null && entry.after === null) ||
+      (entry.change === 'changed' && entry.before !== null && entry.after !== null),
+    { message: 'change 与 before/after 的组合不一致' },
+  );
+export type ChangelogEntry = z.infer<typeof ChangelogEntrySchema>;
+
+export const ChangelogSchema = z.object({
+  schema_version: z.literal(2),
+  changes: z.array(ChangelogEntrySchema).default([]),
+});
+export type Changelog = z.infer<typeof ChangelogSchema>;
+
 export const FieldPackSchema = z.object({
   schema_version: z.literal(2),
   id: slugId,
@@ -156,7 +195,7 @@ export const SourcePageSchema = z.object({
 
 export const SourceEntrySchema = z.object({
   venue_id: slugId,
-  adapter: z.enum(['thecvf', 'table-dates', 'section-dates', 'manual']),
+  adapter: z.enum(['thecvf', 'table-dates', 'section-dates', 'siggraph-widget', 'manual']),
   cadence: z.enum(['daily', 'weekly', 'monthly', 'manual']),
   pages: z.array(SourcePageSchema).min(1),
   cross_check: z.array(httpsUrl).default([]),

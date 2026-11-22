@@ -1,0 +1,42 @@
+schema_version: 2
+field_id: robotics-learning
+candidates:
+  - id: icra
+    names: { short: ICRA, full: IEEE International Conference on Robotics and Automation }
+    type: conference
+    official_url: https://www.ieee-ras.org/conferences-workshops/fully-sponsored/icra
+    publisher: IEEE
+    submission_model: fixed
+    adapter: manual
+    cadence: manual
+    aliases: [robotics, manipulation]
+    note: 示例候选；接入时先确认当届官方论文 Dates 页，系列入口不用于生成日期。
+  - id: corl
+    names: { short: CoRL, full: Conference on Robot Learning }
+    type: conference
+    official_url: https://www.corl.org/
+    publisher: PMLR
+    submission_model: fixed
+    adapter: manual
+    cadence: manual
+    aliases: [robot learning, manipulation]
+    note: 示例候选；未确认下一届论文信源与适配器。
+  - id: rss
+    names: { short: RSS, full: Robotics Science and Systems }
+    type: conference
+    official_url: https://roboticsconference.org/
+    submission_model: fixed
+    adapter: manual
+    cadence: manual
+    aliases: [robotics, robot learning]
+    note: 示例候选；未确认下一届论文信源与适配器。
+  - id: ijrr
+    names: { short: IJRR, full: The International Journal of Robotics Research }
+    type: journal
+    official_url: https://journals.sagepub.com/home/ijr
+    publisher: SAGE
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [robotics journal]
+    note: rolling 期刊不生成截止日期。

@@ -112,3 +112,35 @@ sources:
       - role: dates
         url: https://icpr2026.org/dates.html
     cross_check: []
+
+  - venue_id: siggraph
+    adapter: siggraph-widget
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://s2027.siggraph.org/program/technical-papers/
+    cross_check: []
+
+  - venue_id: ismar
+    adapter: table-dates
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://www.ieeeismar.net/2027/
+    cross_check: []
+
+  - venue_id: acm-tog
+    adapter: manual
+    cadence: manual
+    pages:
+      - role: home
+        url: https://dl.acm.org/journal/tog
+    cross_check: []
+
+  - venue_id: tvcg
+    adapter: manual
+    cadence: manual
+    pages:
+      - role: home
+        url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945
+    cross_check: []

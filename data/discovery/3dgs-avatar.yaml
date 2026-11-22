@@ -69,16 +69,18 @@ candidates:
     cadence: manual
 
   # 待接入：只登记方向相关官网；未确认当届 Dates 页，因此不生成接入命令。
+  # SIGGRAPH / ISMAR / ACM TOG / TVCG 已接入，保留在此用于 discover --all 的完整视图。
   - id: siggraph
     names: { short: SIGGRAPH, full: ACM SIGGRAPH Conference and Exhibition on Computer Graphics and Interactive Techniques }
     type: conference
-    official_url: https://www.siggraph.org/
+    official_url: https://s2027.siggraph.org/
     publisher: ACM
     submission_model: fixed
-    adapter: manual
-    cadence: manual
+    source_url: https://s2027.siggraph.org/program/technical-papers/
+    adapter: siggraph-widget
+    cadence: weekly
     aliases: [computer graphics, 3DGS, avatar]
-    note: 需确认当届 Technical Papers 日期页与适配器。
+    note: Technical Papers 专页机器字段为准；CFP 总入口仍可能显示 TBA。
   - id: siggraph-asia
     names: { short: SIGGRAPH Asia, full: ACM SIGGRAPH Asia Conference and Exhibition on Computer Graphics and Interactive Techniques }
     type: conference
@@ -111,13 +113,14 @@ candidates:
   - id: ismar
     names: { short: ISMAR, full: IEEE International Symposium on Mixed and Augmented Reality }
     type: conference
-    official_url: https://ismar.net/
+    official_url: https://www.ieeeismar.net/2027/
     publisher: IEEE
     submission_model: fixed
-    adapter: manual
-    cadence: manual
+    source_url: https://www.ieeeismar.net/2027/#deadlines
+    adapter: table-dates
+    cadence: weekly
     aliases: [mixed reality, augmented reality, avatar]
-    note: 需确认当届论文日期页与适配器。
+    note: 2027 主会论文日期当前均为 To be announced，不补会期或时区。
   - id: acm-tog
     names: { short: TOG, full: ACM Transactions on Graphics }
     type: journal
@@ -130,7 +133,7 @@ candidates:
   - id: tvcg
     names: { short: TVCG, full: IEEE Transactions on Visualization and Computer Graphics }
     type: journal
-    official_url: https://www.computer.org/csdl/journal/tg
+    official_url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945
     publisher: IEEE
     submission_model: rolling
     adapter: manual

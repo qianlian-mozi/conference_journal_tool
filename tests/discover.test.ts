@@ -70,8 +70,11 @@ describe('discover 候选清单', () => {
     expect(shipped.field_id).toBe('3dgs-avatar');
     expect(shipped.candidates).toHaveLength(16);
     const siggraph = shipped.candidates.find((candidate) => candidate.id === 'siggraph');
-    expect(siggraph?.source_url).toBeUndefined();
-    expect(siggraph && buildAddVenueCommand(siggraph)).toBeNull();
+    expect(siggraph?.source_url).toBe('https://s2027.siggraph.org/program/technical-papers/');
+    expect(siggraph && buildAddVenueCommand(siggraph)).toContain('--adapter siggraph-widget');
+    const siggraphAsia = shipped.candidates.find((candidate) => candidate.id === 'siggraph-asia');
+    expect(siggraphAsia?.source_url).toBeUndefined();
+    expect(siggraphAsia && buildAddVenueCommand(siggraphAsia)).toBeNull();
   });
 
   it('拒绝 http、未知字段和重复解析错误', () => {

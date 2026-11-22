@@ -1,11 +1,12 @@
 import bundle from './generated/venues.json';
-import type { ShelfBundle, ShelfDeadline, ShelfEdition, ShelfVenue } from './types';
+import type { ShelfBundle, ShelfChange, ShelfDeadline, ShelfEdition, ShelfVenue } from './types';
 
 export const data = bundle as ShelfBundle;
 export const field = data.field;
 export const venues = data.venues;
 export const packs = data.packs;
 export const allVenues = data.all_venues;
+export const changes = data.changes;
 export const defaultPack = packs.find((pack) => pack.id === field.id) ?? packs[0];
 
 /** 分享链接中的 pack 参数无效时回退到默认包，不展示空页面。 */
@@ -15,6 +16,20 @@ export function resolvePackId(requested: string | null | undefined): string {
 }
 
 export const DAY_MS = 86_400_000;
+
+/** 当前 pack 最近 days 个 UTC 日历日的真实变更；未来日期与别的 pack 不混入。 */
+export function recentChanges(packId: string, now = Date.now(), days = 7): ShelfChange[] {
+  const pack = packs.find((item) => item.id === packId) ?? defaultPack;
+  const allowed = new Set(pack.venue_ids);
+  const today = new Date(now).toISOString().slice(0, 10);
+  const start = new Date(now - (days - 1) * DAY_MS).toISOString().slice(0, 10);
+  return changes
+    .filter(
+      (entry) =>
+        allowed.has(entry.venue_id) && entry.detected_at >= start && entry.detected_at <= today,
+    )
+    .sort((a, b) => b.detected_at.localeCompare(a.detected_at) || b.id.localeCompare(a.id));
+}
 
 /** 距截止还有多少天（向上取整）。已过期返回负数。 */
 export function daysLeft(deadline: ShelfDeadline, now = Date.now()): number | null {

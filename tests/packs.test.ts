@@ -65,12 +65,20 @@ describe('field packs', () => {
     ]);
   });
 
-  it('仓库的 3DGS / Avatar 是默认包且复用 8 个已有 venues', () => {
+  it('仓库的 3DGS / Avatar 是默认包且复用已有 venues', () => {
     const fields = loadFieldPacks().map((file) => file.data);
     const venues = loadVenues().map((file) => file.data);
     expect(packErrors(fields, venues)).toEqual([]);
     expect(defaultFieldPack(fields).id).toBe('3dgs-avatar');
-    expect(venuesForPack(venues, '3dgs-avatar')).toHaveLength(8);
-    expect(venuesForPack(venues, 'computer-vision')).toHaveLength(14);
+    const avatarVenues = venuesForPack(venues, '3dgs-avatar');
+    const cvVenues = venuesForPack(venues, 'computer-vision');
+    expect(avatarVenues.map((venue) => venue.id)).toEqual(
+      expect.arrayContaining(['cvpr', '3dv', 'siggraph', 'ismar', 'tvcg']),
+    );
+    expect(cvVenues.map((venue) => venue.id)).toEqual(
+      expect.arrayContaining(['cvpr', 'icpr', 'wacv', 'cviu']),
+    );
+    expect(avatarVenues.every((venue) => venue.field_ids.includes('3dgs-avatar'))).toBe(true);
+    expect(cvVenues.every((venue) => venue.field_ids.includes('computer-vision'))).toBe(true);
   });
 });

@@ -16,8 +16,8 @@
 | `add-venue` | 默认只读 | 预览 venue 骨架和 registry 条目 |
 | `add-venue --write` | 显式写入 | 原子创建 venue 并登记信源，不生成日期 |
 | `update:dry` | 网络 + 只读数据 | 抓取、抽取、生成 diff，不写 YAML |
-| `update --write` | 显式写入 | 通过证据闸门后写 YAML 与内容寻址快照 |
-| `validate` | 只读 | schema、时区、edition/deadline 双层 quote 回验 |
+| `update --write` | 显式写入 | 通过证据闸门后写 YAML、内容寻址快照与 `data/changelog.yaml` |
+| `validate` | 只读 | schema、时区、edition/deadline 双层 quote 回验，以及 changelog 证据 |
 | MCP server | 只读 | 查询已经收录的 venues；当前不提供写入工具 |
 
 接入新信源使用 CLI；查询已有数据可使用 MCP。不要把 MCP 的只读查询能力描述成自动写入能力。
@@ -42,7 +42,7 @@ node cmd/discover.ts --field 3dgs-avatar --all
 node cmd/discover.ts --field 3dgs-avatar <关键词>
 ```
 
-没有候选文件不代表不能接入；只说明需要用户或 agent 额外确认官网。
+没有候选文件不代表不能接入；只说明需要用户或 agent 额外确认官网。新领域可以先复制 planned 的 `data/fields/robotics-learning.yaml` 与同名 discovery 文件走通流程。
 
 ### 2. 确认官方信源
 
@@ -102,7 +102,7 @@ npm run test:all
 npm run build
 ```
 
-提交前展示 `git diff`，列出新增/修改/删除的日期和对应证据。公开仓库前再运行 `npm run audit:privacy`。
+提交前展示 `git diff`，列出新增/修改/删除的日期和对应证据。`--write` 还会把真实 diff 追加到 `data/changelog.yaml`；dry-run 不产生事件。公开仓库前再运行 `npm run audit:privacy`。贡献流程以 [CONTRIBUTING.md](../CONTRIBUTING.md) 为准。
 
 ## 模型可以输出什么
 

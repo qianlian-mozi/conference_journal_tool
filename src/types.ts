@@ -57,6 +57,28 @@ export interface ShelfPack {
   venue_ids: string[];
 }
 
+export interface ShelfChangeValue {
+  due: string;
+  timezone: string;
+  due_utc?: string;
+  raw_text: string;
+  status: string;
+}
+
+export interface ShelfChange {
+  id: string;
+  detected_at: string;
+  venue_id: string;
+  edition_id: string;
+  deadline_id: string;
+  change: 'added' | 'changed' | 'removed';
+  deadline_kind: string;
+  label?: string;
+  before: ShelfChangeValue | null;
+  after: ShelfChangeValue | null;
+  evidence: ShelfEvidence & { snapshot_hash?: string };
+}
+
 export interface ShelfBundle {
   generated_at: string | null;
   /** 默认 pack 的兼容视图。 */
@@ -64,6 +86,7 @@ export interface ShelfBundle {
   venues: ShelfVenue[];
   packs: ShelfPack[];
   all_venues: ShelfVenue[];
+  changes: ShelfChange[];
 }
 
 // ---- 旧的投稿计划类型：仍被 src/lib/planner.ts 与 ics.ts 使用 ----

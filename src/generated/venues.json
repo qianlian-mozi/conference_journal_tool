@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21",
+  "generated_at": "2026-11-22",
   "field": {
     "id": "3dgs-avatar",
     "name_zh": "3DGS 与 3D Avatar",
@@ -105,6 +105,17 @@
           ]
         }
       ]
+    },
+    {
+      "id": "acm-tog",
+      "type": "journal",
+      "short": "TOG",
+      "full": "ACM Transactions on Graphics",
+      "official_url": "https://dl.acm.org/journal/tog",
+      "publisher": "ACM",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
     },
     {
       "id": "cvpr",
@@ -382,6 +393,17 @@
       "editions": []
     },
     {
+      "id": "ismar",
+      "type": "conference",
+      "short": "ISMAR",
+      "full": "IEEE International Symposium on Mixed and Augmented Reality",
+      "official_url": "https://www.ieeeismar.net/2027/",
+      "publisher": "IEEE",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": []
+    },
+    {
       "id": "neurips",
       "type": "conference",
       "short": "NeurIPS",
@@ -494,11 +516,92 @@
       ]
     },
     {
+      "id": "siggraph",
+      "type": "conference",
+      "short": "SIGGRAPH",
+      "full": "ACM SIGGRAPH Conference and Exhibition on Computer Graphics and Interactive Techniques",
+      "official_url": "https://s2027.siggraph.org/",
+      "publisher": "ACM",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": [
+        {
+          "id": "siggraph-2027",
+          "year": 2027,
+          "label": "SIGGRAPH 2027",
+          "location": null,
+          "dates": {
+            "start": "2027-08-08",
+            "end": "2027-08-12"
+          },
+          "official_url": "https://s2027.siggraph.org",
+          "deadlines": [
+            {
+              "id": "siggraph-2027-submissions-form-conflicts",
+              "kind": "abstract",
+              "label": "Submissions Form & Conflicts",
+              "due": "2027-01-21T22:00:00",
+              "timezone": "UTC",
+              "due_utc": "2027-01-21T22:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://s2027.siggraph.org/program/technical-papers/",
+                "quote": "Thu, 21 Jan 2027 22:00 +00:00 2027-01-21 22:00",
+                "fetched_at": "2026-11-22"
+              }
+            },
+            {
+              "id": "siggraph-2027-paper-deadline",
+              "kind": "paper",
+              "label": "Paper Deadline",
+              "due": "2027-01-28T22:00:00",
+              "timezone": "UTC",
+              "due_utc": "2027-01-28T22:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://s2027.siggraph.org/program/technical-papers/",
+                "quote": "Thu, 28 Jan 2027 22:00 +00:00 2027-01-28 22:00",
+                "fetched_at": "2026-11-22"
+              }
+            },
+            {
+              "id": "siggraph-2027-upload-deadline",
+              "kind": "paper",
+              "label": "Upload Deadline",
+              "due": "2027-01-29T22:00:00",
+              "timezone": "UTC",
+              "due_utc": "2027-01-29T22:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://s2027.siggraph.org/program/technical-papers/",
+                "quote": "Fri, 29 Jan 2027 22:00 +00:00 2027-01-29 22:00",
+                "fetched_at": "2026-11-22"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "tpami",
       "type": "journal",
       "short": "TPAMI",
       "full": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
       "official_url": "https://www.computer.org/csdl/journal/tp",
+      "publisher": "IEEE",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    },
+    {
+      "id": "tvcg",
+      "type": "journal",
+      "short": "TVCG",
+      "full": "IEEE Transactions on Visualization and Computer Graphics",
+      "official_url": "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945",
       "publisher": "IEEE",
       "submission_model": "rolling",
       "qualifications": [],
@@ -515,13 +618,17 @@
       "description_zh": "旗舰样例包。复用计算机视觉 venues，只声明本方向真正相关的子集；不复制日期与证据。",
       "venue_ids": [
         "3dv",
+        "acm-tog",
         "cvpr",
         "iccv",
         "iclr",
         "ieee-tip",
         "ijcv",
+        "ismar",
         "neurips",
-        "tpami"
+        "siggraph",
+        "tpami",
+        "tvcg"
       ]
     },
     {
@@ -649,6 +756,17 @@
           ]
         }
       ]
+    },
+    {
+      "id": "acm-tog",
+      "type": "journal",
+      "short": "TOG",
+      "full": "ACM Transactions on Graphics",
+      "official_url": "https://dl.acm.org/journal/tog",
+      "publisher": "ACM",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
     },
     {
       "id": "cviu",
@@ -1122,6 +1240,17 @@
       "editions": []
     },
     {
+      "id": "ismar",
+      "type": "conference",
+      "short": "ISMAR",
+      "full": "IEEE International Symposium on Mixed and Augmented Reality",
+      "official_url": "https://www.ieeeismar.net/2027/",
+      "publisher": "IEEE",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": []
+    },
+    {
       "id": "mva",
       "type": "journal",
       "short": "MVA",
@@ -1256,11 +1385,92 @@
       "editions": []
     },
     {
+      "id": "siggraph",
+      "type": "conference",
+      "short": "SIGGRAPH",
+      "full": "ACM SIGGRAPH Conference and Exhibition on Computer Graphics and Interactive Techniques",
+      "official_url": "https://s2027.siggraph.org/",
+      "publisher": "ACM",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": [
+        {
+          "id": "siggraph-2027",
+          "year": 2027,
+          "label": "SIGGRAPH 2027",
+          "location": null,
+          "dates": {
+            "start": "2027-08-08",
+            "end": "2027-08-12"
+          },
+          "official_url": "https://s2027.siggraph.org",
+          "deadlines": [
+            {
+              "id": "siggraph-2027-submissions-form-conflicts",
+              "kind": "abstract",
+              "label": "Submissions Form & Conflicts",
+              "due": "2027-01-21T22:00:00",
+              "timezone": "UTC",
+              "due_utc": "2027-01-21T22:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://s2027.siggraph.org/program/technical-papers/",
+                "quote": "Thu, 21 Jan 2027 22:00 +00:00 2027-01-21 22:00",
+                "fetched_at": "2026-11-22"
+              }
+            },
+            {
+              "id": "siggraph-2027-paper-deadline",
+              "kind": "paper",
+              "label": "Paper Deadline",
+              "due": "2027-01-28T22:00:00",
+              "timezone": "UTC",
+              "due_utc": "2027-01-28T22:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://s2027.siggraph.org/program/technical-papers/",
+                "quote": "Thu, 28 Jan 2027 22:00 +00:00 2027-01-28 22:00",
+                "fetched_at": "2026-11-22"
+              }
+            },
+            {
+              "id": "siggraph-2027-upload-deadline",
+              "kind": "paper",
+              "label": "Upload Deadline",
+              "due": "2027-01-29T22:00:00",
+              "timezone": "UTC",
+              "due_utc": "2027-01-29T22:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://s2027.siggraph.org/program/technical-papers/",
+                "quote": "Fri, 29 Jan 2027 22:00 +00:00 2027-01-29 22:00",
+                "fetched_at": "2026-11-22"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "tpami",
       "type": "journal",
       "short": "TPAMI",
       "full": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
       "official_url": "https://www.computer.org/csdl/journal/tp",
+      "publisher": "IEEE",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    },
+    {
+      "id": "tvcg",
+      "type": "journal",
+      "short": "TVCG",
+      "full": "IEEE Transactions on Visualization and Computer Graphics",
+      "official_url": "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945",
       "publisher": "IEEE",
       "submission_model": "rolling",
       "qualifications": [],
@@ -1407,6 +1617,80 @@
           ]
         }
       ]
+    }
+  ],
+  "changes": [
+    {
+      "id": "change-01f07a43ccf55211",
+      "detected_at": "2026-11-22",
+      "venue_id": "siggraph",
+      "edition_id": "siggraph-2027",
+      "deadline_id": "siggraph-2027-submissions-form-conflicts",
+      "change": "added",
+      "deadline_kind": "abstract",
+      "label": "Submissions Form & Conflicts",
+      "before": null,
+      "after": {
+        "due": "2027-01-21T22:00:00",
+        "timezone": "UTC",
+        "due_utc": "2027-01-21T22:00:00.000Z",
+        "raw_text": "Thu, 21 Jan 2027 22:00 +00:00 2027-01-21 22:00",
+        "status": "confirmed"
+      },
+      "evidence": {
+        "url": "https://s2027.siggraph.org/program/technical-papers/",
+        "quote": "Thu, 21 Jan 2027 22:00 +00:00 2027-01-21 22:00",
+        "fetched_at": "2026-11-22",
+        "snapshot_hash": "aa4c26fe3d6e64a61bd84b43a49c0d7a1d91f748b8e19951891878b26a660e61"
+      }
+    },
+    {
+      "id": "change-b129b19883cccc5b",
+      "detected_at": "2026-11-22",
+      "venue_id": "siggraph",
+      "edition_id": "siggraph-2027",
+      "deadline_id": "siggraph-2027-upload-deadline",
+      "change": "added",
+      "deadline_kind": "paper",
+      "label": "Upload Deadline",
+      "before": null,
+      "after": {
+        "due": "2027-01-29T22:00:00",
+        "timezone": "UTC",
+        "due_utc": "2027-01-29T22:00:00.000Z",
+        "raw_text": "Fri, 29 Jan 2027 22:00 +00:00 2027-01-29 22:00",
+        "status": "confirmed"
+      },
+      "evidence": {
+        "url": "https://s2027.siggraph.org/program/technical-papers/",
+        "quote": "Fri, 29 Jan 2027 22:00 +00:00 2027-01-29 22:00",
+        "fetched_at": "2026-11-22",
+        "snapshot_hash": "aa4c26fe3d6e64a61bd84b43a49c0d7a1d91f748b8e19951891878b26a660e61"
+      }
+    },
+    {
+      "id": "change-f6e74d85a6b3281f",
+      "detected_at": "2026-11-22",
+      "venue_id": "siggraph",
+      "edition_id": "siggraph-2027",
+      "deadline_id": "siggraph-2027-paper-deadline",
+      "change": "added",
+      "deadline_kind": "paper",
+      "label": "Paper Deadline",
+      "before": null,
+      "after": {
+        "due": "2027-01-28T22:00:00",
+        "timezone": "UTC",
+        "due_utc": "2027-01-28T22:00:00.000Z",
+        "raw_text": "Thu, 28 Jan 2027 22:00 +00:00 2027-01-28 22:00",
+        "status": "confirmed"
+      },
+      "evidence": {
+        "url": "https://s2027.siggraph.org/program/technical-papers/",
+        "quote": "Thu, 28 Jan 2027 22:00 +00:00 2027-01-28 22:00",
+        "fetched_at": "2026-11-22",
+        "snapshot_hash": "aa4c26fe3d6e64a61bd84b43a49c0d7a1d91f748b8e19951891878b26a660e61"
+      }
     }
   ]
 }

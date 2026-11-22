@@ -96,8 +96,9 @@ node cmd/query.ts --venue cvpr --json    # 单个 venue 的全部日期
 | "CVPR 2027 什么时候截止" | `node cmd/query.ts --venue cvpr --json` |
 | "哪些是 CCF-A" | 读 `qualifications`（目前多数为空，缺数据就说缺） |
 | "帮我核对这条日期" | 打开 `evidence.url`，或读 `data/snapshots/<venue>/<sha256>.txt` |
-| "接入一个新会议/期刊" | 按 `skills/venue-onboarding/SKILL.md` 与 `docs/AGENT_ONBOARDING.md`；先预览和 dry-run，显式确认后才 `--write` |
-| "创建自己的领域包" | 按 `docs/PACKS.md` 新建 `data/fields/<pack>.yaml`，用 venue 的 `field_ids` 复用数据 |
+| "接入一个新会议/期刊" | 按 `skills/venue-onboarding/SKILL.md`、`docs/AGENT_ONBOARDING.md` 与 `CONTRIBUTING.md`；先预览和 dry-run，显式确认后才 `--write` |
+| "创建自己的领域包" | 按 `docs/PACKS.md` 新建 `data/fields/<pack>.yaml`，用 venue 的 `field_ids` 复用数据；可复制 planned 的 `robotics-learning` |
+| "谁延期了 / 最近改了什么" | 读 `data/changelog.yaml` 或调用 `node cmd/query.ts`；只陈述真实 diff，不用模型推断变更 |
 
 ---
 

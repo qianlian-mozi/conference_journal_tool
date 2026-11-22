@@ -68,16 +68,19 @@ qualification_systems: [ccf, core]
 
 ## 创建包含新 venues 的包
 
-先建立 pack，再走正常接入流程：
+仓库自带一个 **planned 示例包** `robotics-learning`（`data/fields/robotics-learning.yaml` + `data/discovery/robotics-learning.yaml`），它只用于走通贡献流程，不会出现在正式 Web 货架。复制它开始：
 
 ```bash
-npm run discover -- --field robotics --all
-npm run add-venue -- <官方 Dates URL> --field robotics --id <id> --short <简称> --full "<全称>"
-npm run add-venue -- --write <官方 Dates URL> --field robotics --id <id> --short <简称> --full "<全称>"
+npm run discover -- --field robotics-learning --all
+npm run discover -- --field robotics-learning --verify --json
+npm run add-venue -- <官方 Dates URL> --field robotics-learning --id <id> --short <简称> --full "<全称>"
+npm run add-venue -- --write <官方 Dates URL> --field robotics-learning --id <id> --short <简称> --full "<全称>"
 npm run update:dry -- --venue <id>
 npm run update -- --venue <id>
 npm run validate
 ```
+
+新包先设 `status: planned`；至少接入一个 venue 后再改为 `active`。完整贡献步骤与 PR 清单见 [CONTRIBUTING.md](../CONTRIBUTING.md)。
 
 `add-venue` 只生成骨架，不生成日期。`update` 只能从已登记官网抽取；quote 不在快照里就拒绝写入。
 

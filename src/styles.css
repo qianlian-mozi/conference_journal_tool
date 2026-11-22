@@ -176,6 +176,92 @@ a:hover {
   accent-color: var(--accent);
 }
 
+/* ---------- recent changes ---------- */
+
+.changes {
+  margin: 0 0 24px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.changes-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.changes-head h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.changes-head > span,
+.changes-empty {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.changes-empty {
+  margin: 8px 0 0;
+}
+
+.changes-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+.changes-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.change-badge {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--unknown-bg);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.change-added {
+  background: var(--open-bg);
+  color: var(--open);
+}
+
+.change-removed {
+  background: var(--passed-bg);
+  color: var(--passed);
+}
+
+.change-main {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.change-value {
+  color: var(--muted);
+}
+
+.change-meta {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
 /* ---------- grid & cards ---------- */
 
 .grid {
@@ -490,5 +576,15 @@ a:hover {
 
   .panel {
     padding: 20px;
+  }
+
+  .changes-list li {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .change-meta {
+    width: 100%;
+    padding-left: 48px;
   }
 }

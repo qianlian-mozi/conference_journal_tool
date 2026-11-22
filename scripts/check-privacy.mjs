@@ -23,6 +23,11 @@ const MAX_BYTES = 512 * 1024;
 const PUBLIC_SNAPSHOT_EMAILS = new Set(['3dv27-sponsors' + '@' + 'googlegroups.com']);
 const SNAPSHOT_PATH = /^data\/snapshots\/[a-z0-9-]+\/[a-f0-9]{64}\.txt$/;
 
+// URL 中带 home 路径段是公开地址（例如 SAGE 的期刊入口），不是本机家目录。
+function withoutHttpUrls(line) {
+  return line.replace(/https?:\/\/[^\s"'<>]+/gi, '<url>');
+}
+
 const CHECKS = [
   { name: 'Windows 绝对路径', re: /\b[A-Za-z]:\\[^\s"'<>|]+/g },
   { name: 'Unix 家目录', re: /\/Users\/[A-Za-z0-9._-]+|\/home\/[A-Za-z0-9._-]+/g },
@@ -92,7 +97,10 @@ for (const file of walk(ROOT)) {
   const lines = text.split(/\r?\n/);
   for (const check of CHECKS) {
     for (let index = 0; index < lines.length; index += 1) {
-      const matches = lines[index].match(check.re);
+      const line = check.name.endsWith('路径') || check.name === 'Unix 家目录'
+        ? withoutHttpUrls(lines[index])
+        : lines[index];
+      const matches = line.match(check.re);
       if (!matches) continue;
       for (const match of matches) {
         const masked = match.length <= 4 ? '***' : `${match.slice(0, 4)}…(${match.length})`;

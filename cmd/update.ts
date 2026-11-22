@@ -9,7 +9,7 @@
  *
  * 硬规则：抽取出的每条日期，其 quote 必须能在本次快照里逐字命中，否则跳过。
  */
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { stringify as stringifyYaml } from 'yaml';
 import { fetchPage } from '../acquire/fetch.ts';
@@ -18,8 +18,16 @@ import { editionUrlFromDatesUrl, yearFromDatesUrl } from '../acquire/edition.ts'
 import { extractTheCvf, type AdapterResult, type ExtractedDeadline } from '../acquire/adapters/thecvf.ts';
 import { extractTableDates } from '../acquire/adapters/table-dates.ts';
 import { extractSectionDates } from '../acquire/adapters/section-dates.ts';
-import { loadRegistry, loadVenues, repoPath } from '../core/load.ts';
-import type { Deadline, Edition, Venue } from '../core/schema.ts';
+import { extractSiggraphWidget } from '../acquire/adapters/siggraph-widget.ts';
+import { loadChangelog, loadRegistry, loadVenues, repoPath } from '../core/load.ts';
+import {
+  createDeadlineChangeEntries,
+  diffDeadlines,
+  mergeChangelog,
+} from '../core/changelog.ts';
+import { writeFileAtomicSync, withFileLockSync } from '../core/fs-safe.ts';
+import { commitStagedWrites, type StagedFileWrite } from '../core/update-commit.ts';
+import type { ChangelogEntry, Deadline, Edition, Venue } from '../core/schema.ts';
 import { utcIsoToLocal } from '../core/time.ts';
 
 interface Args {
@@ -128,33 +136,6 @@ function mergeEdition(venue: Venue, edition: Edition): Venue {
   return { ...venue, editions };
 }
 
-function diffDeadlines(existing: Deadline[], incoming: Deadline[]) {
-  const before = new Map(existing.map((item) => [item.id, item]));
-  const after = new Map(incoming.map((item) => [item.id, item]));
-  const added: Deadline[] = [];
-  const changed: Array<{ old: Deadline; next: Deadline }> = [];
-  const removed: Deadline[] = [];
-
-  for (const [id, next] of after) {
-    const old = before.get(id);
-    if (!old) added.push(next);
-    else if (
-      old.due_utc !== next.due_utc ||
-      old.raw_text !== next.raw_text ||
-      old.kind !== next.kind ||
-      old.due !== next.due ||
-      old.timezone !== next.timezone ||
-      old.due_source !== next.due_source
-    ) {
-      changed.push({ old, next });
-    }
-  }
-  for (const [id, old] of before) {
-    if (!after.has(id)) removed.push(old);
-  }
-  return { added, changed, removed };
-}
-
 function formatDeadline(deadline: Deadline): string {
   return `${deadline.due} ${deadline.timezone}${deadline.due_utc ? ` (UTC ${deadline.due_utc})` : ''}`;
 }
@@ -162,13 +143,13 @@ function formatDeadline(deadline: Deadline): string {
 function findEditionEvidenceQuote(snapshotText: string): string | null {
   const lines = snapshotText.split('\n').map((line) => line.trim());
   return (
-    lines.find((line) => /^(?:Dates and Deadlines|Important Dates)$/i.test(line)) ??
+    lines.find((line) => /^(?:Dates and Deadlines|Important Dates|Submissions)$/i.test(line)) ??
     lines.find((line) => line.length <= 120 && /\bImportant Dates\b/i.test(line)) ??
     null
   );
 }
 
-function extractPage(adapter: 'thecvf' | 'table-dates' | 'section-dates' | 'manual', html: string): AdapterResult {
+function extractPage(adapter: 'thecvf' | 'table-dates' | 'section-dates' | 'siggraph-widget' | 'manual', html: string): AdapterResult {
   switch (adapter) {
     case 'thecvf':
       return extractTheCvf(html);
@@ -176,6 +157,8 @@ function extractPage(adapter: 'thecvf' | 'table-dates' | 'section-dates' | 'manu
       return extractTableDates(html);
     case 'section-dates':
       return extractSectionDates(html);
+    case 'siggraph-widget':
+      return extractSiggraphWidget(html);
     case 'manual':
       throw new Error('manual 信源不应进入自动抽取');
     default:
@@ -198,6 +181,8 @@ async function main(): Promise<void> {
   const venues = new Map(loadVenues().map((file) => [file.data.id, file]));
   let failures = 0;
   let writes = 0;
+  const pendingChanges: ChangelogEntry[] = [];
+  const pendingVenueWrites: StagedFileWrite[] = [];
 
   for (const source of targets) {
     const loaded = venues.get(source.venue_id);
@@ -310,7 +295,7 @@ async function main(): Promise<void> {
 
     const snapshotFile = repoPath('data', 'snapshots', source.venue_id, `${snapshotHash}.txt`);
     mkdirSync(dirname(snapshotFile), { recursive: true });
-    writeFileSync(snapshotFile, snapshotText, 'utf8');
+    writeFileAtomicSync(snapshotFile, snapshotText);
 
     // 页面哈希没变时沿用原证据，避免只改 fetched_at 造成无意义的 diff。
     const previousEditionEvidence = existingEdition?.evidence?.[0];
@@ -346,9 +331,38 @@ async function main(): Promise<void> {
 
     const nextVenue = mergeEdition(loaded.data, edition);
     const venueFile = join(loaded.path);
-    writeFileSync(venueFile, stringifyYaml(nextVenue, { lineWidth: 0 }), 'utf8');
+    pendingVenueWrites.push({
+      path: venueFile,
+      content: stringifyYaml(nextVenue, { lineWidth: 0 }),
+      previousContent: readFileSync(venueFile, 'utf8'),
+      label: loaded.relativePath,
+    });
+    pendingChanges.push(
+      ...createDeadlineChangeEntries(source.venue_id, editionId, diff, todayIso()),
+    );
     writes += 1;
-    console.log(`  ✓ 已写入 ${loaded.relativePath} 与快照`);
+    console.log(`  ✓ 已暂存 ${loaded.relativePath} 与快照`);
+  }
+
+  if (args.write && pendingVenueWrites.length > 0) {
+    const changelogPath = repoPath('data', 'changelog.yaml');
+    withFileLockSync(changelogPath, () => {
+      // 先算好 merge：schema/锁/冲突错误发生时，venue 尚未落盘。
+      const merged = pendingChanges.length > 0
+        ? mergeChangelog(loadChangelog(), pendingChanges)
+        : null;
+      commitStagedWrites(pendingVenueWrites, () => {
+        if (merged) {
+          writeFileAtomicSync(changelogPath, stringifyYaml(merged, { lineWidth: 0 }));
+        }
+      });
+    });
+    for (const write of pendingVenueWrites) {
+      console.log(`  ✓ 已提交 ${write.label ?? write.path}`);
+    }
+    if (pendingChanges.length > 0) {
+      console.log(`\n已记录 ${pendingChanges.length} 条真实 deadline 变更（data/changelog.yaml）。`);
+    }
   }
 
   console.log(`\n完成：写回 ${writes} 个 venue，失败 ${failures} 个。`);

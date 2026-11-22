@@ -1,15 +1,14 @@
 /**
  * 把 data/ 下的 YAML 聚合成前端可直接 import 的 JSON。
  *
- * 为什么要有这一步：
- * - 数据源是给人改的 YAML（可写注释、diff 干净），而浏览器只认 JSON。
- * - 聚合发生在构建期，运行时零依赖、零请求。
- *
- * 生成物 src/generated/venues.json 需要提交进仓库，否则 clone 后不跑构建就没有数据。
+ * - 数据源是给人改的 YAML；浏览器只读构建期生成的 JSON。
+ * - 一个 venue 可属于多个 pack；pack 只保存 venue id，不复制日期与证据。
+ * - venues / field 保留默认包视图，兼容已有调用；all_venues / packs 支持切换。
  */
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'yaml';
+import { activeFieldPacks, defaultFieldPack, packErrors, venuesForPack } from '../core/packs.ts';
 
 const ROOT = process.cwd();
 const DATA = join(ROOT, 'data');
@@ -26,15 +25,17 @@ function readDir(dir, suffix = '.yaml') {
 }
 
 const fields = readDir(join(DATA, 'fields'));
-const field = fields.find((item) => item.status === 'active') ?? fields[0];
-if (!field) {
-  console.error('data/fields 下没有领域包');
+const sourceVenues = readDir(join(DATA, 'venues'));
+const layoutErrors = packErrors(fields, sourceVenues);
+if (layoutErrors.length > 0) {
+  for (const error of layoutErrors) console.error(error);
   process.exit(1);
 }
+const field = defaultFieldPack(fields);
+const active = activeFieldPacks(fields);
 
-const venues = readDir(join(DATA, 'venues'))
-  .filter((venue) => (venue.field_ids ?? []).includes(field.id))
-  .map((venue) => ({
+function toShelfVenue(venue) {
+  return {
     id: venue.id,
     type: venue.type,
     short: venue.names.short,
@@ -70,11 +71,24 @@ const venues = readDir(join(DATA, 'venues'))
         },
       })),
     })),
-  }));
+  };
+}
 
-// 用数据里最新的核验日期作为「生成时间」，而不是当前时钟：
-// 否则每次构建都会改一行时间戳，git diff 永远不干净。
-const fetchedDates = venues
+const allVenues = sourceVenues.map(toShelfVenue);
+const packs = active.map((pack) => ({
+  id: pack.id,
+  name_zh: pack.names.zh,
+  name_en: pack.names.en,
+  tier: pack.tier ?? 'community',
+  tagline_zh: pack.tagline_zh ?? null,
+  description_zh: pack.description_zh ?? null,
+  venue_ids: venuesForPack(sourceVenues, pack.id).map((venue) => venue.id),
+}));
+const defaultVenueIds = new Set(packs.find((pack) => pack.id === field.id)?.venue_ids ?? []);
+const venues = allVenues.filter((venue) => defaultVenueIds.has(venue.id));
+
+// 用数据里最新的核验日期作为「生成时间」，而不是当前时钟，保持构建可复现。
+const fetchedDates = allVenues
   .flatMap((venue) => venue.editions.flatMap((edition) => edition.deadlines.map((deadline) => deadline.evidence.fetched_at)))
   .sort();
 const generated_at = fetchedDates.at(-1) ?? null;
@@ -87,8 +101,10 @@ const bundle = {
     name_en: field.names.en,
   },
   venues,
+  packs,
+  all_venues: allVenues,
 };
 
 mkdirSync(join(ROOT, 'src', 'generated'), { recursive: true });
 writeFileSync(join(ROOT, 'src', 'generated', 'venues.json'), `${JSON.stringify(bundle, null, 2)}\n`, 'utf8');
-console.log(`generated ${venues.length} venues for field ${field.id}`);
+console.log(`generated ${allVenues.length} venues across ${packs.length} packs; default ${field.id} (${venues.length})`);

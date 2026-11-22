@@ -1,11 +1,555 @@
 {
   "generated_at": "2026-11-21",
   "field": {
-    "id": "computer-vision",
-    "name_zh": "计算机视觉",
-    "name_en": "Computer Vision"
+    "id": "3dgs-avatar",
+    "name_zh": "3DGS 与 3D Avatar",
+    "name_en": "3DGS & 3D Avatar"
   },
   "venues": [
+    {
+      "id": "3dv",
+      "type": "conference",
+      "short": "3DV",
+      "full": "International Conference on 3D Vision",
+      "official_url": "https://3dvconf.github.io/",
+      "publisher": null,
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": [
+        {
+          "id": "3dv-2027",
+          "year": 2027,
+          "label": "3DV 2027",
+          "location": null,
+          "dates": {
+            "start": "2027-04-06",
+            "end": "2027-04-09"
+          },
+          "official_url": "https://3dvconf.github.io/2027",
+          "deadlines": [
+            {
+              "id": "3dv-2027-abstract-registration",
+              "kind": "abstract",
+              "label": "Abstract Registration",
+              "due": "2026-08-28T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-08-29T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Abstract Registration Aug 28, 2026 [data-countdown=\"2026/08/29 11:59:59 +0000\"]",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "3dv-2027-paper-submission",
+              "kind": "paper",
+              "label": "Paper Submission",
+              "due": "2026-08-28T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-08-29T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Paper Submission Aug 28, 2026 [data-countdown=\"2026/08/29 11:59:59 +0000\"]",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "3dv-2027-supplementary-material",
+              "kind": "supplement",
+              "label": "Supplementary Material",
+              "due": "2026-09-02T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-09-03T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Supplementary Material Sep 02, 2026 [data-countdown=\"2026/09/03 11:59:59 +0000\"]",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "3dv-2027-preliminary-notification",
+              "kind": "notification",
+              "label": "Preliminary Notification",
+              "due": "2026-10-27T11:00:00",
+              "timezone": "America/Los_Angeles",
+              "due_utc": "2026-10-27T18:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Preliminary Notification Oct 27, 2026 [data-countdown=\"2026/10/27 18:00:00 +0000\"]",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "3dv-2027-final-notification",
+              "kind": "notification",
+              "label": "Final Notification",
+              "due": "2026-12-02T11:00:00",
+              "timezone": "America/Los_Angeles",
+              "due_utc": "2026-12-02T19:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://3dvconf.github.io/2027/dates/",
+                "quote": "Final Notification Dec 02, 2026 [data-countdown=\"2026/12/02 19:00:00 +0000\"]",
+                "fetched_at": "2026-11-21"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cvpr",
+      "type": "conference",
+      "short": "CVPR",
+      "full": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+      "official_url": "https://cvpr.thecvf.com/",
+      "publisher": "IEEE / CVF",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": [
+        {
+          "id": "cvpr-2027",
+          "year": 2027,
+          "label": "CVPR 2027",
+          "location": null,
+          "dates": {
+            "start": "2027-06-22",
+            "end": "2027-06-24"
+          },
+          "official_url": "https://cvpr.thecvf.com/Conferences/2027",
+          "deadlines": [
+            {
+              "id": "cvpr-2027-paper-registration-deadline",
+              "kind": "registration",
+              "label": "Paper Registration Deadline",
+              "due": "2026-11-10T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-11-11T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+                "quote": "Paper Registration Deadline Nov 10 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "cvpr-2027-submission-deadline",
+              "kind": "paper",
+              "label": "Submission Deadline",
+              "due": "2026-11-16T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-11-17T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+                "quote": "Submission Deadline Nov 16 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "cvpr-2027-supplementary-materials-deadline",
+              "kind": "supplement",
+              "label": "Supplementary Materials Deadline",
+              "due": "2026-11-23T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-11-24T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+                "quote": "Supplementary Materials Deadline Nov 23 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "cvpr-2027-final-decisions",
+              "kind": "notification",
+              "label": "Final Decisions",
+              "due": "2027-02-25T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2027-02-26T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+                "quote": "Final Decisions Feb 25 '27 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "cvpr-2027-reviews-released",
+              "kind": "other",
+              "label": "Reviews Released",
+              "due": "2027-01-25T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2027-01-26T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+                "quote": "Reviews Released Jan 25 '27 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "cvpr-2027-reviews-due",
+              "kind": "other",
+              "label": "Reviews due",
+              "due": "2027-01-08T08:00:00",
+              "timezone": "AoE",
+              "due_utc": "2027-01-08T20:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+                "quote": "Reviews due Jan 08 '27",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "cvpr-2027-author-rebuttals-due",
+              "kind": "rebuttal",
+              "label": "Author rebuttals due",
+              "due": "2027-02-01T08:00:00",
+              "timezone": "AoE",
+              "due_utc": "2027-02-01T20:00:00.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://cvpr.thecvf.com/Conferences/2027/Dates",
+                "quote": "Author rebuttals due Feb 01 '27",
+                "fetched_at": "2026-11-21"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iccv",
+      "type": "conference",
+      "short": "ICCV",
+      "full": "IEEE/CVF International Conference on Computer Vision",
+      "official_url": "https://iccv.thecvf.com/",
+      "publisher": "IEEE / CVF",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": []
+    },
+    {
+      "id": "iclr",
+      "type": "conference",
+      "short": "ICLR",
+      "full": "International Conference on Learning Representations",
+      "official_url": "https://iclr.cc/",
+      "publisher": "OpenReview",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": [
+        {
+          "id": "iclr-2027",
+          "year": 2027,
+          "label": "ICLR 2027",
+          "location": null,
+          "dates": null,
+          "official_url": "https://iclr.cc/Conferences/2027",
+          "deadlines": [
+            {
+              "id": "iclr-2027-abstract-deadline",
+              "kind": "abstract",
+              "label": "Abstract Deadline",
+              "due": "2026-09-18T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-09-19T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://iclr.cc/Conferences/2027/Dates",
+                "quote": "Abstract Deadline Sep 18 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "iclr-2027-paper-deadline",
+              "kind": "paper",
+              "label": "Paper Deadline",
+              "due": "2026-09-25T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-09-26T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://iclr.cc/Conferences/2027/Dates",
+                "quote": "Paper Deadline Sep 25 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "iclr-2027-reviews-released",
+              "kind": "other",
+              "label": "Reviews Released",
+              "due": "2026-11-05T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-11-06T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://iclr.cc/Conferences/2027/Dates",
+                "quote": "Reviews Released Nov 05 '26",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "iclr-2027-author-reviewer-discussion-begins",
+              "kind": "other",
+              "label": "Author- Reviewer Discussion Begins",
+              "due": "2026-11-05T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-11-06T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://iclr.cc/Conferences/2027/Dates",
+                "quote": "Author- Reviewer Discussion Begins Nov 05 '26",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "iclr-2027-author-reviewer-discussion-ends",
+              "kind": "other",
+              "label": "Author- Reviewer Discussion Ends",
+              "due": "2026-11-18T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-11-19T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://iclr.cc/Conferences/2027/Dates",
+                "quote": "Author- Reviewer Discussion Ends Nov 18 '26",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "iclr-2027-final-decisions",
+              "kind": "notification",
+              "label": "Final Decisions",
+              "due": "2026-12-16T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-12-17T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://iclr.cc/Conferences/2027/Dates",
+                "quote": "Final Decisions Dec 16 '26",
+                "fetched_at": "2026-11-21"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ieee-tip",
+      "type": "journal",
+      "short": "TIP",
+      "full": "IEEE Transactions on Image Processing",
+      "official_url": "https://signalprocessingsociety.org/publications-resources/ieee-transactions-image-processing",
+      "publisher": "IEEE",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    },
+    {
+      "id": "ijcv",
+      "type": "journal",
+      "short": "IJCV",
+      "full": "International Journal of Computer Vision",
+      "official_url": "https://link.springer.com/journal/11263",
+      "publisher": "Springer",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    },
+    {
+      "id": "neurips",
+      "type": "conference",
+      "short": "NeurIPS",
+      "full": "Conference on Neural Information Processing Systems",
+      "official_url": "https://neurips.cc/",
+      "publisher": "NeurIPS Foundation",
+      "submission_model": "fixed",
+      "qualifications": [],
+      "editions": [
+        {
+          "id": "neurips-2026",
+          "year": 2026,
+          "label": "NeurIPS 2026",
+          "location": null,
+          "dates": null,
+          "official_url": "https://neurips.cc/Conferences/2026",
+          "deadlines": [
+            {
+              "id": "neurips-2026-paper-abstract-submission-deadline",
+              "kind": "abstract",
+              "label": "Paper Abstract Submission Deadline",
+              "due": "2026-05-04T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-05-05T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Paper Abstract Submission Deadline May 04 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-full-paper-submission-deadline",
+              "kind": "paper",
+              "label": "Full Paper Submission Deadline",
+              "due": "2026-05-06T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-05-07T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Full Paper Submission Deadline May 06 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-reviews-released-to-authors",
+              "kind": "other",
+              "label": "Reviews Released to Authors",
+              "due": "2026-07-22T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-07-23T11:59:59.000Z",
+              "due_source": "timestamp",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Reviews Released to Authors Jul 22 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-paper-author-notifications",
+              "kind": "notification",
+              "label": "Paper Author Notifications",
+              "due": "2026-09-24T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-09-25T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Paper Author Notifications Sep 24 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-paper-camera-ready-deadline",
+              "kind": "camera_ready",
+              "label": "Paper Camera Ready Deadline",
+              "due": "2026-11-06T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-11-07T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Paper Camera Ready Deadline Nov 06 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            },
+            {
+              "id": "neurips-2026-early-registration-deadline",
+              "kind": "registration",
+              "label": "Early Registration Deadline",
+              "due": "2026-10-30T23:59:59",
+              "timezone": "AoE",
+              "due_utc": "2026-10-31T11:59:59.000Z",
+              "due_source": "text",
+              "status": "confirmed",
+              "evidence": {
+                "url": "https://neurips.cc/Conferences/2026/Dates",
+                "quote": "Early Registration Deadline Oct 30 '26 (Anywhere on Earth)",
+                "fetched_at": "2026-11-21"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tpami",
+      "type": "journal",
+      "short": "TPAMI",
+      "full": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "official_url": "https://www.computer.org/csdl/journal/tp",
+      "publisher": "IEEE",
+      "submission_model": "rolling",
+      "qualifications": [],
+      "editions": []
+    }
+  ],
+  "packs": [
+    {
+      "id": "3dgs-avatar",
+      "name_zh": "3DGS 与 3D Avatar",
+      "name_en": "3DGS & 3D Avatar",
+      "tier": "core",
+      "tagline_zh": "面向 3D Gaussian Splatting、数字人与三维视觉研究的可溯源投稿雷达。",
+      "description_zh": "旗舰样例包。复用计算机视觉 venues，只声明本方向真正相关的子集；不复制日期与证据。",
+      "venue_ids": [
+        "3dv",
+        "cvpr",
+        "iccv",
+        "iclr",
+        "ieee-tip",
+        "ijcv",
+        "neurips",
+        "tpami"
+      ]
+    },
+    {
+      "id": "computer-vision",
+      "name_zh": "计算机视觉",
+      "name_en": "Computer Vision",
+      "tier": "core",
+      "tagline_zh": "计算机视觉会议与滚动投稿期刊的可信核心样例。",
+      "description_zh": "首个开放领域。核心系统保持领域无关，新增领域通过新增本文件与对应 venue 数据接入。",
+      "venue_ids": [
+        "3dv",
+        "cviu",
+        "cvpr",
+        "iccv",
+        "icip",
+        "iclr",
+        "icpr",
+        "ieee-tip",
+        "ijcv",
+        "mva",
+        "neurips",
+        "pattern-recognition",
+        "tpami",
+        "wacv"
+      ]
+    }
+  ],
+  "all_venues": [
     {
       "id": "3dv",
       "type": "conference",

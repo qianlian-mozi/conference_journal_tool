@@ -1,0 +1,147 @@
+schema_version: 2
+field_id: 3dgs-avatar
+candidates:
+  # 已收录：--all 可看到完整旗舰包；日期仍以 data/venues 为准。
+  - id: cvpr
+    names: { short: CVPR, full: IEEE/CVF Conference on Computer Vision and Pattern Recognition }
+    type: conference
+    official_url: https://cvpr.thecvf.com/
+    source_url: https://cvpr.thecvf.com/Conferences/2027/Dates
+    submission_model: fixed
+    adapter: thecvf
+    cadence: weekly
+    aliases: [3D vision, 3DGS]
+  - id: iccv
+    names: { short: ICCV, full: IEEE/CVF International Conference on Computer Vision }
+    type: conference
+    official_url: https://iccv.thecvf.com/
+    submission_model: fixed
+    adapter: thecvf
+    cadence: weekly
+  - id: 3dv
+    names: { short: 3DV, full: International Conference on 3D Vision }
+    type: conference
+    official_url: https://3dvconf.github.io/
+    source_url: https://3dvconf.github.io/2027/dates/
+    submission_model: fixed
+    adapter: table-dates
+    cadence: weekly
+    aliases: [3D Vision]
+  - id: neurips
+    names: { short: NeurIPS, full: Conference on Neural Information Processing Systems }
+    type: conference
+    official_url: https://neurips.cc/
+    source_url: https://neurips.cc/Conferences/2026/Dates
+    submission_model: fixed
+    adapter: thecvf
+    cadence: weekly
+  - id: iclr
+    names: { short: ICLR, full: International Conference on Learning Representations }
+    type: conference
+    official_url: https://iclr.cc/
+    source_url: https://iclr.cc/Conferences/2027/Dates
+    submission_model: fixed
+    adapter: thecvf
+    cadence: weekly
+  - id: tpami
+    names: { short: TPAMI, full: IEEE Transactions on Pattern Analysis and Machine Intelligence }
+    type: journal
+    official_url: https://www.computer.org/csdl/journal/tp
+    publisher: IEEE
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+  - id: ijcv
+    names: { short: IJCV, full: International Journal of Computer Vision }
+    type: journal
+    official_url: https://link.springer.com/journal/11263
+    publisher: Springer
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+  - id: ieee-tip
+    names: { short: TIP, full: IEEE Transactions on Image Processing }
+    type: journal
+    official_url: https://signalprocessingsociety.org/publications-resources/ieee-transactions-image-processing
+    publisher: IEEE
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+
+  # 待接入：只登记方向相关官网；未确认当届 Dates 页，因此不生成接入命令。
+  - id: siggraph
+    names: { short: SIGGRAPH, full: ACM SIGGRAPH Conference and Exhibition on Computer Graphics and Interactive Techniques }
+    type: conference
+    official_url: https://www.siggraph.org/
+    publisher: ACM
+    submission_model: fixed
+    adapter: manual
+    cadence: manual
+    aliases: [computer graphics, 3DGS, avatar]
+    note: 需确认当届 Technical Papers 日期页与适配器。
+  - id: siggraph-asia
+    names: { short: SIGGRAPH Asia, full: ACM SIGGRAPH Asia Conference and Exhibition on Computer Graphics and Interactive Techniques }
+    type: conference
+    official_url: https://asia.siggraph.org/
+    publisher: ACM
+    submission_model: fixed
+    adapter: manual
+    cadence: manual
+    aliases: [computer graphics, 3DGS, avatar]
+    note: 需确认当届 Technical Papers 日期页与适配器。
+  - id: eurographics
+    names: { short: Eurographics, full: Annual Conference of the European Association for Computer Graphics }
+    type: conference
+    official_url: https://eurographics.org/
+    submission_model: fixed
+    adapter: manual
+    cadence: manual
+    aliases: [EG, computer graphics]
+    note: 需确认当届论文日期页与适配器。
+  - id: ieee-vr
+    names: { short: IEEE VR, full: IEEE Conference on Virtual Reality and 3D User Interfaces }
+    type: conference
+    official_url: https://ieeevr.org/
+    publisher: IEEE
+    submission_model: fixed
+    adapter: manual
+    cadence: manual
+    aliases: [VR, 3D user interfaces, avatar]
+    note: 需确认当届论文日期页与适配器。
+  - id: ismar
+    names: { short: ISMAR, full: IEEE International Symposium on Mixed and Augmented Reality }
+    type: conference
+    official_url: https://ismar.net/
+    publisher: IEEE
+    submission_model: fixed
+    adapter: manual
+    cadence: manual
+    aliases: [mixed reality, augmented reality, avatar]
+    note: 需确认当届论文日期页与适配器。
+  - id: acm-tog
+    names: { short: TOG, full: ACM Transactions on Graphics }
+    type: journal
+    official_url: https://dl.acm.org/journal/tog
+    publisher: ACM
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [ACM TOG, computer graphics]
+  - id: tvcg
+    names: { short: TVCG, full: IEEE Transactions on Visualization and Computer Graphics }
+    type: journal
+    official_url: https://www.computer.org/csdl/journal/tg
+    publisher: IEEE
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [IEEE TVCG, visualization, virtual reality]
+  - id: cgf
+    names: { short: CGF, full: Computer Graphics Forum }
+    type: journal
+    official_url: https://onlinelibrary.wiley.com/journal/14678659
+    publisher: Wiley / Eurographics
+    submission_model: rolling
+    adapter: manual
+    cadence: manual
+    aliases: [Computer Graphics Forum, Eurographics journal]

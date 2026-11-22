@@ -1,0 +1,14 @@
+schema_version: 2
+id: 3dgs-avatar
+slug: 3dgs-avatar
+names:
+  zh: 3DGS 与 3D Avatar
+  en: 3DGS & 3D Avatar
+status: active
+tier: core
+is_default: true
+tagline_zh: 面向 3D Gaussian Splatting、数字人与三维视觉研究的可溯源投稿雷达。
+description_zh: 旗舰样例包。复用计算机视觉 venues，只声明本方向真正相关的子集；不复制日期与证据。
+qualification_systems:
+  - ccf
+  - core

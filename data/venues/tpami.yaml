@@ -6,6 +6,7 @@ names:
   full: IEEE Transactions on Pattern Analysis and Machine Intelligence
 field_ids:
   - computer-vision
+  - 3dgs-avatar
 official_url: https://www.computer.org/csdl/journal/tp
 publisher: IEEE
 submission_model: rolling

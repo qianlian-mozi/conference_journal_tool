@@ -1,11 +1,11 @@
 # 项目状态（供后续会话/接手者阅读）
 
-> 最后更新：2026-11-21
+> 最后更新：2026-11-22
 > 仓库：https://github.com/qianlian-mozi/conference_journal_tool （Private）
 
 ## 一句话
 
-CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML），由 GitHub Actions 定时抓官网更新，前端做成"按截止天数排序的货架"。
+可复用的会议/期刊投稿情报工作流：仓库里是**带证据的数据**（YAML），由 GitHub Actions 定时抓官网更新；以 3DGS / Avatar 为旗舰包、CV 为可信核心，用户可带自己的 agent 扩展其他领域。
 
 ## 已完成
 
@@ -15,16 +15,17 @@ CV 会议/期刊投稿情报工具：仓库里是**带证据的数据**（YAML�
 | M1 采集链路 | ✅ | `acquire/`：抓取、内容寻址快照、CVF 家族与 table-dates / section-dates 适配器、quote 闸门；`cmd/update.ts` 抓取→diff→写回 |
 | M2 Actions | ✅ | `.github/workflows/ci.yml`（validate + privacy + test + build）、`update-data.yml`（每周一 + 手动，自动开 PR） |
 | M3 数据 | 🟡 达到下限 | 8 会议（目标 8–12）：CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、NeurIPS 2026（已结束）、3DV 2027、ICIP 2027、ICPR 2026；6 期刊：TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA（均 rolling，期刊目标已达标） |
-| M4 前端 | ✅ 首个版本 | 货架视图：按截止天数排序、状态色、筛选、详情带来源 |
-| M5 AI 层 | 🟡 基线 | 确定性自然语言筛选 CLI：`core/ask.ts` + `cmd/ask.ts`，12 条固定问句测试；未接模型，变更摘要与论文匹配未做 |
+| M4 前端 | ✅ 多 pack 版本 | 货架视图：按截止天数排序、状态色、筛选、详情带来源；支持 pack 切换和 `?pack=` 分享链接 |
+| M5 Agent / AI 层 | 🟡 基线 | 确定性自然语言筛选 CLI；领域包 + agent-first 接入文档 + 可复制 skill；未绑定模型，变更摘要与论文匹配未做 |
 | Agent 层（CLI/MCP/AGENTS.md） | ✅ 首版 | 共用查询引擎；CLI 与 MCP 保留全部届次和 evidence；有契约回归测试 |
 | 接入层（add-venue） | ✅ 首版 | 生成可校验骨架与源登记；默认预览、`--write` 才落盘；不会生成日期 |
 | 发现层（discover） | ✅ 首版 | 领域候选 YAML + 人工确认；匹配未收录 venue、可选官网核验、生成 add-venue 命令；不抓搜索页、不写数据 |
+| 领域包（field packs） | ✅ 首版 | core/community/local、唯一默认包、多对多 venue 复用；3DGS / Avatar 默认展示 8 个 venue，CV 包 14 个；构建与 Web 支持多包 |
 
 ## 仓库结构
 
 ```text
-core/          schema(zod)、时间/AoE 换算、YAML 加载、查询引擎、确定性 NL 筛选
+core/          schema(zod)、pack 契约、时间/AoE 换算、YAML 加载、查询引擎、确定性 NL 筛选
 acquire/       fetch、snapshot（sha256 内容寻址）、adapters/thecvf.ts、adapters/table-dates.ts、adapters/section-dates.ts
 cmd/           update（抓取→diff→写回）、validate（三道闸门）、query、ask、add-venue、discover
 mcp/           MCP stdio server 与三个查询工具
@@ -32,10 +33,13 @@ data/          fields/ 领域包、venues/ 数据、snapshots/ 快照、discover
 sources/       registry.yaml 源登记表
 scripts/       build-data.mjs（YAML→JSON）、check-privacy.mjs
 src/           React 货架视图；generated/venues.json 是构建产物
-docs/PLAN.md   产品与技术规划 v2
+docs/PLAN.md   产品与技术规划 v2.1
+docs/PACKS.md  领域包契约、复用与验收清单
+docs/AGENT_ONBOARDING.md  用户自带 agent / LLM 的接入工作流
 docs/ADD_A_VENUE.md  新 venue 接入手册
 docs/DISCOVER.md     候选发现与人工确认流程
 docs/ASK.md          自然语言筛选的边界与支持问法
+skills/venue-onboarding/SKILL.md  可复制的 agent 技能
 ```
 
 ## 常用命令
@@ -62,6 +66,8 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 - **滚动期刊**：`submission_model: rolling`，没有 deadline，`validate` 强制这一点。
 - **幂等更新**：值没变就沿用原证据（含 `fetched_at`），避免"只改时间戳"的伪 PR。
 - **构建可复现**：`generated_at` 取数据里最新的核验日期，不取当前时钟。
+- **不内置全世界**：可信核心负责证明质量，field pack 负责领域复用；同一 venue 可共享，数据真相只有一份。
+- **用户自带 agent/LLM**：不绑定供应商、不存 API key；模型起草候选和 patch，确定性工具保留写入与验收权。
 
 ## 已知问题 / 待办
 
@@ -74,7 +80,8 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 
 ## 下一步建议
 
-1. 扩充 `data/discovery/computer-vision.yaml` 候选，并给候选补当届 Dates/CFP 页；只加人工确认过的官网。
-2. 扩展其他非 CVF 平台适配器（ACM、Springer、EasyChair 等），同时保持 quote 回验硬闸门。
-3. **M3 已达到 8 个会议下限**（ICPR 2026 以主会区块显式 AoE 日期接入）。可继续向 12 个扩展；剩余候选 ACM MM 2027、MICCAI 2027、ICRA 2027、BMVC 2027、ICPR 2028 的论文日期尚未公布，公布后再接入。
-4. 在 M5-A 的确定性解析器之上，可选接 OpenAI 兼容端点：模型只产出 `AskPlan`（筛选对象），执行仍由 `queryVenues` 完成；必须保留 12 条拒绝/不编造回归。
+1. **把 3DGS / Avatar 包做深**：优先确认 SIGGRAPH / SIGGRAPH Asia / TVCG / TOG 等当届官网与适配器；未公布日期就保留空状态，不为数量编数据。
+2. **让外部用户真正跑通 agent onboarding**：按 docs/AGENT_ONBOARDING.md 与 skill 做一次全新领域包接入，记录耗时和卡点，再决定是否抽象插件 API。
+3. 补 GitHub 首页截图式 demo、pack 贡献模板和 CONTRIBUTING；公开前继续隐私审计与 License 检查。
+4. 扩展 ACM、Springer、EasyChair 等平台适配器，同时保持 quote 回验硬闸门。
+5. 后续再做变更摘要与可选模型编译：模型只产计划/patch，执行仍由确定性工具完成。

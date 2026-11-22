@@ -139,6 +139,11 @@ export const FieldPackSchema = z.object({
   slug: slugId,
   names: z.object({ zh: z.string().min(1), en: z.string().min(1) }),
   status: z.enum(['active', 'planned']),
+  /** core = 仓库维护的样例；community = 经 PR 审核；local = 用户本地扩展。 */
+  tier: z.enum(['core', 'community', 'local']).default('community'),
+  /** 活跃包中最多一个默认包；缺省时按 id 选择第一个活跃包。 */
+  is_default: z.boolean().default(false),
+  tagline_zh: z.string().min(1).optional(),
   description_zh: z.string().min(1).optional(),
   qualification_systems: z.array(z.string().min(1)).default([]),
 });

@@ -6,6 +6,7 @@ names:
   full: International Conference on Learning Representations
 field_ids:
   - computer-vision
+  - 3dgs-avatar
 official_url: https://iclr.cc/
 publisher: OpenReview
 submission_model: fixed

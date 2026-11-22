@@ -6,6 +6,7 @@ names:
   full: International Conference on 3D Vision
 field_ids:
   - computer-vision
+  - 3dgs-avatar
 official_url: https://3dvconf.github.io/
 submission_model: fixed
 qualifications: []

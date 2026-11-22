@@ -61,6 +61,19 @@ describe('discover 候选清单', () => {
     );
   });
 
+  it('3DGS / Avatar 包同时列出已收录核心与待确认候选', () => {
+    const raw = readFileSync(
+      new URL('../data/discovery/3dgs-avatar.yaml', import.meta.url),
+      'utf8',
+    );
+    const shipped = parseDiscoveryCatalog(raw);
+    expect(shipped.field_id).toBe('3dgs-avatar');
+    expect(shipped.candidates).toHaveLength(16);
+    const siggraph = shipped.candidates.find((candidate) => candidate.id === 'siggraph');
+    expect(siggraph?.source_url).toBeUndefined();
+    expect(siggraph && buildAddVenueCommand(siggraph)).toBeNull();
+  });
+
   it('拒绝 http、未知字段和重复解析错误', () => {
     expect(() =>
       parseDiscoveryCatalog(

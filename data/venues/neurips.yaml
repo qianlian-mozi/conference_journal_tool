@@ -6,6 +6,7 @@ names:
   full: Conference on Neural Information Processing Systems
 field_ids:
   - computer-vision
+  - 3dgs-avatar
 official_url: https://neurips.cc/
 publisher: NeurIPS Foundation
 submission_model: fixed

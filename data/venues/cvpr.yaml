@@ -6,6 +6,7 @@ names:
   full: IEEE/CVF Conference on Computer Vision and Pattern Recognition
 field_ids:
   - computer-vision
+  - 3dgs-avatar
 official_url: https://cvpr.thecvf.com/
 publisher: IEEE / CVF
 submission_model: fixed

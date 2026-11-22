@@ -13,6 +13,7 @@
 import { loadFieldPacks, loadRegistry, loadVenues } from '../core/load.ts';
 import { snapshotEvidenceError } from '../acquire/evidence.ts';
 import type { Venue } from '../core/schema.ts';
+import { packErrors } from '../core/packs.ts';
 import { isValidTimeZone, localToUtcIso, sameInstant } from '../core/time.ts';
 
 const errors: string[] = [];
@@ -100,6 +101,13 @@ function main(): void {
 
   if (fields.length === 0) fail('data/fields 为空，至少需要一个领域包');
   if (venues.length === 0) fail('data/venues 为空，至少需要一个 venue');
+
+  for (const problem of packErrors(
+    fields.map((file) => file.data),
+    venues.map((file) => file.data),
+  )) {
+    fail(problem);
+  }
 
   const fieldIds = new Set(fields.map((file) => file.data.id));
   const venueIds = new Set<string>();

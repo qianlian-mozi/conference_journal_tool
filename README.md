@@ -1,10 +1,12 @@
 # CV Venue Radar
 
-一个面向科研人员的**开源、本地优先**会议 / 期刊投稿情报工具。首版聚焦 **Computer Vision**。
+一个面向科研人员的**开源、本地优先**会议 / 期刊投稿情报工具。以 **3DGS / 3D Avatar** 为旗舰样例，以 Computer Vision 为可信核心数据集。
+
+目标不是内置全世界 venue，而是提供一套**用户和 agent 都能复用的、带证据的接入工作流**。
 
 它不只是把会议列出来：**它自己盯着官网更新，并且每条日期都能追溯到官网页面上那一行原文。**
 
-> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、货架式 Web 界面，以及面向 agent 的 CLI / MCP 查询层。目前收录 CVPR / ICCV / ICLR / WACV / NeurIPS / 3DV / ICIP / ICPR，以及 TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA 等 rolling 期刊。
+> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回」闭环、GitHub Actions 定时更新、可切换领域包的 Web 界面，以及面向 agent 的 CLI / MCP 查询层。3DGS / Avatar 包精选 CVPR / ICCV / 3DV / NeurIPS / ICLR 与 TPAMI / IJCV / IEEE TIP；完整 CV 包另含 WACV / ICIP / ICPR 和更多 rolling 期刊。
 
 ---
 
@@ -16,6 +18,27 @@
 
 现有 deadline 站点解决「列出来」，但普遍不解决「可追溯」和「变更感知」，而且你没法自己修。
 这个项目把数据放在 Git 仓库里：**PR 的 diff 就是审核界面，fork 就能改成你自己要的样子**。
+
+---
+
+## 先看 3DGS / Avatar 样例
+
+```bash
+npm install
+npm run dev
+# 打开 http://localhost:5173/?pack=3dgs-avatar
+```
+
+默认首页只展示这个方向真正相关的 8 个 venues；切换「领域包」即可查看完整 CV 数据。每个 pack 只声明 venue 成员，不复制日期和证据。
+
+想继续扩展这个方向：
+
+```bash
+npm run discover -- --field 3dgs-avatar --all
+npm run discover -- --field 3dgs-avatar siggraph
+```
+
+候选清单里还有 SIGGRAPH / SIGGRAPH Asia / Eurographics / IEEE VR / ISMAR，以及 TOG / TVCG / CGF。没有确认当届 Dates 页的候选**不会生成接入命令**，也不会出现猜测日期。
 
 ---
 
@@ -61,7 +84,7 @@ fetch  ──► 规范化文本快照 ──► sha256
 2. **时区自校**：`due + timezone` 换算出的 UTC 必须与页面上内嵌的 UTC 时间戳一致（容差 60 秒），AoE / UTC / IANA 时区都在校验范围内。
 3. **结构变化不覆盖**：页面改版导致抽取为空时，保留旧数据并报警，不会把已有信息清空。
 
-抽取分三级：L1 确定性适配器（CVF 家族、带 `data-countdown` 的表格页，靠页面内嵌时间戳）→ L2 家族模板 → L3 LLM 兜底（必须原样引用，找不到就返回 null）。模型只负责「解析」，不负责「发明」。
+抽取链路分为确定性适配器与可复用模板；遇到新站点时，外部 agent 可以协助阅读页面、起草适配器或 patch，但必须重新经过快照、quote 和时区闸门。当前仓库**不内置 LLM 自动兜底**：模型可以协助「解析」，不能「发明」或直接决定入库。
 
 ---
 
@@ -76,7 +99,7 @@ type: conference
 names:
   short: CVPR
   full: IEEE/CVF Conference on Computer Vision and Pattern Recognition
-field_ids: [computer-vision]
+field_ids: [computer-vision, 3dgs-avatar]
 official_url: https://cvpr.thecvf.com/
 submission_model: fixed        # fixed（有截止日期）| rolling（期刊常态）
 editions:
@@ -114,18 +137,36 @@ editions:
 
 ---
 
+## 复用到自己的领域，或交给自己的 agent
+
+一个领域包由 `data/fields/<pack-id>.yaml`、venue 的 `field_ids` 和可选的 `data/discovery/<pack-id>.yaml` 组成。`core` / `community` / `local` 三种层级共用同一套数据契约，活跃包可直接在 Web 中切换。完整格式与验收清单见 [docs/PACKS.md](docs/PACKS.md)。
+
+项目**不绑定模型供应商，也不需要把 API key 放进仓库**。你可以让 Claude Code、Codex、DSH、Cursor 或其他 agent 使用仓库提供的流程：
+
+```text
+寻找并确认官网 → discover → add-venue 预览 → 显式写入骨架
+→ update dry-run → 检查 diff → update 写入 → validate / test / build
+```
+
+模型可以寻找候选、解释页面、起草 adapter 和生成 patch；**只有确定性校验器能决定数据是否入库**。模型升级时直接换 agent，证据链不变。操作手册见 [docs/AGENT_ONBOARDING.md](docs/AGENT_ONBOARDING.md)，可复制技能见 [skills/venue-onboarding/SKILL.md](skills/venue-onboarding/SKILL.md)。
+
+---
+
 ## 目录结构
 
 ```text
-core/         schema(zod)、时间与 AoE 换算、YAML 加载
+core/         schema(zod)、领域包契约、时间与 AoE 换算、YAML 加载、查询
 acquire/      抓取、快照、适配器、更新入口
-cmd/          validate / update / query / add-venue / discover 命令
+cmd/          validate / update / query / ask / add-venue / discover 命令
 mcp/          零依赖 MCP stdio server 与工具实现
 data/         fields/ 领域包、venues/ 数据、snapshots/ 快照、discovery/ 候选清单
 sources/      registry.yaml 源登记表
-tests/        校验器与适配器测试（vitest）
-src/          React 货架式 Web 界面
-docs/PLAN.md  产品与技术规划 v2
+skills/       可复制给 agent 的 venue-onboarding 技能
+tests/        校验器、pack、适配器与 Agent 契约测试（vitest）
+src/          支持 pack 切换的 React 货架式 Web 界面
+docs/PLAN.md  产品与技术规划 v2.1
+docs/PACKS.md 领域包契约与复用指南
+docs/AGENT_ONBOARDING.md  用户自带 agent / LLM 的接入流程
 docs/ADD_A_VENUE.md  新 venue 接入手册
 docs/DISCOVER.md     候选发现与人工确认流程
 ```
@@ -156,8 +197,8 @@ docs/DISCOVER.md     候选发现与人工确认流程
 - [x] **M2** GitHub Actions 定时 + PR 机器人
 - [x] **M3** 铺开到至少 8 个会议 + 4–6 个期刊（当前 8 个会议 + 6 个 rolling 期刊；继续向 12 个会议扩展）
 - [x] **M4** Web 界面首版：首页回答「接下来该投什么」
-- [ ] **M5** AI 层：✅ 确定性自然语言筛选基线（12 条测试）；⬜ 模型编译、变更摘要、论文→会议匹配（自带 key，默认关闭）
-- [ ] **M6** 发布 v0.1.0：CLI 打包、文档、贡献指南
+- [ ] **M5** Agent / AI 层：✅ 确定性自然语言筛选基线；✅ 领域包 + 用户自带 agent 的接入工作流；⬜ 变更摘要、可选模型编译、论文→会议匹配
+- [ ] **M6** 发布 v0.1.0：CLI 打包、截图式 demo、贡献指南
 
 详见 [docs/PLAN.md](docs/PLAN.md)。
 

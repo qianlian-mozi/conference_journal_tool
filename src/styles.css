@@ -82,6 +82,13 @@ a:hover {
   color: var(--open);
 }
 
+.hero-tagline {
+  margin: 14px 0 0;
+  max-width: 680px;
+  color: var(--ink);
+  font-size: 17px;
+}
+
 /* ---------- toolbar ---------- */
 
 .toolbar {
@@ -106,6 +113,29 @@ a:hover {
 
 .toolbar input[type="search"]:focus {
   border-color: var(--accent);
+}
+
+.pack-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.pack-picker select {
+  max-width: 270px;
+  padding: 10px 32px 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+
+.pack-picker select:focus {
+  border-color: var(--accent);
+  outline: none;
 }
 
 .segmented {

@@ -1,14 +1,16 @@
 import { useMemo, useState } from 'react';
 import {
+  allVenues,
   daysLeft,
-  field,
+  defaultPack,
   formatDateTime,
   kindLabel,
   latestEdition,
+  packs,
+  resolvePackId,
   shelfState,
   sortKey,
   submitDeadline,
-  venues,
 } from './data';
 import type { ShelfVenue, VenueType } from './types';
 
@@ -182,16 +184,30 @@ function DetailPanel({ venue, now, onClose }: { venue: ShelfVenue; now: number; 
 }
 
 export default function App() {
+  const [packId, setPackId] = useState(() =>
+    resolvePackId(new URLSearchParams(window.location.search).get('pack')),
+  );
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all');
   const [openOnly, setOpenOnly] = useState(false);
   const [selected, setSelected] = useState<ShelfVenue | null>(null);
 
   const now = Date.now();
+  const pack = packs.find((item) => item.id === packId) ?? defaultPack;
+  const packVenueIds = new Set(pack.venue_ids);
+  const packVenues = allVenues.filter((venue) => packVenueIds.has(venue.id));
+
+  function changePack(nextId: string): void {
+    setPackId(nextId);
+    setSelected(null);
+    const url = new URL(window.location.href);
+    url.searchParams.set('pack', nextId);
+    window.history.replaceState(null, '', url);
+  }
 
   const list = useMemo(() => {
     const keyword = query.trim().toLowerCase();
-    return venues
+    return packVenues
       .filter((venue) => typeFilter === 'all' || venue.type === typeFilter)
       .filter((venue) => {
         if (keyword === '') return true;
@@ -207,9 +223,9 @@ export default function App() {
         return state === 'open' || state === 'soon';
       })
       .sort((a, b) => sortKey(a, now) - sortKey(b, now));
-  }, [query, typeFilter, openOnly, now]);
+  }, [query, typeFilter, openOnly, now, packId]);
 
-  const openCount = venues.filter((venue) => {
+  const openCount = packVenues.filter((venue) => {
     const state = shelfState(venue, now);
     return state === 'open' || state === 'soon';
   }).length;
@@ -218,16 +234,27 @@ export default function App() {
     <div className="app">
       <header className="hero">
         <div className="hero-inner">
-          <p className="eyebrow">CV Venue Radar</p>
-          <h1>{field.name_zh}</h1>
+          <p className="eyebrow">CV Venue Radar · {pack.tier} pack</p>
+          <h1>{pack.name_zh}</h1>
+          {pack.tagline_zh && <p className="hero-tagline">{pack.tagline_zh}</p>}
           <p className="hero-sub">
-            收录 {venues.length} 个会议与期刊，其中 <strong>{openCount}</strong> 个当前可投。
+            收录 {packVenues.length} 个会议与期刊，其中 <strong>{openCount}</strong> 个当前可投。
             每条日期都带官网原文，可逐条回溯。
           </p>
         </div>
       </header>
 
       <div className="toolbar">
+        <label className="pack-picker">
+          <span>领域包</span>
+          <select value={pack.id} onChange={(event) => changePack(event.target.value)}>
+            {packs.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name_zh} · {item.name_en}
+              </option>
+            ))}
+          </select>
+        </label>
         <input
           type="search"
           placeholder="搜索会议、期刊…"

@@ -4,6 +4,15 @@ import type { ShelfBundle, ShelfDeadline, ShelfEdition, ShelfVenue } from './typ
 export const data = bundle as ShelfBundle;
 export const field = data.field;
 export const venues = data.venues;
+export const packs = data.packs;
+export const allVenues = data.all_venues;
+export const defaultPack = packs.find((pack) => pack.id === field.id) ?? packs[0];
+
+/** 分享链接中的 pack 参数无效时回退到默认包，不展示空页面。 */
+export function resolvePackId(requested: string | null | undefined): string {
+  if (requested && packs.some((pack) => pack.id === requested)) return requested;
+  return defaultPack.id;
+}
 
 export const DAY_MS = 86_400_000;
 

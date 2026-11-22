@@ -47,10 +47,23 @@ export interface ShelfVenue {
   editions: ShelfEdition[];
 }
 
+export interface ShelfPack {
+  id: string;
+  name_zh: string;
+  name_en: string;
+  tier: 'core' | 'community' | 'local';
+  tagline_zh: string | null;
+  description_zh: string | null;
+  venue_ids: string[];
+}
+
 export interface ShelfBundle {
-  generated_at: string;
+  generated_at: string | null;
+  /** 默认 pack 的兼容视图。 */
   field: { id: string; name_zh: string; name_en: string };
   venues: ShelfVenue[];
+  packs: ShelfPack[];
+  all_venues: ShelfVenue[];
 }
 
 // ---- 旧的投稿计划类型：仍被 src/lib/planner.ts 与 ics.ts 使用 ----

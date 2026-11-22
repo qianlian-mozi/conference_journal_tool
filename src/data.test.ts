@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { daysLeft, kindLabel, latestEdition, shelfState, sortKey, submitDeadline } from './data';
+import { allVenues, daysLeft, defaultPack, kindLabel, latestEdition, packs, resolvePackId, shelfState, sortKey, submitDeadline } from './data';
 import type { ShelfDeadline, ShelfVenue } from './types';
 
 const DAY = 86_400_000;
@@ -149,6 +149,18 @@ describe('shelfState / sortKey', () => {
 
   it('没有日期时状态为 unknown', () => {
     expect(shelfState(makeVenue({ editions: [] }), now)).toBe('unknown');
+  });
+});
+
+describe('packs', () => {
+  it('默认展示 3DGS / Avatar，可通过分享参数切换', () => {
+    expect(defaultPack.id).toBe('3dgs-avatar');
+    expect(defaultPack.venue_ids).toHaveLength(8);
+    expect(packs.map((pack) => pack.id)).toEqual(['3dgs-avatar', 'computer-vision']);
+    expect(allVenues).toHaveLength(14);
+    expect(resolvePackId('computer-vision')).toBe('computer-vision');
+    expect(resolvePackId('missing')).toBe('3dgs-avatar');
+    expect(resolvePackId(null)).toBe('3dgs-avatar');
   });
 });
 

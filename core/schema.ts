@@ -195,7 +195,7 @@ export const SourcePageSchema = z.object({
 
 export const SourceEntrySchema = z.object({
   venue_id: slugId,
-  adapter: z.enum(['thecvf', 'table-dates', 'section-dates', 'siggraph-widget', 'manual']),
+  adapter: z.enum(['thecvf', 'table-dates', 'section-dates', 'siggraph-widget', 'list-timeline', 'manual']),
   cadence: z.enum(['daily', 'weekly', 'monthly', 'manual']),
   pages: z.array(SourcePageSchema).min(1),
   cross_check: z.array(httpsUrl).default([]),

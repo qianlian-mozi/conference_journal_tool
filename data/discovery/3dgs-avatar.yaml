@@ -94,22 +94,25 @@ candidates:
   - id: eurographics
     names: { short: Eurographics, full: Annual Conference of the European Association for Computer Graphics }
     type: conference
-    official_url: https://eurographics.org/
+    official_url: https://eg2027.isti.cnr.it/
+    publisher: Eurographics
     submission_model: fixed
-    adapter: manual
-    cadence: manual
+    source_url: https://eg2027.isti.cnr.it/call-for-papers/
+    adapter: list-timeline
+    cadence: weekly
     aliases: [EG, computer graphics]
-    note: 需确认当届论文日期页与适配器。
+    note: Timeline 统一 23:59 AoE；划掉的旧节点跳过，Full paper 采纳官网明确延期到 Oct 2 00:59 AoE。
   - id: ieee-vr
     names: { short: IEEE VR, full: IEEE Conference on Virtual Reality and 3D User Interfaces }
     type: conference
-    official_url: https://ieeevr.org/
+    official_url: https://ieeevr.org/2027/
     publisher: IEEE
     submission_model: fixed
-    adapter: manual
-    cadence: manual
+    source_url: https://ieeevr.org/2027/contribute/papers/
+    adapter: table-dates
+    cadence: weekly
     aliases: [VR, 3D user interfaces, avatar]
-    note: 需确认当届论文日期页与适配器。
+    note: 页面统一声明 each deadline 23:59:59 AoE；按官网表格收录主会节点。
   - id: ismar
     names: { short: ISMAR, full: IEEE International Symposium on Mixed and Augmented Reality }
     type: conference

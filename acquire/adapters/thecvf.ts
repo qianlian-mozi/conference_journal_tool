@@ -66,7 +66,7 @@ export function classifyDeadline(label: string): DeadlineKind {
   if (value.includes('rebuttal')) return 'rebuttal';
   if (value.includes('camera') || /\bfinal\b.*\bpaper\b.*\bsubmission\b/.test(value)) return 'camera_ready';
   if (value.includes('decision') || value.includes('notification')) return 'notification';
-  if (value.includes('submission') || value.includes('paper') || /\bupload deadline\b/.test(value)) return 'paper';
+  if (value.includes('submission') || value.includes('paper') || /\bupload deadline\b|\brevised (?:version|paper)\b/.test(value)) return 'paper';
   return 'other';
 }
 
@@ -94,7 +94,7 @@ export function isRelevantLabel(label: string): boolean {
   if (/affinity|child care|competition|tutorial|workshop|social|expo|educational resources|location assignment|grand challenge|industry demo|journal (?:paper )?presentation/i.test(normalized)) {
     return false;
   }
-  return /abstract (deadline|registration)|abstracts? due|paper (deadline|submission)|submissions? (?:form|due)|submission deadline|upload deadline|revised submissions? due|rebuttal due|registration deadline|supplementary|reviews? (?:released|made available)|reviews? due|author\s*-\s*reviewer discussion|author (response|rebuttal)|rebuttal period|final decisions?|notification|camera[- ]ready/i.test(
+  return /abstract (deadline|registration)|abstracts? due|^abstracts?$|paper (deadline|submission)|submissions? (?:form|due)|^submissions?$|^revised submissions?$|submission deadline|upload deadline|revised submissions? due|revised (?:version|paper)|rebuttal due|registration deadline|supplementary|reviews? (?:released|made available)|reviews? due|author\s*-\s*reviewer discussion|author (response|rebuttal)|rebuttal period|final decisions?|notification|camera[- ]ready/i.test(
     normalized,
   );
 }

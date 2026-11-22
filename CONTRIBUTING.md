@@ -58,7 +58,7 @@ npm run build
 - 如果抽取缺项会导致删除旧 deadline，`update --write` 必须拒绝。
 - 在 `core/schema.ts`、`core/add-venue.ts`、`core/discover.ts`、`cmd/add-venue-args.ts`、`cmd/update.ts` 同步显式 adapter 契约，并补文档。
 
-参考实现：`thecvf`、`table-dates`、`section-dates`、`siggraph-widget`。
+参考实现：`thecvf`、`table-dates`、`section-dates`、`siggraph-widget`、`list-timeline`。
 
 ## PR 自查
 

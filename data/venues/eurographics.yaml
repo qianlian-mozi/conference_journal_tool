@@ -1,0 +1,124 @@
+schema_version: 2
+id: eurographics
+type: conference
+names:
+  short: Eurographics
+  full: Annual Conference of the European Association for Computer Graphics
+field_ids:
+  - 3dgs-avatar
+official_url: https://eg2027.isti.cnr.it/
+publisher: Eurographics
+submission_model: fixed
+qualifications: []
+editions:
+  - id: eurographics-2027
+    year: 2027
+    label: Eurographics 2027
+    dates:
+      start: 2027-05-10
+      end: 2027-05-14
+    official_url: https://eg2027.isti.cnr.it
+    evidence:
+      - url: https://eg2027.isti.cnr.it/call-for-papers/
+        quote: Timeline
+        fetched_at: 2026-11-22
+        snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+    deadlines:
+      - id: eurographics-2027-full-paper-deadline
+        kind: paper
+        label: Full paper deadline
+        raw_text: "[Thu] Oct. 1, 2026: Full paper deadline (extended to Oct. 2, 2026, 00:59 AoE)"
+        due: 2026-10-02T00:59:00
+        timezone: AoE
+        due_utc: 2026-10-02T12:59:00.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://eg2027.isti.cnr.it/call-for-papers/
+          quote: "[Thu] Oct. 1, 2026: Full paper deadline (extended to Oct. 2, 2026, 00:59 AoE)"
+          fetched_at: 2026-11-22
+          snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+      - id: eurographics-2027-reviews-released
+        kind: other
+        label: Reviews released
+        raw_text: "[Mon] Nov. 23, 2026: Reviews released"
+        due: 2026-11-23T23:59:00
+        timezone: AoE
+        due_utc: 2026-11-24T11:59:00.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://eg2027.isti.cnr.it/call-for-papers/
+          quote: "[Mon] Nov. 23, 2026: Reviews released"
+          fetched_at: 2026-11-22
+          snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+      - id: eurographics-2027-rebuttal-due
+        kind: rebuttal
+        label: Rebuttal due
+        raw_text: "[Mon] Nov. 30, 2026: Rebuttal due"
+        due: 2026-11-30T23:59:00
+        timezone: AoE
+        due_utc: 2026-12-01T11:59:00.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://eg2027.isti.cnr.it/call-for-papers/
+          quote: "[Mon] Nov. 30, 2026: Rebuttal due"
+          fetched_at: 2026-11-22
+          snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+      - id: eurographics-2027-notification-for-conditional-acceptance-or-rejection
+        kind: notification
+        label: Notification for conditional acceptance or rejection
+        raw_text: "[Fri] Dec. 18, 2026: Notification for conditional acceptance or rejection"
+        due: 2026-12-18T23:59:00
+        timezone: AoE
+        due_utc: 2026-12-19T11:59:00.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://eg2027.isti.cnr.it/call-for-papers/
+          quote: "[Fri] Dec. 18, 2026: Notification for conditional acceptance or rejection"
+          fetched_at: 2026-11-22
+          snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+      - id: eurographics-2027-revised-version-due
+        kind: paper
+        label: Revised version due
+        raw_text: "[Tue] Jan. 26, 2027: Revised version due"
+        due: 2027-01-26T23:59:00
+        timezone: AoE
+        due_utc: 2027-01-27T11:59:00.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://eg2027.isti.cnr.it/call-for-papers/
+          quote: "[Tue] Jan. 26, 2027: Revised version due"
+          fetched_at: 2026-11-22
+          snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+      - id: eurographics-2027-final-notification
+        kind: notification
+        label: Final notification
+        raw_text: "[Tue] Feb. 9, 2027: Final notification"
+        due: 2027-02-09T23:59:00
+        timezone: AoE
+        due_utc: 2027-02-10T11:59:00.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://eg2027.isti.cnr.it/call-for-papers/
+          quote: "[Tue] Feb. 9, 2027: Final notification"
+          fetched_at: 2026-11-22
+          snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+      - id: eurographics-2027-camera-ready-version-due
+        kind: camera_ready
+        label: Camera-ready version due
+        raw_text: "[Tue] Feb. 23, 2027: Camera-ready version due"
+        due: 2027-02-23T23:59:00
+        timezone: AoE
+        due_utc: 2027-02-24T11:59:00.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://eg2027.isti.cnr.it/call-for-papers/
+          quote: "[Tue] Feb. 23, 2027: Camera-ready version due"
+          fetched_at: 2026-11-22
+          snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af

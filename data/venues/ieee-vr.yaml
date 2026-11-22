@@ -1,0 +1,107 @@
+schema_version: 2
+id: ieee-vr
+type: conference
+names:
+  short: IEEE VR
+  full: IEEE Conference on Virtual Reality and 3D User Interfaces
+field_ids:
+  - 3dgs-avatar
+official_url: https://ieeevr.org/2027/
+publisher: IEEE
+submission_model: fixed
+qualifications: []
+editions:
+  - id: ieee-vr-2027
+    year: 2027
+    label: IEEE VR 2027
+    official_url: https://ieeevr.org/2027
+    evidence:
+      - url: https://ieeevr.org/2027/contribute/papers/
+        quote: Important Dates
+        fetched_at: 2026-11-22
+        snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+    deadlines:
+      - id: ieee-vr-2027-abstracts-due-required
+        kind: abstract
+        label: Abstracts due (REQUIRED)
+        raw_text: Abstracts due (REQUIRED) August 24, 2026
+        due: 2026-08-24T23:59:59
+        timezone: AoE
+        due_utc: 2026-08-25T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://ieeevr.org/2027/contribute/papers/
+          quote: Abstracts due (REQUIRED) August 24, 2026
+          fetched_at: 2026-11-22
+          snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+      - id: ieee-vr-2027-submissions-due
+        kind: paper
+        label: Submissions due
+        raw_text: Submissions due August 31, 2026
+        due: 2026-08-31T23:59:59
+        timezone: AoE
+        due_utc: 2026-09-01T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://ieeevr.org/2027/contribute/papers/
+          quote: Submissions due August 31, 2026
+          fetched_at: 2026-11-22
+          snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+      - id: ieee-vr-2027-initial-notifications
+        kind: notification
+        label: Initial notifications
+        raw_text: Initial notifications November 30, 2026
+        due: 2026-11-30T23:59:59
+        timezone: AoE
+        due_utc: 2026-12-01T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://ieeevr.org/2027/contribute/papers/
+          quote: Initial notifications November 30, 2026
+          fetched_at: 2026-11-22
+          snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+      - id: ieee-vr-2027-revised-submissions-due
+        kind: paper
+        label: Revised submissions due
+        raw_text: Revised submissions due December 31, 2026
+        due: 2026-12-31T23:59:59
+        timezone: AoE
+        due_utc: 2027-01-01T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://ieeevr.org/2027/contribute/papers/
+          quote: Revised submissions due December 31, 2026
+          fetched_at: 2026-11-22
+          snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+      - id: ieee-vr-2027-final-notifications
+        kind: notification
+        label: Final notifications
+        raw_text: Final notifications January 7, 2027
+        due: 2027-01-07T23:59:59
+        timezone: AoE
+        due_utc: 2027-01-08T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://ieeevr.org/2027/contribute/papers/
+          quote: Final notifications January 7, 2027
+          fetched_at: 2026-11-22
+          snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+      - id: ieee-vr-2027-camera-ready-materials-due
+        kind: camera_ready
+        label: Camera-ready materials due
+        raw_text: Camera-ready materials due January 12, 2027
+        due: 2027-01-12T23:59:59
+        timezone: AoE
+        due_utc: 2027-01-13T11:59:59.000Z
+        due_source: text
+        status: confirmed
+        evidence:
+          url: https://ieeevr.org/2027/contribute/papers/
+          quote: Camera-ready materials due January 12, 2027
+          fetched_at: 2026-11-22
+          snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf

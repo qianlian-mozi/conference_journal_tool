@@ -20,6 +20,166 @@ changes:
       quote: Thu, 21 Jan 2027 22:00 +00:00 2027-01-21 22:00
       fetched_at: 2026-11-22
       snapshot_hash: aa4c26fe3d6e64a61bd84b43a49c0d7a1d91f748b8e19951891878b26a660e61
+  - id: change-08414125ab35ac14
+    detected_at: 2026-11-22
+    venue_id: ieee-vr
+    edition_id: ieee-vr-2027
+    deadline_id: ieee-vr-2027-submissions-due
+    change: added
+    deadline_kind: paper
+    label: Submissions due
+    before: null
+    after:
+      due: 2026-08-31T23:59:59
+      timezone: AoE
+      due_utc: 2026-09-01T11:59:59.000Z
+      raw_text: Submissions due August 31, 2026
+      status: confirmed
+    evidence:
+      url: https://ieeevr.org/2027/contribute/papers/
+      quote: Submissions due August 31, 2026
+      fetched_at: 2026-11-22
+      snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+  - id: change-0c7af2b02b805e5a
+    detected_at: 2026-11-22
+    venue_id: eurographics
+    edition_id: eurographics-2027
+    deadline_id: eurographics-2027-notification-for-conditional-acceptance-or-rejection
+    change: added
+    deadline_kind: notification
+    label: Notification for conditional acceptance or rejection
+    before: null
+    after:
+      due: 2026-12-18T23:59:00
+      timezone: AoE
+      due_utc: 2026-12-19T11:59:00.000Z
+      raw_text: "[Fri] Dec. 18, 2026: Notification for conditional acceptance or rejection"
+      status: confirmed
+    evidence:
+      url: https://eg2027.isti.cnr.it/call-for-papers/
+      quote: "[Fri] Dec. 18, 2026: Notification for conditional acceptance or rejection"
+      fetched_at: 2026-11-22
+      snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+  - id: change-0c8ece25bcf34d5f
+    detected_at: 2026-11-22
+    venue_id: eurographics
+    edition_id: eurographics-2027
+    deadline_id: eurographics-2027-reviews-released
+    change: added
+    deadline_kind: other
+    label: Reviews released
+    before: null
+    after:
+      due: 2026-11-23T23:59:00
+      timezone: AoE
+      due_utc: 2026-11-24T11:59:00.000Z
+      raw_text: "[Mon] Nov. 23, 2026: Reviews released"
+      status: confirmed
+    evidence:
+      url: https://eg2027.isti.cnr.it/call-for-papers/
+      quote: "[Mon] Nov. 23, 2026: Reviews released"
+      fetched_at: 2026-11-22
+      snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+  - id: change-528fa3ba80da202a
+    detected_at: 2026-11-22
+    venue_id: eurographics
+    edition_id: eurographics-2027
+    deadline_id: eurographics-2027-rebuttal-due
+    change: added
+    deadline_kind: rebuttal
+    label: Rebuttal due
+    before: null
+    after:
+      due: 2026-11-30T23:59:00
+      timezone: AoE
+      due_utc: 2026-12-01T11:59:00.000Z
+      raw_text: "[Mon] Nov. 30, 2026: Rebuttal due"
+      status: confirmed
+    evidence:
+      url: https://eg2027.isti.cnr.it/call-for-papers/
+      quote: "[Mon] Nov. 30, 2026: Rebuttal due"
+      fetched_at: 2026-11-22
+      snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+  - id: change-808a0220979a59d2
+    detected_at: 2026-11-22
+    venue_id: eurographics
+    edition_id: eurographics-2027
+    deadline_id: eurographics-2027-revised-version-due
+    change: added
+    deadline_kind: paper
+    label: Revised version due
+    before: null
+    after:
+      due: 2027-01-26T23:59:00
+      timezone: AoE
+      due_utc: 2027-01-27T11:59:00.000Z
+      raw_text: "[Tue] Jan. 26, 2027: Revised version due"
+      status: confirmed
+    evidence:
+      url: https://eg2027.isti.cnr.it/call-for-papers/
+      quote: "[Tue] Jan. 26, 2027: Revised version due"
+      fetched_at: 2026-11-22
+      snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+  - id: change-814b1b154c77965f
+    detected_at: 2026-11-22
+    venue_id: eurographics
+    edition_id: eurographics-2027
+    deadline_id: eurographics-2027-final-notification
+    change: added
+    deadline_kind: notification
+    label: Final notification
+    before: null
+    after:
+      due: 2027-02-09T23:59:00
+      timezone: AoE
+      due_utc: 2027-02-10T11:59:00.000Z
+      raw_text: "[Tue] Feb. 9, 2027: Final notification"
+      status: confirmed
+    evidence:
+      url: https://eg2027.isti.cnr.it/call-for-papers/
+      quote: "[Tue] Feb. 9, 2027: Final notification"
+      fetched_at: 2026-11-22
+      snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+  - id: change-a92193f76b1ccadd
+    detected_at: 2026-11-22
+    venue_id: ieee-vr
+    edition_id: ieee-vr-2027
+    deadline_id: ieee-vr-2027-initial-notifications
+    change: added
+    deadline_kind: notification
+    label: Initial notifications
+    before: null
+    after:
+      due: 2026-11-30T23:59:59
+      timezone: AoE
+      due_utc: 2026-12-01T11:59:59.000Z
+      raw_text: Initial notifications November 30, 2026
+      status: confirmed
+    evidence:
+      url: https://ieeevr.org/2027/contribute/papers/
+      quote: Initial notifications November 30, 2026
+      fetched_at: 2026-11-22
+      snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+  - id: change-abe277c12103fb5a
+    detected_at: 2026-11-22
+    venue_id: ieee-vr
+    edition_id: ieee-vr-2027
+    deadline_id: ieee-vr-2027-revised-submissions-due
+    change: added
+    deadline_kind: paper
+    label: Revised submissions due
+    before: null
+    after:
+      due: 2026-12-31T23:59:59
+      timezone: AoE
+      due_utc: 2027-01-01T11:59:59.000Z
+      raw_text: Revised submissions due December 31, 2026
+      status: confirmed
+    evidence:
+      url: https://ieeevr.org/2027/contribute/papers/
+      quote: Revised submissions due December 31, 2026
+      fetched_at: 2026-11-22
+      snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
   - id: change-b129b19883cccc5b
     detected_at: 2026-11-22
     venue_id: siggraph
@@ -40,6 +200,106 @@ changes:
       quote: Fri, 29 Jan 2027 22:00 +00:00 2027-01-29 22:00
       fetched_at: 2026-11-22
       snapshot_hash: aa4c26fe3d6e64a61bd84b43a49c0d7a1d91f748b8e19951891878b26a660e61
+  - id: change-b8f602a67420cb28
+    detected_at: 2026-11-22
+    venue_id: eurographics
+    edition_id: eurographics-2027
+    deadline_id: eurographics-2027-full-paper-deadline
+    change: added
+    deadline_kind: paper
+    label: Full paper deadline
+    before: null
+    after:
+      due: 2026-10-02T00:59:00
+      timezone: AoE
+      due_utc: 2026-10-02T12:59:00.000Z
+      raw_text: "[Thu] Oct. 1, 2026: Full paper deadline (extended to Oct. 2, 2026, 00:59 AoE)"
+      status: confirmed
+    evidence:
+      url: https://eg2027.isti.cnr.it/call-for-papers/
+      quote: "[Thu] Oct. 1, 2026: Full paper deadline (extended to Oct. 2, 2026, 00:59 AoE)"
+      fetched_at: 2026-11-22
+      snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+  - id: change-bc9e6ddb85b6a9dc
+    detected_at: 2026-11-22
+    venue_id: ieee-vr
+    edition_id: ieee-vr-2027
+    deadline_id: ieee-vr-2027-abstracts-due-required
+    change: added
+    deadline_kind: abstract
+    label: Abstracts due (REQUIRED)
+    before: null
+    after:
+      due: 2026-08-24T23:59:59
+      timezone: AoE
+      due_utc: 2026-08-25T11:59:59.000Z
+      raw_text: Abstracts due (REQUIRED) August 24, 2026
+      status: confirmed
+    evidence:
+      url: https://ieeevr.org/2027/contribute/papers/
+      quote: Abstracts due (REQUIRED) August 24, 2026
+      fetched_at: 2026-11-22
+      snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+  - id: change-d6e6641c522c9ce0
+    detected_at: 2026-11-22
+    venue_id: eurographics
+    edition_id: eurographics-2027
+    deadline_id: eurographics-2027-camera-ready-version-due
+    change: added
+    deadline_kind: camera_ready
+    label: Camera-ready version due
+    before: null
+    after:
+      due: 2027-02-23T23:59:00
+      timezone: AoE
+      due_utc: 2027-02-24T11:59:00.000Z
+      raw_text: "[Tue] Feb. 23, 2027: Camera-ready version due"
+      status: confirmed
+    evidence:
+      url: https://eg2027.isti.cnr.it/call-for-papers/
+      quote: "[Tue] Feb. 23, 2027: Camera-ready version due"
+      fetched_at: 2026-11-22
+      snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
+  - id: change-ea998d5c9d029b42
+    detected_at: 2026-11-22
+    venue_id: ieee-vr
+    edition_id: ieee-vr-2027
+    deadline_id: ieee-vr-2027-camera-ready-materials-due
+    change: added
+    deadline_kind: camera_ready
+    label: Camera-ready materials due
+    before: null
+    after:
+      due: 2027-01-12T23:59:59
+      timezone: AoE
+      due_utc: 2027-01-13T11:59:59.000Z
+      raw_text: Camera-ready materials due January 12, 2027
+      status: confirmed
+    evidence:
+      url: https://ieeevr.org/2027/contribute/papers/
+      quote: Camera-ready materials due January 12, 2027
+      fetched_at: 2026-11-22
+      snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
+  - id: change-eb3b9689afa8a7d1
+    detected_at: 2026-11-22
+    venue_id: ieee-vr
+    edition_id: ieee-vr-2027
+    deadline_id: ieee-vr-2027-final-notifications
+    change: added
+    deadline_kind: notification
+    label: Final notifications
+    before: null
+    after:
+      due: 2027-01-07T23:59:59
+      timezone: AoE
+      due_utc: 2027-01-08T11:59:59.000Z
+      raw_text: Final notifications January 7, 2027
+      status: confirmed
+    evidence:
+      url: https://ieeevr.org/2027/contribute/papers/
+      quote: Final notifications January 7, 2027
+      fetched_at: 2026-11-22
+      snapshot_hash: 91db3677c6853cc353d078083038e8b4a40467f9a2dbb86951bedf45fcad24bf
   - id: change-f6e74d85a6b3281f
     detected_at: 2026-11-22
     venue_id: siggraph

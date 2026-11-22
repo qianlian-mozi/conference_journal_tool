@@ -53,7 +53,7 @@ node cmd/discover.ts --field 3dgs-avatar <关键词>
 - venue 官方入口
 - 当届 Dates / CFP 页面
 - 页面是否明确给出时区
-- 页面结构属于 CVF、表格、主会文本区块，还是需要新 adapter
+- 页面结构属于 CVF、表格、主会文本区块、日期列表时间线，还是需要新 adapter
 
 无法确认时停止并报告，不要填一个“看起来合理”的 URL。
 

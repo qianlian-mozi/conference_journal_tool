@@ -20,7 +20,10 @@ const SKIP_EXT = new Set([
 ]);
 const MAX_BYTES = 512 * 1024;
 // 只有逐条审阅过的公开职能邮箱可以豁免；个人邮箱仍会报警。
-const PUBLIC_SNAPSHOT_EMAILS = new Set(['3dv27-sponsors' + '@' + 'googlegroups.com']);
+const PUBLIC_SNAPSHOT_EMAILS = new Set([
+  '3dv27-sponsors' + '@' + 'googlegroups.com',
+  'chairs-eg2027full' + '@' + 'eg.org',
+]);
 const SNAPSHOT_PATH = /^data\/snapshots\/[a-z0-9-]+\/[a-f0-9]{64}\.txt$/;
 
 // URL 中带 home 路径段是公开地址（例如 SAGE 的期刊入口），不是本机家目录。

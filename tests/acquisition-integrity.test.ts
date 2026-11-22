@@ -25,6 +25,16 @@ describe('edition URL 推导', () => {
     expect(yearFromDatesUrl('https://icpr2026.org/2027/dates.html')).toBeNull();
   });
 
+  it('支持 IEEE VR 的 contribute 路径', () => {
+    expect(yearFromDatesUrl('https://ieeevr.org/2027/contribute/papers/')).toBe(2027);
+    expect(editionUrlFromDatesUrl('https://ieeevr.org/2027/contribute/papers/')).toBe(
+      'https://ieeevr.org/2027',
+    );
+    expect(editionUrlFromDatesUrl('https://eg2027.isti.cnr.it/call-for-papers/')).toBe(
+      'https://eg2027.isti.cnr.it',
+    );
+  });
+
   it('多个不同年份时拒绝猜测', () => {
     expect(yearFromDatesUrl('https://example.org/2026/2027/dates/')).toBeNull();
     expect(yearFromDatesUrl('https://example.org/2027/2027/dates/')).toBe(2027);

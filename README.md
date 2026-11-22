@@ -6,7 +6,7 @@
 
 它不只是把会议列出来：**它自己盯着官网更新，并且每条日期都能追溯到官网页面上那一行原文。**
 
-> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回 → 变更日志」闭环、GitHub Actions 定时更新、可切换领域包的 Web 界面，以及面向 agent 的 CLI / MCP 查询层。3DGS / Avatar 包精选 CVPR / ICCV / 3DV / NeurIPS / ICLR / SIGGRAPH 与 TPAMI / IJCV / IEEE TIP / TOG / TVCG；完整 CV 包另含 WACV / ICIP / ICPR / ISMAR 和更多 rolling 期刊。
+> 早期版本（v0.2）。已完成「采集 → 快照 → 抽取 → 校验 → 写回 → 变更日志」闭环、GitHub Actions 定时更新、可切换领域包的 Web 界面，以及面向 agent 的 CLI / MCP 查询层。3DGS / Avatar 包精选 CVPR / ICCV / 3DV / NeurIPS / ICLR / SIGGRAPH / IEEE VR / Eurographics / ISMAR 与 TPAMI / IJCV / IEEE TIP / TOG / TVCG；完整 CV 包另含 WACV / ICIP / ICPR 和更多 rolling 期刊。
 
 ---
 
@@ -29,7 +29,7 @@ npm run dev
 # 打开 http://localhost:5173/?pack=3dgs-avatar
 ```
 
-默认首页只展示这个方向真正相关的 12 个 venues；切换「领域包」即可查看完整 CV 数据。每个 pack 只声明 venue 成员，不复制日期和证据。
+默认首页只展示这个方向真正相关的 14 个 venues；切换「领域包」即可查看完整 CV 数据。每个 pack 只声明 venue 成员，不复制日期和证据。
 
 想继续扩展这个方向：
 
@@ -38,7 +38,7 @@ npm run discover -- --field 3dgs-avatar --all
 npm run discover -- --field 3dgs-avatar siggraph
 ```
 
-候选清单里的 SIGGRAPH、ISMAR、TOG、TVCG 已接入；SIGGRAPH Asia、Eurographics、IEEE VR 仍待适配器，候选不会生成未经验证的接入命令，也不会出现猜测日期。
+候选清单里的 SIGGRAPH、ISMAR、TOG、TVCG、IEEE VR、Eurographics 已接入；SIGGRAPH Asia 2027 尚未发布 Technical Papers 日期页，候选不会生成未经验证的接入命令，也不会出现猜测日期。
 
 ---
 
@@ -137,7 +137,7 @@ editions:
 3. `npm run update:dry -- --venue <id>` 看抽取结果；确认无误后 `npm run update -- --venue <id>`。
 4. `npm run validate` 必须全绿，然后提 PR。
 
-目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 详细参数、交互模式与手工兜底见 [docs/ADD_A_VENUE.md](docs/ADD_A_VENUE.md)。自动抽取支持 `adapter: thecvf`（CVF / NeurIPS 同模板）、`adapter: table-dates`（3DV 的 countdown 表格、ICIP 的 ARIA 表格、ISMAR 的 TBA 表格）、`adapter: section-dates`（ICPR 的主会文本区块，只接收行内显式 AoE 日期）与 `adapter: siggraph-widget`（SIGGRAPH Technical Papers 专页的 UTC 机器字段）；其他站点需要新适配器，或按数据契约手工补带证据的日期。
+目标：**加一个会议 ≤ 10 分钟，不需要读代码。** 详细参数、交互模式与手工兜底见 [docs/ADD_A_VENUE.md](docs/ADD_A_VENUE.md)。自动抽取支持 `adapter: thecvf`（CVF / NeurIPS 同模板）、`adapter: table-dates`（3DV 的 countdown 表格、ICIP 的 ARIA 表格、IEEE VR 的 AoE 表格）、`adapter: section-dates`（ICPR 的主会文本区块，只接收行内显式 AoE 日期）、`adapter: siggraph-widget`（SIGGRAPH Technical Papers 专页的 UTC 机器字段）与 `adapter: list-timeline`（Eurographics 的日期时间线，支持官网明确延期与划掉的旧节点）；其他站点需要新适配器，或按数据契约手工补带证据的日期。
 
 ---
 
@@ -201,7 +201,7 @@ docs/DISCOVER.md     候选发现与人工确认流程
 - [x] **M0** 数据契约 v2 + 校验器（含原文回验）
 - [x] **M1** 一条真实链路：CVPR / ICCV / WACV 的采集、快照、抽取、写回
 - [x] **M2** GitHub Actions 定时 + PR 机器人
-- [x] **M3** 铺开到至少 8 个会议 + 4–6 个期刊（当前 10 个会议 + 8 个 rolling 期刊；含 SIGGRAPH / ISMAR，继续向 12 个有日期的会议扩展）
+- [x] **M3** 铺开到至少 8 个会议 + 4–6 个期刊（当前 12 个会议 + 8 个 rolling 期刊；含 SIGGRAPH / IEEE VR / Eurographics，SIGGRAPH Asia 待官网发布 2027 日期页）
 - [x] **M4** Web 界面首版：首页回答「接下来该投什么」，并展示近 7 天真实变更
 - [ ] **M4.1** ICS 导出与日历订阅
 - [ ] **M5** Agent / AI 层：✅ 确定性自然语言筛选基线；✅ 领域包 + 用户自带 agent 的接入工作流；⬜ 变更摘要、可选模型编译、论文→会议匹配

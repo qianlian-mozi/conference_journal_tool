@@ -19,6 +19,8 @@ import { extractTheCvf, type AdapterResult, type ExtractedDeadline } from '../ac
 import { extractTableDates } from '../acquire/adapters/table-dates.ts';
 import { extractSectionDates } from '../acquire/adapters/section-dates.ts';
 import { extractSiggraphWidget } from '../acquire/adapters/siggraph-widget.ts';
+import { extractListTimeline } from '../acquire/adapters/list-timeline.ts';
+import type { SourceAdapter } from '../core/add-venue.ts';
 import { loadChangelog, loadRegistry, loadVenues, repoPath } from '../core/load.ts';
 import {
   createDeadlineChangeEntries,
@@ -143,13 +145,13 @@ function formatDeadline(deadline: Deadline): string {
 function findEditionEvidenceQuote(snapshotText: string): string | null {
   const lines = snapshotText.split('\n').map((line) => line.trim());
   return (
-    lines.find((line) => /^(?:Dates and Deadlines|Important Dates|Submissions)$/i.test(line)) ??
+    lines.find((line) => /^(?:Dates and Deadlines|Important Dates|Submissions|Timeline)$/i.test(line)) ??
     lines.find((line) => line.length <= 120 && /\bImportant Dates\b/i.test(line)) ??
     null
   );
 }
 
-function extractPage(adapter: 'thecvf' | 'table-dates' | 'section-dates' | 'siggraph-widget' | 'manual', html: string): AdapterResult {
+function extractPage(adapter: SourceAdapter, html: string): AdapterResult {
   switch (adapter) {
     case 'thecvf':
       return extractTheCvf(html);
@@ -159,6 +161,8 @@ function extractPage(adapter: 'thecvf' | 'table-dates' | 'section-dates' | 'sigg
       return extractSectionDates(html);
     case 'siggraph-widget':
       return extractSiggraphWidget(html);
+    case 'list-timeline':
+      return extractListTimeline(html);
     case 'manual':
       throw new Error('manual 信源不应进入自动抽取');
     default:

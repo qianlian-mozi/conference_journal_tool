@@ -32,7 +32,7 @@ candidates:
     publisher: Example Society          # 可选
     source_url: https://example.org/2027/dates  # 可选：已确认的当届 Dates/CFP 页
     submission_model: fixed             # 可选
-    adapter: thecvf                     # 可选：thecvf | table-dates | section-dates | manual
+    adapter: thecvf                     # 可选：thecvf | table-dates | section-dates | siggraph-widget | list-timeline | manual
     cadence: weekly                     # 可选：daily | weekly | monthly | manual
     aliases: [example conf]             # 可选：补充搜索词
     note: 当届 Dates 页待确认             # 可选：给人看的备注
@@ -105,6 +105,6 @@ npm run validate
 ## 已知边界
 
 - 候选清单目前由人维护，不是全量会议数据库；
-- 自动抽取支持 `adapter: thecvf`、`adapter: table-dates`（原生 / ARIA 表格，倒计时时间戳或页面统一明示的 23:59 AoE 文本日期）与 `adapter: section-dates`（主会文本区块，只收行内显式 AoE 日期），其他站点需要新适配器或手工补证据；
+- 自动抽取支持 `adapter: thecvf`、`adapter: table-dates`（原生 / ARIA 表格，倒计时时间戳或页面统一明示的 23:59 AoE 文本日期）、`adapter: section-dates`（主会文本区块，只收行内显式 AoE 日期）、`adapter: siggraph-widget`（SIGGRAPH Technical Papers 的 UTC 机器字段）与 `adapter: list-timeline`（日期开头的列表时间线，遵循页面级 AoE 声明与官网明确延期），其他站点需要新适配器或手工补证据；
 - `--verify` 只检查官网入口，不证明 Dates 页存在或日期正确；
 - 期刊是 rolling 模式，没有「当届截止日期」，不要给它们排 deadline。

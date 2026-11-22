@@ -144,3 +144,19 @@ sources:
       - role: home
         url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945
     cross_check: []
+
+  - venue_id: ieee-vr
+    adapter: table-dates
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://ieeevr.org/2027/contribute/papers/
+    cross_check: []
+
+  - venue_id: eurographics
+    adapter: list-timeline
+    cadence: weekly
+    pages:
+      - role: dates
+        url: https://eg2027.isti.cnr.it/call-for-papers/
+    cross_check: []

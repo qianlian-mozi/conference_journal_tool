@@ -21,5 +21,5 @@ export function yearFromDatesUrl(rawUrl: string): number | null {
 }
 
 export function editionUrlFromDatesUrl(rawUrl: string): string {
-  return rawUrl.replace(/\/(?:Dates(?:\.html)?|important-dates|program\/technical-papers)\/?$/i, '');
+  return rawUrl.replace(/\/(?:Dates(?:\.html)?|important-dates|program\/technical-papers|contribute(?:\/papers)?|call-for-papers)\/?$/i, '');
 }

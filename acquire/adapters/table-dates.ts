@@ -142,7 +142,7 @@ export function parseMainConferenceDates(rawText: string): { start: string; end:
 function parseExplicitAoeDate(rawText: string, pageText: string): string | null {
   const fullDate = /^(?:[A-Za-z]{3,9}\.?\s+\d{1,2},\s*\d{4}|\d{1,2}\s+[A-Za-z]{3,9}\.?,?\s+\d{4})$/;
   if (!fullDate.test(cleanText(rawText))) return null;
-  if (!/\ball deadlines\b.{0,80}\b23:59\b.{0,80}\b(?:anywhere on earth|AoE)\b/i.test(pageText)) {
+  if (!/(?:\ball deadlines?\b|\beach deadline\b).{0,80}\b23:59(?::59)?\b.{0,80}\b(?:anywhere on earth|AoE)\b/i.test(pageText)) {
     return null;
   }
   const date = rawDateIso(rawText);

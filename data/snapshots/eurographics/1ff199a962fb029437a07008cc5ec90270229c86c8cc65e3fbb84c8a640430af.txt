@@ -1,0 +1,150 @@
+<!doctype html>
+Call for Full Papers – EUROGRAPHICS 2027
+Skip to content
+Menu
+Close
+Submit
+Call for Full Papers
+Call for Short Papers
+Call for STARs
+Call for Tutorials
+Call for Posters
+Call for Education Papers
+Call for Doctoral Consortium
+Eurographics PhD Award
+Diversity & Inclusion
+Presentation Policy
+Program
+Full Program
+Keynotes
+Attending
+Registration
+Code of Conduct
+Conference Venue
+Visiting Lucca
+Travel Information
+Accommodation
+Organization
+Program Chairs
+IPC
+Sponsorship
+Menu
+Submit
+Call for Full Papers
+Call for Short Papers
+Call for STARs
+Call for Tutorials
+Call for Posters
+Call for Education Papers
+Call for Doctoral Consortium
+Eurographics PhD Award
+Diversity & Inclusion
+Presentation Policy
+Program
+Full Program
+Keynotes
+Attending
+Registration
+Code of Conduct
+Conference Venue
+Visiting Lucca
+Travel Information
+Accommodation
+Organization
+Program Chairs
+IPC
+Sponsorship
+Call for Full Papers
+IMPORTANT NOTICE FOR FULL PAPERS AUTHORS
+SUBMISSION DEADLINE EXTENDED
+Dear Full Papers authors,
+SRM is currently experiencing some delays and technical issues. We are aware of the situation and apologize for the inconvenience. Any time lost due to these issues will be compensated with an appropriate extension of the submission deadline.
+EG2027 Full Papers Chairs
+Elena Garces (Adobe, Paris)
+Amir Vaxman (University of Edinburgh)
+For its 48th edition, the EUROGRAPHICS 2027 Full Papers Program will showcase innovative research in Computer Graphics and related areas. We invite submissions of new ideas and encourage all forms of research, creativity, and originality, with the ambition of setting the standard in the field and stimulating future trends. We encourage submissions from all areas related to Computer Graphics, including but not limited to: rendering, modeling, animation, generative AI, deep learning for graphics, simulation, geometry processing, image/video editing, fabrication, 3D printing, computational imaging, display technologies, graphics hardware, human-computer interaction, visualization, virtual and augmented reality.
+In addition to novel methodologies and algorithms for Computer Graphics, EUROGRAPHICS welcomes submissions introducing new datasets and benchmarks, or documenting original perceptual and experimental studies that advance the field of Computer Graphics.
+While no list can be exhaustive, papers should, as a rule of thumb, engage meaningfully with the existing Computer Graphics literature and situate their contribution within it. Submissions that make little or no connection to this body of work may fall outside the scope of EUROGRAPHICS and could be desk-rejected.
+All submissions will undergo a double-blind two-step review process. Accepted full papers will be presented at the Eurographics 2027 conference and published in a special issue of the Eurographics journal Computer Graphics Forum as well as the EG Digital Library. Gold Open Access will be available with an extra publication fee that includes the open access fee and support through the EG Digital Library.
+Eurographics 2027 will be hosted in Lucca, Italy, on May 10th-14th, 2027.
+At least one author needs to register and present their paper in person. Participants of Eurographics 2027 will be able to attend presentations of the latest advances in computer graphics and imaging from research and industry experts. To get an overview of all Eurographics 2027 publications, and in addition to the standard paper presentations, there will be a fast-forward session where each accepted paper is presented in around 25 seconds. Eurographics is also a great opportunity to meet with international researchers in the domain and socialize at the conference social events.
+Timeline
+All following deadlines are at 23:59 AoE, unless otherwise specified.
+[Fri] Sep. 25, 2026: Abstract and submission form deadline
+[Thu] Oct. 1, 2026: Full paper deadline (extended to Oct. 2, 2026, 00:59 AoE)
+[Mon] Nov. 23, 2026: Reviews released
+[Mon] Nov. 30, 2026: Rebuttal due
+[Fri] Dec. 18, 2026: Notification for conditional acceptance or rejection
+[Tue] Jan. 26, 2027: Revised version due
+[Tue] Feb. 9, 2027: Final notification
+[Tue] Feb. 23, 2027: Camera-ready version due
+[Mon] May 10, 2027: EG2027 conference
+Submission Details
+** IMPORTANT: The author list cannot be changed after the abstract deadline. Minor edits to the title and abstract will still be permitted.
+Electronic submission of all papers is mandatory and will be conducted using the Eurographics Submission and Review Management (SRMv2) platform. Papers must be written in English, must be anonymized, and must be formatted according to the Eurographics Computer Graphics Forum guidelines. The publication guidelines and LaTeX templates are available on SRMv2. Accepted papers must be presented orally in English at Eurographics 2027. Review of full papers is based on a double-blind reviewing approach, so please be sure to remove all personal data (such as authors, affiliations, etc.) from your submission. References to your own work should be made in the third person to maintain anonymity. Reviewers are asked to keep confidential all materials sent to them for evaluation.
+There is no maximum length imposed on papers. However, papers should only be as long as they need to be, but not longer. Reviewers might rank submissions perceived as being either repetitive or unnecessarily long lower than they would score concisely written papers.
+Günter Enderle Best Paper Award and Best-of-Eurographics Session at SIGGRAPH
+From all accepted and presented papers, an international jury will select the best papers. The best paper will receive the Günter Enderle Award, including a cash prize of €1,000, presented at Eurographics 2027.
+Starting in 2025, there is a Best-of-Eurographics session at SIGGRAPH. The authors of the best papers from Eurographics 2027 will have the opportunity to share their work at SIGGRAPH 2027 (ca. 20-minute presentation). Eurographics will cover part of the registration/costs for this; more information on this will be provided in the future.
+Plagiarism
+A submission to the Eurographics Full Papers program should describe the original work of the authors. Authors must not use ideas or content originating from others without properly crediting their sources. Note that such sources are not limited to peer-reviewed publications but also include patents, textbooks, technical reports, theses, unpublished work posted on arXiv, and other posts on the World Wide Web. Failure to comply with this requirement will be considered plagiarism and will result in rejection.
+Prior Art
+Authors are expected to cite, discuss differences and novelty, and compare results, if applicable, with respect to relevant existing publications, provided they have been published in a peer-reviewed venue. This also applies to patents, which undergo a professional review process.
+What about non-peer-reviewed publications, such as technical reports or papers posted on arXiv?
+With the rapid progress of search engines and the increased perusal of arXiv papers by the scientific community, asking authors to compare their work to these non-peer-reviewed pre-publications thoroughly imposes an unreasonable burden; a seemingly relevant report that is incomplete in its disclosure or validation might appear online shortly before the deadline. Although peer-reviewed publications are certainly not immune to these shortcomings, they have at least been judged sufficiently complete and valid by peers. Consequently, authors are not required to discuss and compare their work with recent non-peer-reviewed prepublications (arXiv, technical reports, theses, etc.), although they must properly cite those that inspired them (see “Plagiarism” above). Nevertheless, we encourage authors to mention all related works they are aware of, as good academic practice dictates. Note that with new works posted on arXiv daily, it is increasingly likely that reviewers might point out similarities between the submitted work and online reports that have been missed by the authors. In this case, authors of conditionally accepted papers should be prepared to cite these pre-publications in their final revision as concurrent work, without the burden of having to detail how their work compares to or differs from these non-peer-reviewed pre-publications.
+What about citing one’s own prior art?
+When authors cite previous work that they have authored (including any work where there is overlap between its author list and the author list of the present submission), the citation should be in the third person to preserve anonymity. There are, however, situations where such prior work should not be cited. This is the case if these prior works correspond to: (a) non-peer-reviewed prepublications of the submission (e.g., arXiv) with largely similar content (see also section on “arXiv Policy” below), or (b) prepublications with largely similar content (e.g., a poster that is not considered a publication). For (a), see the section on “arXiv Policy” below. For (b), they should NOT be cited in the submission, as this would identify the authors. In both cases, these prepublications must be included in a text file and uploaded to the appropriate field of the submission form, as “Prepublications”. This information will be visible to IPC members but not to reviewers.
+Anonymity Policy
+Eurographics complies with a standard anonymity policy that can also be found in SIGGRAPH. Namely, it is not allowed to:
+Reveal the authors’ identity directly in any way in any of the submitted materials, including references to previous works (e.g., do not write “in our previous paper [citation]”).
+List Eurographics submissions or prepublications (arXiv, institutional tech reports, …) of these submissions on authors’ individual or institutional webpages or project pages.
+Generate any publicity referring to the submitted works via university or company PR teams or channels.
+Publicize the submitted work in public external talks (see exceptions below).
+Generate any publicity referring to the submitted works via the authors’ individual or institutional social media channels or other forms of media. This includes publishing any types of interviews with editors/journalists/writers/interviewers of newspapers, radio, television, or magazines, as well as public relations and media arms of companies, universities, and other research institutions.
+Publicly reply or acknowledge authorship in response to any social media posts by others regarding the submitted work.
+Create public code or data repositories corresponding to the submission that allow determining the author’s identity (e.g., by listing authors’ names or through the username).
+It is allowed to:
+Archive the submission (as a way to get a timestamp) as an institutional tech report, or a preprint on arXiv or a similar service, before or after the submission deadline. However, one should not state anywhere that the submission is under review for Eurographics. In particular, it should not include the submission ID or use the conference format (this refers to conference name, copyright, etc., not to the choice of fonts, margins, or column layout).
+Make social media posts or other forms of online promotion where only the research idea is described without referring to any submission or preprint (e.g., arXiv).
+Privately reply to submission-related queries submitted via social media. The replies should not be publicly visible.
+Create unlisted YouTube videos linked to an arXiv submission. Such videos should not include submission IDs or author information.
+Create anonymous code or data repositories, i.e., ones where the author’s identity cannot be determined through username or other means, either stand-alone or linked to an arXiv submission.
+List submissions as “under review at EG” as part of the written materials submitted for job, school, and funding applications, as long as these are not widely accessible. Authors can also discuss them during job interviews and job interview talks.
+Double Submission Policy
+By submitting a manuscript to the Eurographics Full Papers program, authors acknowledge that the technical contributions they claim have not been previously published or accepted for publication in another peer-reviewed venue and that no manuscript substantially similar in content is currently under review. Violations constitute grounds for desk rejection.
+Re-Submitted Material
+For papers that have previously been reviewed by other venues and have been rejected or withdrawn, the authors are encouraged to provide a cover letter to describe the history of the paper (however, this does not imply reviewer continuity). This cover letter can also answer the comments made in the previous reviews, by either listing the changes that were made to comply with them or discussing/rebutting/clarifying some elements if need be. Though not mandatory, this procedure is strongly encouraged. The cover letter must be submitted through SRM as an “Additional Attachment” (see the last section of the SRM upload form for details).
+Graphics Replicability Stamp Initiative
+Authors who are willing to go one step further toward replicability of their contributed algorithm and provide a complete open-source implementation can get additional recognition via submission to the Graphics Replicability Stamp Initiative (see http://www.replicabilitystamp.org/). All articles published in the Computer Graphics Forum are eligible to apply for the stamp.
+AI Generated Content
+We adhere to the rules of Computer Graphics Forum. If an author used a GenAI tool to develop any portion of a manuscript, its use must be described, transparently and in detail, in the AI Use Declaration Statement during submission.
+Review Duties for Authors
+The growing number of submissions to EUROGRAPHICS means we all rely on a large pool of committed reviewers willing to provide constructive feedback and engage with authors on their work. Each paper receives five quality reviews.
+To help sustain and expand this pool, we warmly encourage senior authors to enroll in the reviewing process. The submission form will have a field to introduce the names of senior authors of the paper able to perform a review.
+Timeline Details
+Please note that changes to the list of authors provided in the Submission Form are NOT allowed after the Submission Form deadline (September 25, 2026).
+The reviews will be made available to the authors on November 23, 2026. During a rebuttal period from November 23 to November 30, 2026, authors will be able to submit a brief document to address any factual errors or clarify any issues raised by reviews.
+The date for notification of the results of the first round of the review process is December 18, 2026.
+Revised versions of papers conditionally accepted in the first round must be submitted by January 26, 2027.
+The final notification of the outcome of the second review round will be made on February 9, 2027.
+The camera-ready version of accepted papers will be due on February 23, 2027.
+In-Person Presentation
+At least one author is required to register and present their work in-person as a condition of acceptance.
+For further details, please consult our In-Person Presentation Policy.
+Eurographics 2027 Full Papers Chairs
+Elena Garces, Adobe
+Amir Vaxman, University of Edinburgh
+For any questions concerning full paper submissions, please do not hesitate to contact the papers program co-chairs via chairs-eg2027full@eg.org.
+Calls
+Call for Full Papers
+Call for Short Papers
+Call for STARs
+Call for Tutorials
+Call for Posters
+Call for Education Papers
+Call for Doctoral Consortium
+Venue
+Conference Venue
+Visiting Lucca
+Travel Information
+Accommodation

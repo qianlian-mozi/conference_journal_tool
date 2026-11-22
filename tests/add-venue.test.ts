@@ -69,6 +69,8 @@ describe('add-venue URL 与推断', () => {
     expect(inferAdapter('https://cvpr.thecvf.com/Conferences/2027/Dates')).toBe('thecvf');
     expect(inferAdapter('https://3dvconf.github.io/2027/dates/')).toBe('table-dates');
     expect(inferAdapter('https://2027.ieeeicip.org/important-dates/')).toBe('table-dates');
+    expect(inferAdapter('https://ieeevr.org/2027/contribute/papers/')).toBe('table-dates');
+    expect(inferAdapter('https://eg2027.isti.cnr.it/call-for-papers/')).toBe('list-timeline');
     expect(inferAdapter('https://icpr2026.org/dates.html')).toBe('section-dates');
     expect(inferAdapter('https://eccv.ecva.net/')).toBe('manual');
   });

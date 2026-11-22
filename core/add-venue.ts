@@ -19,7 +19,7 @@ export { normalizeHttpsUrl };
 
 export type VenueType = 'conference' | 'journal';
 export type SubmissionModel = 'fixed' | 'rolling';
-export type SourceAdapter = 'thecvf' | 'table-dates' | 'section-dates' | 'siggraph-widget' | 'manual';
+export type SourceAdapter = 'thecvf' | 'table-dates' | 'section-dates' | 'siggraph-widget' | 'list-timeline' | 'manual';
 export type SourceCadence = 'daily' | 'weekly' | 'monthly' | 'manual';
 
 export interface AddVenueInput {
@@ -82,6 +82,8 @@ export function inferAdapter(rawUrl: string): SourceAdapter {
   if (host === '3dvconf.github.io' || host === 'ieeeicip.org' || host.endsWith('.ieeeicip.org')) {
     return 'table-dates';
   }
+  if (host === 'ieeevr.org' || host.endsWith('.ieeevr.org')) return 'table-dates';
+  if (host === 'eg2027.isti.cnr.it') return 'list-timeline';
   return 'manual';
 }
 

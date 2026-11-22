@@ -108,6 +108,33 @@ describe('table-dates 页面抽取', () => {
     expect(result.deadlines).toEqual([]);
   });
 
+  it('支持 IEEE VR 的 each deadline 23:59:59 AoE 表格与短标签', () => {
+    const result = extractTableDates(`
+      <h2>Important Dates</h2>
+      <p>Each deadline is 23:59:59 AoE. IEEE VR 2027 takes place March 8-12, 2027.</p>
+      <table>
+        <tr><th>Abstracts</th><td>August 24, 2026</td></tr>
+        <tr><th>Submissions</th><td>August 31, 2026</td></tr>
+        <tr><th>Initial notifications</th><td>November 30, 2026</td></tr>
+        <tr><th>Revised submissions</th><td>December 31, 2026</td></tr>
+        <tr><th>Final notifications</th><td>January 7, 2027</td></tr>
+        <tr><th>Camera-ready</th><td>January 12, 2027</td></tr>
+      </table>
+    `);
+    expect(result.status).toBe('ok');
+    expect(result.deadlines).toHaveLength(6);
+    expect(result.deadlines.map((item) => item.kind)).toEqual([
+      'abstract', 'paper', 'notification', 'paper', 'notification', 'camera_ready',
+    ]);
+    expect(result.deadlines[0]).toMatchObject({
+      rawText: 'August 24, 2026',
+      dueUtc: '2026-08-25T11:59:59.000Z',
+      timezone: 'AoE',
+      dueSource: 'text',
+    });
+    expect(result.editionDates).toEqual({ start: '2027-03-08', end: '2027-03-12' });
+  });
+
   it('没有日期表时返回 no_dates_table', () => {
     expect(extractTableDates('<html><body>No dates yet</body></html>').status).toBe('no_dates_table');
   });

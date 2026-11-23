@@ -13,8 +13,9 @@ import {
   sortKey,
   submitDeadline,
 } from './data';
-import type { ShelfChange, ShelfChangeValue, ShelfVenue, VenueType } from './types';
+import type { ShelfChange, ShelfVenue, VenueType } from './types';
 import { buildDeadlineCalendar } from './lib/deadline-ics';
+import { summarizeChange } from '../core/summary.ts';
 
 type TypeFilter = 'all' | VenueType;
 
@@ -185,10 +186,6 @@ function DetailPanel({ venue, now, onClose }: { venue: ShelfVenue; now: number; 
   );
 }
 
-function formatChangeValue(value: ShelfChangeValue): string {
-  return `${value.due.replace('T', ' ').slice(0, 16)} ${value.timezone}`;
-}
-
 function WeeklyChanges({ packId, now }: { packId: string; now: number }) {
   const entries = recentChanges(packId, now);
   const venueNames = new Map(allVenues.map((venue) => [venue.id, venue.short]));
@@ -204,25 +201,24 @@ function WeeklyChanges({ packId, now }: { packId: string; now: number }) {
       ) : (
         <ul className="changes-list">
           {entries.slice(0, 6).map((entry: ShelfChange) => {
-            const subject = entry.after ?? entry.before;
-            const action = entry.change === 'added' ? '新增' : entry.change === 'removed' ? '移除' : '调整';
+            const summary = summarizeChange(entry, venueNames);
             return (
               <li key={entry.id}>
-                <span className={`change-badge change-${entry.change}`}>{action}</span>
+                <span className={`change-badge change-${entry.change}`}>
+                  {entry.change === 'added' ? '新增' : entry.change === 'removed' ? '移除' : '调整'}
+                </span>
                 <div className="change-main">
-                  <strong>{venueNames.get(entry.venue_id) ?? entry.venue_id}</strong>
-                  <span>{entry.label ?? kindLabel(entry.deadline_kind)}</span>
-                  <span className="change-value">
-                    {entry.change === 'changed' && entry.before && entry.after
-                      ? `${formatChangeValue(entry.before)} → ${formatChangeValue(entry.after)}`
-                      : subject
-                        ? formatChangeValue(subject)
-                        : ''}
-                  </span>
+                  <span className="change-summary">{summary.text}</span>
+                  <span className="change-record">{entry.id}</span>
                 </div>
                 <div className="change-meta">
                   <span>{entry.detected_at}</span>
-                  <a href={entry.evidence.url} target="_blank" rel="noreferrer" title={entry.evidence.quote ?? ''}>
+                  <a
+                    href={entry.evidence.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={entry.evidence.quote ?? entry.id}
+                  >
                     证据
                   </a>
                 </div>

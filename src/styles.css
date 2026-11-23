@@ -282,8 +282,18 @@ a:hover {
   font-size: 13px;
 }
 
-.change-value {
+.change-summary {
+  flex: 1 0 100%;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.change-record {
+  flex: 1 0 100%;
   color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  overflow-wrap: anywhere;
 }
 
 .change-meta {

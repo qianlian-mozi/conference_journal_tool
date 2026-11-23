@@ -88,7 +88,7 @@ fetch  ──► 规范化文本快照 ──► sha256
 
 ### 变更不是猜的
 
-`update --write` 只有在数据真正改变时，才向 `data/changelog.yaml` 追加 `added` / `changed` / `removed` 事件；dry-run、抓取失败、值没变都不记录。首页按当前领域包显示近 7 个 UTC 日历日内的事件，并保留前后时间与证据。因此“谁延期了”不是模型摘要，而是可 review、可回验的 diff。详见 [docs/CHANGELOG.md](docs/CHANGELOG.md)。
+`update --write` 只有在数据真正改变时，才向 `data/changelog.yaml` 追加 `added` / `changed` / `removed` 事件；dry-run、抓取失败、值没变都不记录。首页按当前领域包显示近 7 个 UTC 日历日内的事件，并保留前后时间与证据。因此“谁延期了”不是模型摘要，而是可 review、可回验的 diff。CLI 用 `npm run changes -- --days 7` 得到同一套带 id 与证据的摘要。详见 [docs/CHANGELOG.md](docs/CHANGELOG.md) 与 [docs/CHANGES.md](docs/CHANGES.md)。
 
 ### 一键放进日历
 
@@ -197,6 +197,7 @@ docs/DISCOVER.md     候选发现与人工确认流程
 | `npm run query -- --open --json` | 查询仍可投稿的 venue，保留全部届次与证据 |
 | `npm run query -- --venue cvpr --json` | 查询单个 venue 的全部日期 |
 | `npm run ask -- "<问题>"` | 自然语言筛选（确定性规则；未识别会明确拒绝） |
+| `npm run changes -- --days 7` | 把 changelog 的真实 diff 摘要成带证据的中文（不调用模型） |
 | `npm run mcp` | 启动 MCP stdio server（`search_venues` / `get_venue` / `get_deadlines`） |
 | `npm run test:all` | 全部单元测试与旧版 CLI 集成测试 |
 
@@ -210,7 +211,7 @@ docs/DISCOVER.md     候选发现与人工确认流程
 - [x] **M3** 铺开到至少 8 个会议 + 4–6 个期刊（当前 12 个会议 + 8 个 rolling 期刊；含 SIGGRAPH / IEEE VR / Eurographics，SIGGRAPH Asia 待官网发布 2027 日期页）
 - [x] **M4** Web 界面首版：首页回答「接下来该投什么」，并展示近 7 天真实变更
 - [x] **M4.1** ICS 导出与日历订阅（当前筛选下载 + 每包构建产物）
-- [ ] **M5** Agent / AI 层：✅ 确定性自然语言筛选基线；✅ 领域包 + 用户自带 agent 的接入工作流；⬜ 变更摘要、可选模型编译、论文→会议匹配
+- [ ] **M5** Agent / AI 层：✅ 确定性自然语言筛选基线；✅ 领域包 + 用户自带 agent 的接入工作流；✅ 基于 changelog 的确定性变更摘要（CLI + Web）；⬜ 可选模型编译、论文→会议匹配
 - [ ] **M6** 发布 v0.1.0：CLI 打包、截图式 demo、贡献指南（CONTRIBUTING 已完成）
 
 详见 [docs/PLAN.md](docs/PLAN.md)。

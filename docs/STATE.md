@@ -1,6 +1,6 @@
 # 项目状态（供后续会话/接手者阅读）
 
-> 最后更新：2026-11-22
+> 最后更新：2026-11-23
 > 仓库：https://github.com/qianlian-mozi/conference_journal_tool （Private）
 
 ## 一句话
@@ -16,7 +16,7 @@
 | M2 Actions | ✅ | `.github/workflows/ci.yml`（validate + privacy + test + build）、`update-data.yml`（每周一 + 手动，自动开 PR） |
 | M3 数据 | ✅ 达到目标 | 12 会议：CVPR 2027、ICCV 2027（未公布）、ICLR 2027、WACV 2027、NeurIPS 2026（已结束）、3DV 2027、ICIP 2027、ICPR 2026、SIGGRAPH 2027、ISMAR 2027（未公布）、IEEE VR 2027、Eurographics 2027；8 期刊：TPAMI / IJCV / IEEE TIP / Pattern Recognition / CVIU / MVA / TOG / TVCG（均 rolling） |
 | M4 前端 | ✅ 首版 | 货架视图、状态色、筛选、详情证据；pack 切换与分享；首页近 7 天真实 deadline 变更；当前列表 ICS 下载与每包订阅文件 |
-| M5 Agent / AI 层 | 🟡 基线 | 确定性自然语言筛选 CLI；领域包 + agent-first 接入文档 + 可复制 skill；planned 包外部用户流程已实测；未绑定模型，变更摘要与论文匹配未做 |
+| M5 Agent / AI 层 | 🟡 基线 | 确定性自然语言筛选 CLI；领域包 + agent-first 接入文档 + 可复制 skill；planned 包外部用户流程已实测；基于 changelog 的确定性变更摘要 CLI + Web；未绑定模型，论文匹配未做 |
 | Agent 层（CLI/MCP/AGENTS.md） | ✅ 首版 | 共用查询引擎；CLI 与 MCP 保留全部届次和 evidence；有契约回归测试 |
 | 接入层（add-venue） | ✅ 首版 | 生成可校验骨架与源登记；默认预览、`--write` 才落盘；不会生成日期 |
 | 发现层（discover） | ✅ 首版 | 领域候选 YAML + 人工确认；匹配未收录 venue、可选官网核验、生成 add-venue 命令；不抓搜索页、不写数据 |
@@ -25,9 +25,9 @@
 ## 仓库结构
 
 ```text
-core/          schema(zod)、pack 契约、时间/AoE 换算、YAML 加载、查询引擎、确定性 NL 筛选
+core/          schema(zod)、pack 契约、时间/AoE 换算、YAML 加载、查询引擎、确定性 NL 筛选、changelog 摘要
 acquire/       fetch、snapshot（sha256 内容寻址）、adapters/thecvf.ts、table-dates.ts、section-dates.ts、siggraph-widget.ts、list-timeline.ts
-cmd/           update（抓取→diff→写回）、validate（三道闸门）、query、ask、add-venue、discover
+cmd/           update（抓取→diff→写回）、validate（三道闸门）、query、ask、changes、add-venue、discover
 mcp/           MCP stdio server 与三个查询工具
 data/          fields/ 领域包、venues/ 数据、snapshots/ 快照、discovery/ 候选清单、changelog.yaml 变更日志
 sources/       registry.yaml 源登记表
@@ -40,6 +40,7 @@ docs/ADD_A_VENUE.md  新 venue 接入手册
 docs/DISCOVER.md     候选发现与人工确认流程
 docs/ASK.md          自然语言筛选的边界与支持问法
 docs/CHANGELOG.md     变更日志与首页近 7 天窗口
+docs/CHANGES.md       变更摘要 CLI、JSON 与不编造边界
 docs/CALENDAR.md      ICS 导入、订阅与时区边界
 docs/EXTERNAL_ONBOARDING_TEST.md  外部用户自定义领域实测
 CONTRIBUTING.md       数据、领域包、适配器贡献流程与 PR 清单
@@ -57,6 +58,7 @@ npm run add-venue -- <url> --id <id> --short <简称> --full "<全称>"  # 预�
 npm run add-venue -- --write <url> ...                              # 落盘
 npm run discover -- bmvc                                             # 在候选清单里找未收录 venue
 npm run ask -- "未来三个月还能投的会议"                             # 确定性自然语言筛选
+npm run changes -- --days 7                                           # 把 changelog 的真实 diff 摘要成中文
 npm run dev           # 本地货架视图（先 build-data）
 npm run test:all      # 全部单元测试与旧版 CLI 集成测试
 npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
@@ -82,7 +84,7 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 3. **"真实变更 → 自动开 PR" 路径尚未被真实触发**（官网一直没变）；changelog 已能记录真实 diff，SIGGRAPH 首次接入已产生新增事件。
 4. **前端已有货架 + 近 7 天变更 + ICS**；论文→期刊推荐和 AI 问答仍未做。
 5. **仓库仍为 Private**；公开前需跑 `npm run audit:privacy` 并决定 LICENSE 署名、`orchestration/` 是否保留。
-6. **NL 筛选是确定性规则，不是模型**。只覆盖文档列出的说法；新增问法需要改解析器与测试，不能指望它自由理解。当前没有变更摘要、论文匹配，也没有默认开启的 LLM 调用。
+6. **NL 筛选是确定性规则，不是模型**。只覆盖文档列出的说法；新增问法需要改解析器与测试，不能指望它自由理解。变更摘要已由确定性模板完成，但论文匹配和可选模型编译仍未做，也没有默认开启的 LLM 调用。
 
 ## 下一步建议
 
@@ -90,4 +92,4 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 2. **邀请真实外部用户跑 agent onboarding**：本地模拟已跑通 planned 包→RSS 骨架→active→validate/build/discover，并修复 planned 包不能接入的阻塞点，见 docs/EXTERNAL_ONBOARDING_TEST.md；下一步用真实 fork/PR 检验权限、审核体验和文档可理解性，再决定是否抽象插件 API。
 3. 补 GitHub 首页截图式 demo；公开前继续隐私审计与 License 检查。
 4. 扩展 ACM、Springer、EasyChair 等平台适配器，同时保持 quote 回验硬闸门。
-5. 后续再做变更摘要与可选模型编译：模型只产计划/patch，执行仍由确定性工具完成。
+5. 后续再做可选模型编译与论文匹配：模型只产计划/patch，执行仍由确定性工具完成；变更摘要已用模板实现，不需要模型。

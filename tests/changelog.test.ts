@@ -39,6 +39,7 @@ describe('deadline changelog', () => {
     const changed = entries.find((entry) => entry.change === 'changed')!;
     expect(changed.before?.due_utc).toBe(old.due_utc);
     expect(changed.after?.due_utc).toBe(next.due_utc);
+    expect(changed.after?.due_source).toBe('text');
     const deletion = entries.find((entry) => entry.change === 'removed')!;
     expect(deletion.after).toBeNull();
     expect(deletion.evidence).toEqual(removed.evidence);

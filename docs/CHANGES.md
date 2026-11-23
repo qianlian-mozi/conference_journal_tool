@@ -18,6 +18,7 @@ npm run changes -- --venue eurographics --json
 - `changed`：日期/时区变化、状态变化，或仅原文更新
 - 日期、时区、状态都逐字来自 `before` / `after`，不重新推算 `due_utc`，也不猜测延期原因
 - 仅 `raw_text` 变化时会明说“日期与状态未变”，不会包装成延期
+- 记录保留 `due_source`；`text` 来源会标注“（据官网文本）”，不把解析时间伪装成页面时间戳
 - 文本输出逐条带 changelog id 与 `evidence.url`；JSON 保留完整 evidence
 
 ## 窗口

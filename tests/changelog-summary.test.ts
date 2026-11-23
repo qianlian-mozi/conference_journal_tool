@@ -12,7 +12,12 @@ const IDS = new Map([
   ['other', 'OTHER'],
 ]);
 
-function value(due: string, status = 'confirmed', rawText = `official ${due}`) {
+function value(
+  due: string,
+  status = 'confirmed',
+  rawText = `official ${due}`,
+  dueSource?: 'timestamp' | 'text',
+) {
   const timezone = 'AoE';
   const offsetHours = 12;
   const instant = new Date(`${due}Z`);
@@ -21,6 +26,7 @@ function value(due: string, status = 'confirmed', rawText = `official ${due}`) {
     due,
     timezone,
     due_utc: instant.toISOString(),
+    ...(dueSource ? { due_source: dueSource } : {}),
     raw_text: rawText,
     status,
   };
@@ -57,6 +63,14 @@ describe('summarizeChange', () => {
     expect(summary.text).toBe('DEMO 新增「Paper deadline」：2026-12-01 23:59 AoE');
     expect(summary.id).toMatch(/^change-test-/);
     expect(summary.evidence.url).toBe('https://example.org/dates');
+  });
+
+  it('preserves text-derived uncertainty instead of presenting a parsed time as exact', () => {
+    const summary = summarizeChange(
+      entry({ after: value('2026-12-01T23:59:59', 'confirmed', 'December 1, 2026', 'text') }),
+      IDS,
+    );
+    expect(summary.text).toContain('2026-12-01 23:59 AoE（据官网文本）');
   });
 
   it('describes a moved deadline and a status change without inventing facts', () => {

@@ -52,6 +52,7 @@ function changeValue(deadline: Deadline): DeadlineChangeValue {
     due: deadline.due,
     timezone: deadline.timezone,
     ...(deadline.due_utc ? { due_utc: deadline.due_utc } : {}),
+    due_source: deadline.due_source,
     raw_text: deadline.raw_text,
     status: deadline.status,
   };

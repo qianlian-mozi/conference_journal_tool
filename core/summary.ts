@@ -12,6 +12,7 @@ export interface SummaryChangeValue {
   due: string;
   timezone: string;
   due_utc?: string;
+  due_source?: 'timestamp' | 'text';
   raw_text: string;
   status: string;
 }
@@ -76,7 +77,9 @@ function statusLabel(status: string): string {
 
 /** 展示官网本地时间；due_utc 只放在结构化字段里，不在这里重新换算。 */
 function formatValue(value: SummaryChangeValue): string {
-  return `${value.due.replace('T', ' ').slice(0, 16)} ${value.timezone}`;
+  const time = `${value.due.replace('T', ' ').slice(0, 16)} ${value.timezone}`;
+  // AGENTS.md 硬规则：text 来源转述时必须保留不确定性。
+  return value.due_source === 'text' ? `${time}（据官网文本）` : time;
 }
 
 function labelOf(entry: SummaryChange): string {

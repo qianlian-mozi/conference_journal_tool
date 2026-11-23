@@ -138,6 +138,8 @@ export const DeadlineChangeValueSchema = z.object({
   due: localIso,
   timezone: z.string().min(1),
   due_utc: z.string().datetime({ offset: true }).optional(),
+  /** 保留变更发生时的可信度来源；旧记录可缺省。 */
+  due_source: z.enum(['timestamp', 'text']).optional(),
   raw_text: z.string().min(3),
   status: DeadlineStatusSchema,
 });

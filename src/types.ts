@@ -61,6 +61,7 @@ export interface ShelfChangeValue {
   due: string;
   timezone: string;
   due_utc?: string;
+  due_source?: 'timestamp' | 'text';
   raw_text: string;
   status: string;
 }

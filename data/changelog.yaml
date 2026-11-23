@@ -13,6 +13,7 @@ changes:
       due: 2027-01-21T22:00:00
       timezone: UTC
       due_utc: 2027-01-21T22:00:00.000Z
+      due_source: timestamp
       raw_text: Thu, 21 Jan 2027 22:00 +00:00 2027-01-21 22:00
       status: confirmed
     evidence:
@@ -33,6 +34,7 @@ changes:
       due: 2026-08-31T23:59:59
       timezone: AoE
       due_utc: 2026-09-01T11:59:59.000Z
+      due_source: text
       raw_text: Submissions due August 31, 2026
       status: confirmed
     evidence:
@@ -53,11 +55,14 @@ changes:
       due: 2026-12-18T23:59:00
       timezone: AoE
       due_utc: 2026-12-19T11:59:00.000Z
-      raw_text: "[Fri] Dec. 18, 2026: Notification for conditional acceptance or rejection"
+      due_source: text
+      raw_text: "[Fri] Dec. 18, 2026: Notification for conditional acceptance or
+        rejection"
       status: confirmed
     evidence:
       url: https://eg2027.isti.cnr.it/call-for-papers/
-      quote: "[Fri] Dec. 18, 2026: Notification for conditional acceptance or rejection"
+      quote: "[Fri] Dec. 18, 2026: Notification for conditional acceptance or
+        rejection"
       fetched_at: 2026-11-22
       snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
   - id: change-0c8ece25bcf34d5f
@@ -73,6 +78,7 @@ changes:
       due: 2026-11-23T23:59:00
       timezone: AoE
       due_utc: 2026-11-24T11:59:00.000Z
+      due_source: text
       raw_text: "[Mon] Nov. 23, 2026: Reviews released"
       status: confirmed
     evidence:
@@ -93,6 +99,7 @@ changes:
       due: 2026-11-30T23:59:00
       timezone: AoE
       due_utc: 2026-12-01T11:59:00.000Z
+      due_source: text
       raw_text: "[Mon] Nov. 30, 2026: Rebuttal due"
       status: confirmed
     evidence:
@@ -113,6 +120,7 @@ changes:
       due: 2027-01-26T23:59:00
       timezone: AoE
       due_utc: 2027-01-27T11:59:00.000Z
+      due_source: text
       raw_text: "[Tue] Jan. 26, 2027: Revised version due"
       status: confirmed
     evidence:
@@ -133,6 +141,7 @@ changes:
       due: 2027-02-09T23:59:00
       timezone: AoE
       due_utc: 2027-02-10T11:59:00.000Z
+      due_source: text
       raw_text: "[Tue] Feb. 9, 2027: Final notification"
       status: confirmed
     evidence:
@@ -153,6 +162,7 @@ changes:
       due: 2026-11-30T23:59:59
       timezone: AoE
       due_utc: 2026-12-01T11:59:59.000Z
+      due_source: text
       raw_text: Initial notifications November 30, 2026
       status: confirmed
     evidence:
@@ -173,6 +183,7 @@ changes:
       due: 2026-12-31T23:59:59
       timezone: AoE
       due_utc: 2027-01-01T11:59:59.000Z
+      due_source: text
       raw_text: Revised submissions due December 31, 2026
       status: confirmed
     evidence:
@@ -193,6 +204,7 @@ changes:
       due: 2027-01-29T22:00:00
       timezone: UTC
       due_utc: 2027-01-29T22:00:00.000Z
+      due_source: timestamp
       raw_text: Fri, 29 Jan 2027 22:00 +00:00 2027-01-29 22:00
       status: confirmed
     evidence:
@@ -213,11 +225,14 @@ changes:
       due: 2026-10-02T00:59:00
       timezone: AoE
       due_utc: 2026-10-02T12:59:00.000Z
-      raw_text: "[Thu] Oct. 1, 2026: Full paper deadline (extended to Oct. 2, 2026, 00:59 AoE)"
+      due_source: text
+      raw_text: "[Thu] Oct. 1, 2026: Full paper deadline (extended to Oct. 2, 2026,
+        00:59 AoE)"
       status: confirmed
     evidence:
       url: https://eg2027.isti.cnr.it/call-for-papers/
-      quote: "[Thu] Oct. 1, 2026: Full paper deadline (extended to Oct. 2, 2026, 00:59 AoE)"
+      quote: "[Thu] Oct. 1, 2026: Full paper deadline (extended to Oct. 2, 2026, 00:59
+        AoE)"
       fetched_at: 2026-11-22
       snapshot_hash: 1ff199a962fb029437a07008cc5ec90270229c86c8cc65e3fbb84c8a640430af
   - id: change-bc9e6ddb85b6a9dc
@@ -233,6 +248,7 @@ changes:
       due: 2026-08-24T23:59:59
       timezone: AoE
       due_utc: 2026-08-25T11:59:59.000Z
+      due_source: text
       raw_text: Abstracts due (REQUIRED) August 24, 2026
       status: confirmed
     evidence:
@@ -253,6 +269,7 @@ changes:
       due: 2027-02-23T23:59:00
       timezone: AoE
       due_utc: 2027-02-24T11:59:00.000Z
+      due_source: text
       raw_text: "[Tue] Feb. 23, 2027: Camera-ready version due"
       status: confirmed
     evidence:
@@ -273,6 +290,7 @@ changes:
       due: 2027-01-12T23:59:59
       timezone: AoE
       due_utc: 2027-01-13T11:59:59.000Z
+      due_source: text
       raw_text: Camera-ready materials due January 12, 2027
       status: confirmed
     evidence:
@@ -293,6 +311,7 @@ changes:
       due: 2027-01-07T23:59:59
       timezone: AoE
       due_utc: 2027-01-08T11:59:59.000Z
+      due_source: text
       raw_text: Final notifications January 7, 2027
       status: confirmed
     evidence:
@@ -313,6 +332,7 @@ changes:
       due: 2027-01-28T22:00:00
       timezone: UTC
       due_utc: 2027-01-28T22:00:00.000Z
+      due_source: timestamp
       raw_text: Thu, 28 Jan 2027 22:00 +00:00 2027-01-28 22:00
       status: confirmed
     evidence:

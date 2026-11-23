@@ -18,8 +18,8 @@ editions:
     evidence:
       - url: https://iclr.cc/Conferences/2027/Dates
         quote: Dates and Deadlines
-        fetched_at: 2026-11-21
-        snapshot_hash: ed9084705fc7d780732549d2904c743039c79c3e3ec6c82ac4310a40134498bf
+        fetched_at: 2026-11-23
+        snapshot_hash: ea4c7ceb36469e53d41cb68b51b1f5befad88c430fd20d9e5328dd67c118a52f
     deadlines:
       - id: iclr-2027-abstract-deadline
         kind: abstract

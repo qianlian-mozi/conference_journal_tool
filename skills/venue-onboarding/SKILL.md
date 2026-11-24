@@ -1,6 +1,6 @@
 ---
 name: venue-onboarding
-description: Add or update a conference/journal source in CV Venue Radar using official evidence, dry-run extraction, and deterministic validation. Use when the user asks to onboard a venue, create a field pack, repair an adapter, or refresh official deadlines.
+description: Add or update a conference/journal source in Venue Radar using official evidence, dry-run extraction, and deterministic validation. Use when the user asks to onboard a venue, create a field pack, repair an adapter, or refresh official deadlines.
 ---
 
 # Venue Onboarding

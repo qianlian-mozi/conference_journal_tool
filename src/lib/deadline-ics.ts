@@ -50,7 +50,7 @@ export function buildDeadlineCalendar(
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//CV Venue Radar//Deadline Calendar//ZH-CN',
+    'PRODID:-//Venue Radar//Deadline Calendar//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     `X-WR-CALNAME:${escapeIcsText(options.name)}`,
@@ -76,7 +76,7 @@ export function buildDeadlineCalendar(
 
     lines.push(
       'BEGIN:VEVENT',
-      `UID:${venue.id}:${deadline.id}@cv-venue-radar`,
+      `UID:${venue.id}:${deadline.id}@venue-radar`,
       `DTSTAMP:${formatIcsUtc(generatedAt)}`,
       `DTSTART:${formatIcsUtc(start)}`,
       `DTEND:${formatIcsUtc(end)}`,

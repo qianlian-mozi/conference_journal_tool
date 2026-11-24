@@ -15,7 +15,7 @@ for (const pack of bundle.packs) {
   const ids = new Set(pack.venue_ids);
   const venues = bundle.all_venues.filter((venue) => ids.has(venue.id));
   const result = buildDeadlineCalendar(venues, {
-    name: `${pack.name_zh} · CV Venue Radar`,
+    name: `${pack.name_zh} · Venue Radar`,
     description: pack.description_zh ?? `${pack.name_en} 投稿截止日期`,
     generatedAt,
   });

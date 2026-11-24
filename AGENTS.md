@@ -110,7 +110,7 @@ node cmd/query.ts --venue cvpr --json    # 单个 venue 的全部日期
 ```json
 {
   "mcpServers": {
-    "cv-venue-radar": {
+    "venue-radar": {
       "command": "node",
       "args": ["<仓库绝对路径>/mcp/server.ts"]
     }

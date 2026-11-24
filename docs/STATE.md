@@ -1,11 +1,11 @@
 # 项目状态（供后续会话/接手者阅读）
 
-> 最后更新：2026-11-23
+> 最后更新：2026-11-24
 > 仓库：https://github.com/qianlian-mozi/conference_journal_tool （Private）
 
 ## 一句话
 
-可复用的会议/期刊投稿情报工作流：仓库里是**带证据的数据**（YAML），由 GitHub Actions 定时抓官网更新；以 3DGS / Avatar 为旗舰包、CV 为可信核心，用户可带自己的 agent 扩展其他领域。
+**Venue Radar**：可复用的会议/期刊投稿情报工作流，不绑定 CV。仓库里是**带证据的数据**（YAML），由 GitHub Actions 定时抓官网更新；3DGS / Avatar 与 Computer Vision 只是内置样例包，用户可带自己的 agent 扩展任意领域。
 
 ## 已完成
 
@@ -90,6 +90,6 @@ npm run audit:privacy # 公开前自查：路径/邮箱/密钥/机器名
 
 1. **继续把 3DGS / Avatar 包做深**：SIGGRAPH、IEEE VR、Eurographics、TOG、TVCG 已接入，ISMAR 保留未公布空状态；SIGGRAPH Asia 2027 尚未发布 Technical Papers 日期页，等官网给出可回验来源后再接入，不能拿 2026 页面冒充。
 2. **邀请真实外部用户跑 agent onboarding**：本地模拟已跑通 planned 包→RSS 骨架→active→validate/build/discover，并修复 planned 包不能接入的阻塞点，见 docs/EXTERNAL_ONBOARDING_TEST.md；下一步用真实 fork/PR 检验权限、审核体验和文档可理解性，再决定是否抽象插件 API。
-3. 补 GitHub 首页截图式 demo；公开前继续隐私审计与 License 检查。
+3. GitHub 首页已补真实界面截图、中文/英文 README 与用户路径说明；公开前继续隐私审计与 License 检查。
 4. 扩展 ACM、Springer、EasyChair 等平台适配器，同时保持 quote 回验硬闸门。
 5. 后续再做可选模型编译与论文匹配：模型只产计划/patch，执行仍由确定性工具完成；变更摘要已用模板实现，不需要模型。

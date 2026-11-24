@@ -281,7 +281,7 @@ export default function App() {
 
   function exportCalendar(): void {
     const result = buildDeadlineCalendar(list, {
-      name: `${pack.name_zh} · CV Venue Radar`,
+      name: `${pack.name_zh} · Venue Radar`,
       description: `${pack.name_en} 投稿截止日期；每条事件附官网来源，按 UTC 存储并由日历转换为本地时间。`,
     });
     if (result.eventCount === 0) {
@@ -292,7 +292,7 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `cv-venue-radar-${pack.id}.ics`;
+    link.download = `venue-radar-${pack.id}.ics`;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -306,7 +306,7 @@ export default function App() {
     <div className="app">
       <header className="hero">
         <div className="hero-inner">
-          <p className="eyebrow">CV Venue Radar · {pack.tier} pack</p>
+          <p className="eyebrow">Venue Radar · {pack.tier} pack</p>
           <h1>{pack.name_zh}</h1>
           {pack.tagline_zh && <p className="hero-tagline">{pack.tagline_zh}</p>}
           <p className="hero-sub">

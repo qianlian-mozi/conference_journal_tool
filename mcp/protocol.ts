@@ -84,7 +84,7 @@ export function handleMessage(message: unknown) {
     return reply({
       protocolVersion: '2024-11-05',
       capabilities: { tools: {} },
-      serverInfo: { name: 'cv-venue-radar', version: '0.1.0' },
+      serverInfo: { name: 'venue-radar', version: '0.1.0' },
     });
   }
   if (method.startsWith('notifications/')) return null;

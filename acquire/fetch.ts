@@ -21,7 +21,7 @@ export interface FetchOptions {
   minIntervalMs?: number;
 }
 
-const DEFAULT_UA = 'cv-venue-radar/0.2 (+https://github.com/; data verification bot)';
+const DEFAULT_UA = 'venue-radar/0.2 (+https://github.com/; data verification bot)';
 const MAX_REDIRECTS = 5;
 
 const lastHitByHost = new Map<string, number>();

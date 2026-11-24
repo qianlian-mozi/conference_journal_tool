@@ -7,14 +7,14 @@ export function buildPlanIcs(plan: SubmissionPlan, venueName: string): string {
   const lines: string[] = [];
   lines.push('BEGIN:VCALENDAR');
   lines.push('VERSION:2.0');
-  lines.push('PRODID:-//CV Submission Assistant//ZH-CN//EN');
+  lines.push('PRODID:-//Venue Radar//ZH-CN//EN');
   lines.push('CALSCALE:GREGORIAN');
 
   const planDescription = `投稿计划：${plan.title}`;
 
   plan.milestones.forEach((milestone, index) => {
     const due = new Date(milestone.dueAt);
-    const uid = `${plan.id}-${index}@cv-submission-assistant`;
+    const uid = `${plan.id}-${index}@venue-radar`;
     const summary = `[${venueName}] ${milestone.title}`;
     const description = `${planDescription}\n里程碑：${milestone.title}\n目标截止：${plan.deadlineAt}${plan.notes ? `\n备注：${plan.notes}` : ''}`;
 

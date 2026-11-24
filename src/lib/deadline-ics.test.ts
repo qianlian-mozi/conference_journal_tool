@@ -53,7 +53,7 @@ describe('buildDeadlineCalendar', () => {
     expect(result.ics).toContain('DTSTART:20270129T115959Z\r\n');
     expect(result.ics).toContain('DTEND:20270129T121459Z\r\n');
     expect(result.ics).toContain('DTSTAMP:20261122T040000Z\r\n');
-    expect(result.ics).toContain('UID:demo:demo-2027-paper@cv-venue-radar\r\n');
+    expect(result.ics).toContain('UID:demo:demo-2027-paper@venue-radar\r\n');
     expect(result.ics).toContain('URL;VALUE=URI:https://example.org/dates\r\n');
     expect(result.ics).toContain('TRIGGER:-PT24H\r\n');
     expect(result.ics).toContain('STATUS:CONFIRMED\r\n');
@@ -77,8 +77,8 @@ describe('buildDeadlineCalendar', () => {
     const second = { ...venue([deadline()]), id: 'other', short: 'OTHER' };
     const result = buildDeadlineCalendar([first, second], { name: 'Demo' });
     expect(result.eventCount).toBe(3);
-    expect(result.ics).toContain('UID:demo:demo-2027-paper@cv-venue-radar\r\n');
-    expect(result.ics).toContain('UID:other:demo-2027-paper@cv-venue-radar\r\n');
+    expect(result.ics).toContain('UID:demo:demo-2027-paper@venue-radar\r\n');
+    expect(result.ics).toContain('UID:other:demo-2027-paper@venue-radar\r\n');
     expect(result.ics).toContain('STATUS:TENTATIVE\r\n');
     expect(result.ics).toContain('STATUS:CANCELLED\r\n');
   });
